@@ -2,9 +2,11 @@
   "name": "mapflix",
   "version": "1.0.0",
   "description": "Full Stack Development Assignment 1",
-  "main": "index.js",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "lint": "eslint . --ext .js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,8 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "prettier": "^2.8.4"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^21.3.0"
   }
 }
