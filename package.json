@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
-    "dev": "node --watch --watch-preserve-output src/server.js"
+    "dev": "node --watch --watch-preserve-output src/server.js",
+    "test": "mocha --ui tdd tests/**.js -exit"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,8 @@
   "dependencies": {
     "@hapi/hapi": "^21.3.0",
     "@hapi/vision": "^7.0.1",
-    "handlebars": "^4.7.7"
+    "chai": "^4.3.7",
+    "handlebars": "^4.7.7",
+    "mocha": "^10.2.0"
   }
 }
