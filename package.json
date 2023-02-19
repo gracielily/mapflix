@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "lint": "eslint . --ext .js"
+    "lint": "eslint . --ext .js",
+    "dev": "node --watch --watch-preserve-output src/server.js"
   },
   "repository": {
     "type": "git",
