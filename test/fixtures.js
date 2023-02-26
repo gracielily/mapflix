@@ -29,4 +29,5 @@ export const testUser = {
       isAdmin: false,
     }
   ];
-  
+
+export const url = "http://localhost:3000";
