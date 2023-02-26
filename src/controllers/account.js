@@ -11,4 +11,18 @@ export const accountController = {
       return h.redirect("/dashboard");
     },
   },
+  displaySignup: {
+    handler: function (request, h) {
+      return h.view("signup", { title: "Create a Mapflix Account" });
+    },
+  },
+  signup: {
+    // TODO: Validate data
+    handler: async function (request, h) {
+      const user = request.payload;
+      console.log(user)
+      // TODO: Add user to DB
+      return h.redirect("/login");
+    },
+  },
 };
