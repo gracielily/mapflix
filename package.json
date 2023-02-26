@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
     "dev": "node --watch src/server.js",
-    "test": "mocha --ui tdd test/**.js -exit"
+    "test": "mocha --ui tdd test/**/*.js -exit"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "@hapi/cookie": "^12.0.1",
     "@hapi/hapi": "^21.3.0",
     "@hapi/vision": "^7.0.1",
+    "axios": "^1.3.4",
     "boom": "^7.3.0",
     "chai": "^4.3.7",
     "dotenv": "^16.0.3",
