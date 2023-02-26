@@ -3,11 +3,13 @@ import { db } from "../models/db.js";
 
 export const accountController = {
   displayLogin: {
+    auth: false,
     handler: function (request, h) {
       return h.view("login", { title: "Login to MapFlix" });
     },
   },
   login: {
+    auth: false,
     validate: {
       payload: UserBaseSpec,
       options: { abortEarly: false },
@@ -21,16 +23,31 @@ export const accountController = {
       if (!user || user.password !== password) {
         return h.view("login", { title: "Login Error", errors: [{message: "Invalid Credentials"}]}).takeover().code(400);
       }
-      // TODO: set cookie on login
+      request.cookieAuth.set({ id: user._id });
       return h.redirect("/dashboard");
     },
   },
+  async validate(request, session) {
+    const user = await db.userStore.getUserById(session.id);
+    if (!user) {
+      return { isValid: false };
+    }
+    return { isValid: true, credentials: user };
+  },
+  logout: {
+    auth: false,
+    handler: function (request, h) {
+      return h.redirect("/").unstate(process.env.COOKIE_NAME);
+    },
+  },
   displaySignup: {
+    auth: false,
     handler: function (request, h) {
       return h.view("signup", { title: "Create a Mapflix Account" });
     },
   },
   signup: {
+    auth: false,
     validate: {
       payload: UserSpec,
       options: { abortEarly: false },

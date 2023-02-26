@@ -7,4 +7,5 @@ export const webRoutes = [
     { method: "POST", path: "/authenticate", config: accountController.login },
     { method: "GET", path: "/signup", config: accountController.displaySignup },
     { method: "POST", path: "/register", config: accountController.signup },
+    { method: "GET", path: "/logout", config: accountController.logout },
 ];
