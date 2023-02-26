@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
+import Joi from "joi"; 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,6 +17,7 @@ async function init() {
     host: "localhost",
   });
   await server.register(Vision);
+  server.validator(Joi);
   server.views({
     engines: {
       hbs: Handlebars,

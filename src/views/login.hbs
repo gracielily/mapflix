@@ -1,8 +1,8 @@
 <section class="section">
   <h1 class="title">Mapflix</h1>
   <h2 class="subtitle">Login</h2>
+  {{> errormsg }}
   <form action="/authenticate" method="POST">
-
     <div class="field">
       <label class="label">Email</label>
       <input class="input" type="text" placeholder="Email Address" name="email" />
