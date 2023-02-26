@@ -21,9 +21,16 @@ export const accountController = {
       if (!user || user.password !== password) {
         return h.view("login", { title: "Login Error", errors: [{message: "Invalid Credentials"}]}).takeover().code(400);
       }
-      // TODO: set cookie on login
+      request.cookieAuth.set({ id: user._id });
       return h.redirect("/dashboard");
     },
+  },
+  async validate(request, session) {
+    const user = await db.userStore.getUserById(session.id);
+    if (!user) {
+      return { isValid: false };
+    }
+    return { isValid: true, credentials: user };
   },
   displaySignup: {
     handler: function (request, h) {
