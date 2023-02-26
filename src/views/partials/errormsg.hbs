@@ -1,0 +1,10 @@
+{{#if errors}}
+<article class="message is-danger">
+    <div class="message-body">
+    Please check the following errors:
+    {{#each errors}}
+        <li>{{message}}</li>
+    {{/each}}
+    </div>
+</article>
+{{/if}}
