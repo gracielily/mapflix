@@ -1,8 +1,17 @@
 <section class="section">
   <h1 class="title">Mapflix</h1>
   <h2 class="subtitle">Login</h2>
+  {{#if errors}}
+    <article class="message is-danger">
+      <div class="message-body">
+        Please check the following errors:
+        {{#each errors}}
+          <li>{{message}}</li>
+        {{/each}}
+      </div>
+    </article>
+  {{/if}}
   <form action="/authenticate" method="POST">
-
     <div class="field">
       <label class="label">Email</label>
       <input class="input" type="text" placeholder="Email Address" name="email" />

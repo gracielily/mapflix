@@ -1,4 +1,4 @@
-import { UserSpec } from "../models/joi-schemas.js";
+import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 
 export const accountController = {
   displayLogin: {
@@ -7,7 +7,13 @@ export const accountController = {
     },
   },
   login: {
-    // TODO: Validate user
+    validate: {
+      payload: UserBaseSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("login", { title: "Login Error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       // TODO: set cookie on login
       return h.redirect("/dashboard");
