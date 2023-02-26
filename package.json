@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
     "dev": "node --watch --watch-preserve-output src/server.js",
-    "test": "mocha --ui tdd tests/**.js -exit"
+    "test": "mocha --ui tdd test/**.js -exit"
   },
   "repository": {
     "type": "git",
@@ -30,9 +30,11 @@
   "dependencies": {
     "@hapi/hapi": "^21.3.0",
     "@hapi/vision": "^7.0.1",
+    "boom": "^7.3.0",
     "chai": "^4.3.7",
+    "dotenv": "^16.0.3",
     "handlebars": "^4.7.7",
     "mocha": "^10.2.0",
-    "boom": "^7.3.0"
+    "mongoose": "^6.10.0"
   }
 }
