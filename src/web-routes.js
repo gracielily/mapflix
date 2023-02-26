@@ -8,4 +8,11 @@ export const webRoutes = [
     { method: "GET", path: "/signup", config: accountController.displaySignup },
     { method: "POST", path: "/register", config: accountController.signup },
     { method: "GET", path: "/logout", config: accountController.logout },
+    
+    // 404 page
+    { method: "GET", path: "/not-found", options: { auth: false, handler: function (request, h) {
+        return h.view("404", { title: "Not Found" });
+      }} },
+    // static file path
+    { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } }
 ];

@@ -4,13 +4,14 @@ import Handlebars from "handlebars";
 import Boom from "boom";
 import path from "path";
 import { fileURLToPath } from "url";
+import Joi from "joi";
+import Cookie from "@hapi/cookie";
+import * as dotenv from "dotenv";
+import Inert from "@hapi/inert";
 import { apiRoutes } from "./api-routes.js";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
-import Joi from "joi";
-import Cookie from "@hapi/cookie"; 
 import { accountController } from "./controllers/account.js";
-import * as dotenv from "dotenv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,6 +23,7 @@ async function init() {
     port: 3000,
     host: "localhost",
   });
+  await server.register(Inert);
   await server.register(Vision);
   await server.register(Cookie);
   server.validator(Joi);
@@ -49,19 +51,21 @@ async function init() {
   db.init("mongo");
   server.route(webRoutes);
   server.route(apiRoutes);
-  server.route({  
-    method: [ "GET", "POST" ],
-    path: "/{any*}",
-    handler: (request, h) => {
-      const {accept} = request.headers
-      // api requests
-      if (accept && accept.match(/json/)) {
-        return Boom.notFound("Not Found.")
+  server.ext("onPreResponse", (request, reply) => {
+
+    if (request.response.isBoom) {
+      console.log(request.response)
+      console.log(request.response.output.statusCode)
+      if (request.response.output.statusCode === 404) {
+        const {accept} = request.headers
+        if (accept && accept.match(/json/)) {
+          return Boom.notFound("Not Found.")
+        }
+        return reply.redirect("/not-found")
       }
-  
-      return h.view("404").code(404)
     }
-  })
+    return reply.continue;
+  });
   await server.start();
   console.log("Server running on %s", server.info.uri);
 }
