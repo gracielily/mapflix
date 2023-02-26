@@ -3,11 +3,13 @@ import { db } from "../models/db.js";
 
 export const accountController = {
   displayLogin: {
+    auth: false,
     handler: function (request, h) {
       return h.view("login", { title: "Login to MapFlix" });
     },
   },
   login: {
+    auth: false,
     validate: {
       payload: UserBaseSpec,
       options: { abortEarly: false },
@@ -32,12 +34,20 @@ export const accountController = {
     }
     return { isValid: true, credentials: user };
   },
+  logout: {
+    auth: false,
+    handler: function (request, h) {
+      return h.redirect("/").unstate(process.env.COOKIE_NAME);
+    },
+  },
   displaySignup: {
+    auth: false,
     handler: function (request, h) {
       return h.view("signup", { title: "Create a Mapflix Account" });
     },
   },
   signup: {
+    auth: false,
     validate: {
       payload: UserSpec,
       options: { abortEarly: false },

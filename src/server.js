@@ -9,9 +9,12 @@ import { db } from "./models/db.js";
 import Joi from "joi";
 import Cookie from "@hapi/cookie"; 
 import { accountController } from "./controllers/account.js";
+import * as dotenv from "dotenv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+dotenv.config()
 
 async function init() {
   const server = Hapi.server({
@@ -27,7 +30,7 @@ async function init() {
       password: process.env.COOKIE_PASSWORD,
       isSecure: false,
     },
-    redirectTo: "/",
+    redirectTo: "/login",
     validate: accountController.validate,
   });
   server.auth.default("session");
