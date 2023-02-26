@@ -16,6 +16,11 @@ export const accountController = {
       },
     },
     handler: async function (request, h) {
+      const { email, password } = request.payload;
+      const user = await db.userStore.getUserByEmail(email);
+      if (!user || user.password !== password) {
+        return h.view("login", { title: "Login Error", errors: [{message: "Invalid Credentials"}]}).takeover().code(400);
+      }
       // TODO: set cookie on login
       return h.redirect("/dashboard");
     },
