@@ -1,4 +1,5 @@
 import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
+import { db } from "../models/db.js";
 
 export const accountController = {
   displayLogin: {
@@ -34,8 +35,7 @@ export const accountController = {
     },
     handler: async function (request, h) {
       const user = request.payload;
-      console.log(user)
-      // TODO: Add user to DB
+      await db.userStore.addUser(user);
       return h.redirect("/login");
     },
   },
