@@ -4,6 +4,7 @@ import Handlebars from "handlebars";
 import Boom from "boom";
 import path from "path";
 import { fileURLToPath } from "url";
+import { apiRoutes } from "./api-routes.js";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import Joi from "joi";
@@ -47,6 +48,7 @@ async function init() {
   });
   db.init("mongo");
   server.route(webRoutes);
+  server.route(apiRoutes);
   server.route({  
     method: [ "GET", "POST" ],
     path: "/{any*}",
