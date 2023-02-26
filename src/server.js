@@ -5,6 +5,7 @@ import Boom from "boom";
 import path from "path";
 import { fileURLToPath } from "url";
 import { webRoutes } from "./web-routes.js";
+import { db } from "./models/db.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +27,7 @@ async function init() {
     layout: true,
     isCached: false,
   });
+  db.init("mongo");
   server.route(webRoutes);
   server.route({  
     method: [ "GET", "POST" ],
@@ -43,8 +45,6 @@ async function init() {
   await server.start();
   console.log("Server running on %s", server.info.uri);
 }
-
-
 
 process.on("unhandledRejection", (err) => {
   console.log(err);
