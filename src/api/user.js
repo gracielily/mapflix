@@ -1,5 +1,6 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { IdSpec, UserArray, UserSpec, UserSpecExtra } from "../models/joi-schemas.js";
 
 export const userApi = {
   find: {
@@ -12,6 +13,10 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Get all users",
+    notes: "Retrieves all Mapflix users",
+    response: { schema: UserArray, failAction: "log" }
   },
 
   findOne: {
@@ -27,6 +32,11 @@ export const userApi = {
         return Boom.serverUnavailable("No User with this id");
       }
     },
+    tags: ["api"],
+    description: "Get User Details",
+    notes: "Gets details for a single user.",
+    validate: { params: { id: IdSpec }, failAction: "log" },
+    response: { schema: UserSpecExtra, failAction: "log" },
   },
 
   create: {
@@ -42,6 +52,11 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create new User",
+    notes: "Returns details for created User",
+    validate: { payload: UserSpec, failAction: "log" },
+    response: { schema: UserSpecExtra, failAction: "log" },
   },
 
   deleteAll: {
@@ -54,5 +69,8 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all users",
+    notes: "Delete all users from Mapflix system.",
   },
 };
