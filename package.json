@@ -4,6 +4,9 @@
   "description": "Full Stack Development Assignment 1",
   "main": "src/server.js",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
