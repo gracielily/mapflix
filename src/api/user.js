@@ -1,7 +1,7 @@
 import Boom from "@hapi/boom";
 import { createToken } from "./jwt-utils.js";
 import { db } from "../models/db.js";
-import { IdSpec, UserArray, UserSpec, UserSpecExtra } from "../models/joi-schemas.js";
+import { IdSpec, UserArray, UserSpec, UserSpecExtra, JwtAuth } from "../models/joi-schemas.js";
 
 export const userApi = {
     authenticate: {
@@ -21,6 +21,11 @@ export const userApi = {
                 return Boom.serverUnavailable("Database Error");
             }
         },
+        tags: ["api"],
+        description: "Authenticate",
+        notes: "Creates JWT token if user has valid credentials",
+        validate: { payload: UserSpec, failAction: "log"},
+        response: { schema: JwtAuth, failAction: "log" }    
     },
     find: {
         auth: { strategy: "jwt" },

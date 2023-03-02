@@ -26,6 +26,14 @@ const swaggerOptions = {
     title: "Mapflix API",
     version: "0.1",
   },
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header"
+    }
+  },
+  security: [{ jwt: [] }]
 };
 
 async function init() {
@@ -78,8 +86,6 @@ async function init() {
   server.ext("onPreResponse", (request, reply) => {
 
     if (request.response.isBoom) {
-      console.log(request.response)
-      console.log(request.response.output.statusCode)
       if (request.response.output.statusCode === 404) {
         const {accept} = request.headers
         if (accept && accept.match(/json/)) {

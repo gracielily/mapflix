@@ -1,20 +1,20 @@
 import { assert } from "chai";
 import { mapflixService } from "./mapflix-service.js";
 import { decodeToken } from "../../src/api/jwt-utils.js";
-import { testUser } from "../fixtures.js";
+import { testUser, testUserCredentials } from "../fixtures.js";
 
 suite("Authentication", async () => {
   setup(async () => {
     mapflixService.clearAuth();
     await mapflixService.createUser(testUser);
-    await mapflixService.authenticate(testUser);
+    await mapflixService.authenticate(testUserCredentials);
     await mapflixService.deleteAllUsers();
   });
 
   test("it creates auth token", async () => {
     mapflixService.clearAuth();
     const returnedUser = await mapflixService.createUser(testUser);
-    const response = await mapflixService.authenticate(returnedUser);
+    const response = await mapflixService.authenticate(testUserCredentials);
     assert(response.success);
 
     const userInfo = decodeToken(response.token);
@@ -25,7 +25,7 @@ suite("Authentication", async () => {
   test("it does not create auth token", async () => {
     mapflixService.clearAuth();
     try {
-        await mapflixService.authenticate(testUser);
+        await mapflixService.authenticate(testUserCredentials);
     } catch(error) {
         assert.equal(error.response.data.statusCode, 401)
         assert.equal(error.response.data.message, "Invalid Credentials")
@@ -34,7 +34,7 @@ suite("Authentication", async () => {
 
   test("it does not allow api interaction without token", async () => {
     mapflixService.clearAuth();
-    const returnedUser = await mapflixService.createUser(testUser);
+    await mapflixService.createUser(testUser);
     try {
       await mapflixService.getAllUsers();
       assert.fail('Throw Err')
