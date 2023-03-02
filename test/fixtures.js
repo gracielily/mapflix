@@ -1,8 +1,16 @@
+import * as dotenv from "dotenv";
+
+dotenv.config()
+
+export const testUserCredentials = {
+  email: "jane@doe.com",
+  password: "password123",
+}
+
 export const testUser = {
+    ...testUserCredentials,
     firstName: "Jane",
     lastName: "Doe",
-    email: "jane@doe.com",
-    password: "somesecret",
     isAdmin: false,
   };
   

@@ -18,3 +18,11 @@ export const UserSpecExtra = UserSpec.keys({
 }).label("UserDetailsExtra");
 
 export const UserArray = Joi.array().items(UserSpecExtra).label("UserArray");
+
+
+export const JwtAuth = Joi.object()
+  .keys({
+    success: Joi.boolean().example("true").required(),
+    token: Joi.string().example("eyJhbGciOiJIUzR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMtZSIaWF0IjoxNTE2MjM5MDIyfQ.SflKxT4fwp_adQssw5c").required(),
+  })
+  .label("JwtAuth");
