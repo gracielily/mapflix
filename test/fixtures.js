@@ -39,3 +39,19 @@ export const testUser = {
   ];
 
 export const url = "http://localhost:3000";
+
+export const testPoints = [{name: "The Raven"}]
+
+export const testShow = {
+  name: "Brooklyn",
+  imdbId: "t83829",
+}
+
+export const testPoint = {
+  name: "Wexford Town",
+}
+
+export const testShows = [
+  {name: "The Wind That Shakes the Barley", imdbId: "t98780923"},
+  {name: "Braveheart", imdbId: "t464e634"}
+]
