@@ -44,7 +44,7 @@ async function init() {
   await server.register(Vision);
   await server.register(Cookie);
   await server.register(jwt);
-  server.validator(Joi);
+
   await server.register([
     Inert,
     Vision,
@@ -53,6 +53,9 @@ async function init() {
       options: swaggerOptions,
     },
   ]);
+
+  server.validator(Joi);
+  
   server.auth.strategy("session", "cookie", {
     cookie: {
       name: process.env.COOKIE_NAME,
