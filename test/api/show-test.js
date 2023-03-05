@@ -34,7 +34,6 @@ suite("Show API tests", () => {
         await mapflixService.createShow({title: "test movie", imdbId: "t839038"});
         assert.fail("Should return a 400");
       } catch (error) {
-        console.log(error.response.data)
         assert.equal(error.response.status, 400);
         assert.equal(error.response.data.message, "Invalid request payload input");
       }

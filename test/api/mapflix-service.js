@@ -59,4 +59,29 @@ export const mapflixService = {
     const res = await axios.get(`${this.baseUrl}/api/shows/${id}`);
     return res.data;
     },
+
+    async createPoint(id, point) {
+        const res = await axios.post(`${this.baseUrl}/api/shows/${id}/points`, point);
+        return res.data;
+    },
+
+    async deleteAllPoints() {
+        const response = await axios.delete(`${this.baseUrl}/api/points`);
+        return response.data;
+    },
+
+    async deletePoint(id) {
+        const response = await axios.delete(`${this.baseUrl}/api/points/${id}`);
+        return response;
+      },
+    
+    async getAllPoints() {
+    const res = await axios.get(`${this.baseUrl}/api/points`);
+    return res.data;
+    },
+    
+    async getPoint(id) {
+    const res = await axios.get(`${this.baseUrl}/api/points/${id}`);
+    return res.data;
+    },
 };

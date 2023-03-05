@@ -40,7 +40,6 @@ suite("Point Model tests", () => {
   });
 
   test("get points belonging to show - bad params", async () => {
-    console.log(await db.pointStore.getByShowId(""))
     assert.isNull(await db.pointStore.getByShowId(""));
     assert.isNull(await db.pointStore.getByShowId());
   });
