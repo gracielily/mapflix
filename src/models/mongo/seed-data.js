@@ -15,5 +15,30 @@ export const seedData = {
         password: "somesecret"
       },
     },
+    shows: {
+      _model: "Show",
+      show1: {
+        title: "Saving Private Ryan",
+        imdbId: "tt0120815",
+        userId: "->users.user1"
+      }
+    },
+    points: {
+      _model: "Point",
+      point1: {
+        name: "Curracloe Beach",
+        description: "This beach was famously used in the filming of the D-Day landng scenes of the 1997 film.",
+        location: {
+          latitude: 52.38835173521414,
+          longitude: -6.362159400053413,
+        },
+        features: {
+          publicTransport: true,
+          wheelchairAccessible: false,
+          facilitiesAvailable: true,
+        },
+        showId: "->shows.show1"
+      }
+    }
   };
   
