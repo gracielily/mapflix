@@ -24,7 +24,7 @@ export const PointSpec = Joi.object()
     name: Joi.string().required().example("Raven Point"),
     location: Joi.object().keys({
       latitude: Joi.number().required().example(8472.29302),
-      longitutde: Joi.number().required().example(79813.31),
+      longitude: Joi.number().required().example(79813.31),
     }).required(),
     dateAdded: Joi.date(),
     features: Joi.object().keys({
