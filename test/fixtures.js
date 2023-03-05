@@ -43,8 +43,8 @@ export const url = "http://localhost:3000";
 export const testPoints = [{name: "The Raven"}]
 
 export const testShow = {
-  name: "Brooklyn",
-  imdbId: "t83829",
+  title: "Brooklyn",
+  imdbId: "tt83829",
 }
 
 export const testPoint = {
@@ -52,6 +52,6 @@ export const testPoint = {
 }
 
 export const testShows = [
-  {name: "The Wind That Shakes the Barley", imdbId: "t98780923"},
-  {name: "Braveheart", imdbId: "t464e634"}
+  {title: "The Wind That Shakes the Barley", imdbId: "tt98780923"},
+  {title: "Braveheart", imdbId: "tt464e634"}
 ]

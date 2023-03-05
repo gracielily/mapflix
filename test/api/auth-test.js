@@ -37,7 +37,7 @@ suite("Authentication", async () => {
     await mapflixService.createUser(testUser);
     try {
       await mapflixService.getAllUsers();
-      assert.fail('Throw Err')
+      assert.fail("Throw Err")
     } catch (error) {
       assert.equal(error.response.data.statusCode, 401);
     }
