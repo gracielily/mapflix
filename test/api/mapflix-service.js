@@ -34,4 +34,29 @@ export const mapflixService = {
         const res = await axios.delete(`${this.baseUrl}/api/users`);
         return res.data;
     },
+
+    async createShow(show) {
+        const res = await axios.post(`${this.baseUrl}/api/shows`, show);
+        return res.data;
+    },
+
+    async deleteAllShows() {
+        const response = await axios.delete(`${this.baseUrl}/api/shows`);
+        return response.data;
+    },
+
+    async deleteShow(id) {
+        const response = await axios.delete(`${this.baseUrl}/api/shows/${id}`);
+        return response;
+      },
+    
+    async getAllShows() {
+    const res = await axios.get(`${this.baseUrl}/api/shows`);
+    return res.data;
+    },
+    
+    async getShow(id) {
+    const res = await axios.get(`${this.baseUrl}/api/shows/${id}`);
+    return res.data;
+    },
 };
