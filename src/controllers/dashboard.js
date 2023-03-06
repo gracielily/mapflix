@@ -1,8 +1,74 @@
+import { ShowSpec } from "../models/joi-schemas.js";
+import { db } from "../models/db.js";
+
+let contextData = {
+  pageTitle: "Dashboard"
+};
+
 export const dashboardController = {
-    index: {
-      handler: async function (request, h) {
-        return h.view("dashboard");
+  index: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
+      contextData = {
+        title: "Mapflix Dashboard",
+        user: loggedInUser,
+        shows: userShows,
+      };
+      return h.view("dashboard", contextData);
+    },
+  },
+
+  createShow: {
+    validate: {
+      payload: ShowSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = error.details;
+        return h.view("dashboard", errorContextData).takeover().code(400);
       },
     },
-  };
-  
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const showPayload = {
+        userId: loggedInUser._id,
+        title: request.payload.title,
+      };
+      await db.showStore.create(showPayload);
+      return h.redirect("/dashboard");
+    },
+  },
+
+  deleteShow: {
+    handler: async function (request, h) {
+      const showToDelete = await db.showStore.getById(request.params.id);
+      try {
+      await db.showStore.delete(showToDelete._id);
+      return h.redirect("/dashboard");
+      } catch(error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = error;
+        return h.view("dashboard", errorContextData).takeover().code(400);
+      }
+    },
+  },
+
+  deleteAllShows: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      try {
+      const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
+      for (let i = 0; i < userShows.length; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        await db.showStore.delete(userShows[i]._id);
+      }
+      return h.redirect("/dashboard");
+    } catch(error){
+      const errorContextData = { ...contextData };
+        errorContextData.errors = error;
+        return h.view("dashboard", errorContextData).takeover().code(400);
+    }
+    },
+  }
+};
