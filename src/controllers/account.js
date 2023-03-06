@@ -1,6 +1,15 @@
 import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
+
+const editUserContextData = {
+  pageTitle: "Edit User Details",
+  navBreadcrumbs: [
+    { title: "Dashboard", link: "/dashboard" },
+    { title: "Account Details" }
+  ]
+};
+
 export const accountController = {
   displayLogin: {
     auth: false,
@@ -43,7 +52,7 @@ export const accountController = {
   displaySignup: {
     auth: false,
     handler: function (request, h) {
-      return h.view("signup", { title: "Create a Mapflix Account" });
+      return h.view("signup", { title: "Create a Mapflix Account", postUrl: "/register", submitBtnPhrase: "Register" });
     },
   },
   signup: {
@@ -59,6 +68,43 @@ export const accountController = {
       const user = request.payload;
       await db.userStore.addUser(user);
       return h.redirect("/login");
+    },
+  },
+  edit: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      editUserContextData.user = loggedInUser;
+      editUserContextData.postUrl = "/account/savedetails";
+      editUserContextData.submitBtnPhrase = "Save Details";
+      return h.view("account", editUserContextData);
+    },
+  },
+  saveDetails: {
+    validate: {
+      payload: UserSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = error.details;
+        return h.view("account", errorContextData).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const updatedUser = {
+        firstName: request.payload.firstName,
+        lastName: request.payload.lastName,
+        email: request.payload.email,
+        password: request.payload.password
+      };
+      try {
+        await db.userStore.update(loggedInUser, updatedUser);
+        return h.redirect("/account");
+      } catch (error) {
+        const errorContextData = { ...editUserContextData };
+        errorContextData.errors = error;
+        return h.view("account", errorContextData);
+      }
     },
   },
 };
