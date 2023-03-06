@@ -1,13 +1,15 @@
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
-import { testShows, testShow } from "../fixtures.js";
+import { testShows, testShow, testUser } from "../fixtures.js";
 import { assertSubset } from "../utils.js";
 
 suite("Show Model tests", () => {
+  let user = null;
 
   setup(async () => {
     db.init("mongo");
     await db.showStore.deleteAll();
+    user = await db.userStore.addUser(testUser);
     for (let i = 0; i < testShows.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       testShows[i] = await db.showStore.create(testShows[i]);
@@ -24,6 +26,18 @@ suite("Show Model tests", () => {
     assert.isNull(await db.showStore.getById());
     assert.isNull(await db.showStore.getById(""));
   });
+
+  test("get shows belonging to user", async () => {
+    await db.showStore.create({title: "test", userId: user._id})
+    const userShows = await db.showStore.getCreatedByUser(user._id)
+    assert.equal(userShows.length, 1)
+    assert.equal(userShows[0].userId.str, user._id.str)
+  })
+
+  test("get shows belonging to user - bad params", async () => {
+    assert.isNull(await db.showStore.getCreatedByUser());
+    assert.isNull(await db.showStore.getCreatedByUser(""));
+  })
 
   test("create a show", async () => {
     const show = await db.showStore.create(testShow);
