@@ -50,8 +50,6 @@ export const showApi = {
     handler: async function (request, h) {
       try {
         const show = request.payload;
-        console.log(show)
-        console.log(ShowSpec)
         const newShow = await db.showStore.create(show);
         if (newShow) {
           return h.response(newShow).code(201);
@@ -74,10 +72,8 @@ export const showApi = {
       },
     handler: async function (request, h) {
       try {
-        console.log("trying to get it here")
         const show = await db.showStore.getById(request.params.id);
         if (!show) {
-            console.log("NO SHOW")
           return Boom.notFound("No Show found with this ID");
         }
         await db.showStore.delete(show._id);

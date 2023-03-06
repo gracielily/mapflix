@@ -5,10 +5,9 @@ const { Schema } = Mongoose;
 const pointSchema = new Schema({
   name: String,
   location: {
-    latitude: Schema.Types.Decimal128,
-    longitude: Schema.Types.Decimal128,
+    latitude: Number,
+    longitude: Number,
   },
-  description: String,
   dateAdded: {
     type: Date,
     default: Date.now,
