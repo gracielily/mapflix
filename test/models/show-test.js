@@ -45,6 +45,7 @@ suite("Show Model tests", () => {
     assert.isDefined(show._id);
   });
 
+
   test("delete all shows", async () => {
     let allShows = await db.showStore.getAll();
     assert.equal(allShows.length, 2);
