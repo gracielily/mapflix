@@ -17,7 +17,7 @@ suite("Show API tests", () => {
     await mapflixService.deleteAllUsers();
     user = await mapflixService.createUser(testUser);
     await mapflixService.authenticate(testUserCredentials);
-    testShow.userid = user._id;
+    testShow.userId = user._id;
   });
 
   teardown(async () => {});

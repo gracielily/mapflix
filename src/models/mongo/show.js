@@ -9,7 +9,7 @@ const showSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  userid: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },

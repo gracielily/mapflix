@@ -3,6 +3,10 @@ import { dashboardController } from "./controllers/dashboard.js";
 
 export const webRoutes = [
     { method: "GET", path: "/dashboard", config: dashboardController.index },
+    { method: "POST", path: "/dashboard/addshow", config: dashboardController.createShow },
+    { method: "GET", path: "/dashboard/deleteshow/{id}", config: dashboardController.deleteShow },
+    { method: "GET", path: "/dashboard/deleteallshows", config: dashboardController.deleteAllShows },
+
     { method: "GET", path: "/login", config: accountController.displayLogin },
     { method: "POST", path: "/authenticate", config: accountController.login },
     { method: "GET", path: "/signup", config: accountController.displaySignup },

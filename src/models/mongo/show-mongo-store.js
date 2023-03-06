@@ -25,8 +25,11 @@ export const showMongoStore = {
   },
 
   async getCreatedByUser(userId) {
-    const shows = await Show.find({ userid: id }).lean();
-    return shows;
+    if (userId) {
+      const shows = await Show.find({ userId: userId }).lean();
+      return shows;
+    }
+    return null;
   },
 
   async delete(id) {
