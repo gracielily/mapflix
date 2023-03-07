@@ -12,6 +12,8 @@ export const webRoutes = [
     { method: "GET", path: "/signup", config: accountController.displaySignup },
     { method: "POST", path: "/register", config: accountController.signup },
     { method: "GET", path: "/logout", config: accountController.logout },
+    { method: "GET", path: "/account", config: accountController.edit },
+    { method: "POST", path: "/account/savedetails", config: accountController.saveDetails },
     
     // 404 page
     { method: "GET", path: "/not-found", options: { auth: false, handler: function (request, h) {
