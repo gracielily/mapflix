@@ -19,6 +19,13 @@ export const UserSpecExtra = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecExtra).label("UserArray");
 
+export const PointFormSpec = Joi.object()
+.keys({
+  name: Joi.string().required().example("Raven Point"),
+  latitude: Joi.number().required().example(8472.29302),
+  longitude: Joi.number().required().example(79813.31),
+})
+
 export const PointSpec = Joi.object()
   .keys({
     name: Joi.string().required().example("Raven Point"),

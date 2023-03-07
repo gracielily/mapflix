@@ -1,0 +1,54 @@
+{{> menu}}
+
+<section class="section">
+  <div class="title">
+    {{show.title}}
+  </div>
+  <!-- Point Form Nav Link -->
+<section class="ui segment">
+  <a href="#createPointForm">
+    <button class="button is-link">
+      <i class="plus icon"></i>Add New Point
+    </button>
+  </a>
+  {{#if show.points}}
+    <button onclick="deleteAllPoints()" class="button is-link">
+      <i class="fire icon"></i>Delete All Points
+    </button>
+  {{/if}}
+</section>
+<!-- Show Map -->
+<section class="ui segment">
+  <div id="map"></div>
+</section>
+{{#if show.points}}
+  <!-- Points List -->
+  <section class="ui raised segment">
+    {{> list-points}}
+  </section>
+{{else}}
+  <!-- No Points Message -->
+  <section>
+    <i class="lightbulb icon"></i>
+    <div class="content">
+      <div class="header">
+        No Points for {{show.title}}
+      </div>
+      <p>You can create a Point by filling out the form below.</p>
+    </div>
+  </section>
+{{/if}}
+<!-- Create New Point Form -->
+{{> point-form }}
+</section>
+
+<script>
+    function deleteAllPoints() {
+        const proceed = confirm(
+        "This will delete ALL Points for this Show. Are you sure you wish to proceed?");
+        // if user clicks confirm direct to delete all points endpoint
+        if (proceed) {
+            location.href = location.href += "/deleteallpoints";
+        }
+    }
+</script>

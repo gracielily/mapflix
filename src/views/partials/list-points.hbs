@@ -1,0 +1,36 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each show.points}}
+      <tr>
+        <td>
+          {{name}}
+        </td>
+        <td>
+          {{location.latitude}}
+        </td>
+        <td>
+          {{location.longitude}}
+        </td>
+        <td>
+          <a href="/show/{{../show._id}}/editpoint/{{_id}}" class="ui icon button">
+            <i class="fas fa-edit"></i>
+          </a>
+        </td>
+        <td>
+          <a href="/show/{{../show._id}}/deletepoint/{{_id}}" class="ui icon button">
+            <i class="fas fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -1,5 +1,6 @@
 import { accountController } from "./controllers/account.js";
 import { dashboardController } from "./controllers/dashboard.js";
+import { showController } from "./controllers/show.js";
 
 export const webRoutes = [
     { method: "GET", path: "/dashboard", config: dashboardController.index },
@@ -14,6 +15,12 @@ export const webRoutes = [
     { method: "GET", path: "/logout", config: accountController.logout },
     { method: "GET", path: "/account", config: accountController.edit },
     { method: "POST", path: "/account/savedetails", config: accountController.saveDetails },
+
+    { method: "GET", path: "/show/{id}", config: showController.index },
+    { method: "POST", path: "/show/{id}/addpoint", config: showController.addPoint },
+    { method: "GET", path: "/show/{id}/deletepoint/{pointId}", config: showController.deletePoint },
+    { method: "GET", path: "/show/{id}/deleteallpoints", config: showController.deleteAllPoints },
+
     
     // 404 page
     { method: "GET", path: "/not-found", options: { auth: false, handler: function (request, h) {
