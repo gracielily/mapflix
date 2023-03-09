@@ -16,6 +16,7 @@ export const webRoutes = [
     { method: "GET", path: "/logout", config: accountController.logout },
     { method: "GET", path: "/account", config: accountController.edit },
     { method: "POST", path: "/account/savedetails", config: accountController.saveDetails },
+    { method: "POST", path: "/account/uploadavatar", config: accountController.uploadAvatar },
 
     { method: "GET", path: "/show/{id}", config: showController.index },
     { method: "POST", path: "/show/{id}/addpoint", config: showController.addPoint },

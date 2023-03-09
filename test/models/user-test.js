@@ -54,4 +54,25 @@ suite("User Model tests", () => {
     const allUsers = await db.userStore.getAllUsers();
     assert.equal(testUsers.length, allUsers.length);
   });
+
+  test("update user - success", async () => {
+    const user = await db.userStore.addUser(testUser)
+    const updatedUser = {...testUser}
+    updatedUser.firstName = "Updated"
+    await db.userStore.update(user, updatedUser);
+    const returnedUser = await db.userStore.getUserById(user._id)
+    assert.equal(returnedUser.firstName, "Updated")
+  });
+
+  test("update user - fail", async () => {
+    await db.userStore.addUser(testUser)
+    const updatedUser = {...testUser}
+    updatedUser.firstName = "Updated"
+    await db.userStore.update("invalid", updatedUser);
+    const users = await db.userStore.getAllUsers();
+    // users not updated
+    users.forEach((user) => {
+      assert.notEqual(user.firstName, "Updated");
+    })
+  });
 });

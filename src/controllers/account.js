@@ -1,6 +1,6 @@
 import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
-
+import { imageStore } from "../models/image-store.js";
 
 const editUserContextData = {
   pageTitle: "Edit User Details",
@@ -95,16 +95,43 @@ export const accountController = {
         firstName: request.payload.firstName,
         lastName: request.payload.lastName,
         email: request.payload.email,
-        password: request.payload.password
+        password: request.payload.password,
+        avatar: loggedInUser.avatar,
       };
       try {
         await db.userStore.update(loggedInUser, updatedUser);
         return h.redirect("/account");
       } catch (error) {
         const errorContextData = { ...editUserContextData };
-        errorContextData.errors = error;
+        errorContextData.errors = [{message: "Could not update your account details."}];
         return h.view("account", errorContextData);
       }
+    },
+  },
+
+  uploadAvatar: {
+    handler: async function (request, h) {
+      try {
+        const loggedInUser = request.auth.credentials
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const imgUrl = await imageStore.uploadImage(request.payload.imagefile);
+          const updatedUser = {...loggedInUser}
+          updatedUser.avatar = imgUrl;
+          await db.userStore.update(loggedInUser, updatedUser);
+        }
+        return h.redirect("/account");
+      } catch (error) {
+        const errorContextData = { ...editUserContextData };
+        errorContextData.errors = [{message: "The image could not be uploaded."}];
+        return h.view("account", errorContextData);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
     },
   },
 };
