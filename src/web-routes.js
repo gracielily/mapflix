@@ -1,4 +1,5 @@
 import { accountController } from "./controllers/account.js";
+import { adminController } from "./controllers/admin.js";
 import { dashboardController } from "./controllers/dashboard.js";
 import { pointController } from "./controllers/point.js";
 import { showController } from "./controllers/show.js";
@@ -8,6 +9,10 @@ export const webRoutes = [
     { method: "POST", path: "/dashboard/addshow", config: dashboardController.createShow },
     { method: "GET", path: "/dashboard/deleteshow/{id}", config: dashboardController.deleteShow },
     { method: "GET", path: "/dashboard/deleteallshows", config: dashboardController.deleteAllShows },
+
+    { method: "GET", path: "/admin", config: adminController.index },
+    { method: "GET", path: "/admin/users/{id}/toggleadmin", config: adminController.toggleUserAdmin },
+    { method: "GET", path: "/admin/users/{id}/delete", config: adminController.deleteUser },
 
     { method: "GET", path: "/login", config: accountController.displayLogin },
     { method: "POST", path: "/authenticate", config: accountController.login },
