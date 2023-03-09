@@ -74,7 +74,7 @@
     latLngs.push(L.latLng(point.location.latitude, point.location.longitude));
     let marker = L.marker([point.location.latitude, point.location.longitude]).addTo(map);
     // TODO: add URL
-    const markerUrl = "#"
+    const markerUrl = `/show/${show._id}/point/${point._id}`
         marker.bindPopup(
         "<b>" + point.name + "</b><br/><a href='" + markerUrl + "'>View</a>");
   })

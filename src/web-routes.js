@@ -1,5 +1,6 @@
 import { accountController } from "./controllers/account.js";
 import { dashboardController } from "./controllers/dashboard.js";
+import { pointController } from "./controllers/point.js";
 import { showController } from "./controllers/show.js";
 
 export const webRoutes = [
@@ -20,6 +21,8 @@ export const webRoutes = [
     { method: "POST", path: "/show/{id}/addpoint", config: showController.addPoint },
     { method: "GET", path: "/show/{id}/deletepoint/{pointId}", config: showController.deletePoint },
     { method: "GET", path: "/show/{id}/deleteallpoints", config: showController.deleteAllPoints },
+    { method: "GET", path: "/show/{id}/point/{pointId}", config: pointController.index },
+    { method: "POST", path: "/show/{id}/point/{pointId}/update", config: pointController.update },
 
     
     // 404 page

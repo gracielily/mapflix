@@ -26,6 +26,11 @@ export const PointFormSpec = Joi.object()
   longitude: Joi.number().required().example(79813.31),
 })
 
+export const PointFormExtended = PointFormSpec
+.keys({
+  publicTransport: Joi.bool()
+})
+
 export const PointSpec = Joi.object()
   .keys({
     name: Joi.string().required().example("Raven Point"),

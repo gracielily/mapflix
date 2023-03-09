@@ -1,0 +1,9 @@
+{{> menu}}
+<h1>Details for {{ point.name }} - {{ show.title }}</h1>
+
+<a href="/show/{{show._id}}/deletepoint/{{point._id}}">
+<button class="button is-link">
+ <i class="fas fa-trash"></i> Delete Point
+</button>
+</a>
+{{> edit-point-form }}

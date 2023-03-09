@@ -42,7 +42,18 @@ export const pointMongoStore = {
 
     async update(currentPoint, updatedPoint) {
         // TODO: Add more things to update
-        currentPoint.name = updatedPoint.name;
-        await currentPoint.save();
+        const point = await this.getById(currentPoint._id);
+        if(point){
+            await Point.updateOne(
+                {_id: currentPoint._id}, 
+                {
+                name: updatedPoint.name,
+                "location.latitude": updatedPoint.latitude,
+                "location.longitude": updatedPoint.longitude,
+                features: {
+                    publicTransport: updatedPoint.publicTransport
+                }
+                });
+            }
     },
 };
