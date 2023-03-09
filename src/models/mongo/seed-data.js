@@ -29,8 +29,8 @@ export const seedData = {
         name: "Curracloe Beach",
         description: "This beach was famously used in the filming of the D-Day landng scenes of the 1997 film.",
         location: {
-          latitude: 52.38835173521414,
-          longitude: -6.362159400053413,
+          latitude: 52.38,
+          longitude: -6.36,
         },
         features: {
           publicTransport: true,

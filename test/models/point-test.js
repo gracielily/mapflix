@@ -94,5 +94,23 @@ suite("Point Model tests", () => {
     assert.equal(points.length, testPoints.length);
   });
 
+  test("update one point - success", async () => {
+    const newShow = await db.showStore.create(testShow);
+    const newPoint = await db.pointStore.create(newShow._id, testPoint)
+    await db.pointStore.update(newPoint._id, {name: "Updated"});
+    const point = await db.pointStore.getById(newPoint._id);
+    assert.equal(point.name, "Updated");
+  });
+
+  test("update one point - fail", async () => {
+    await db.pointStore.update("invalid", {name: "Updated"});
+    const points = await db.pointStore.getAll();
+    // point not updated
+    points.forEach((point) => {
+      assert.notEqual(point.name, "Updated");
+    })
+    
+  });
+
 
 });
