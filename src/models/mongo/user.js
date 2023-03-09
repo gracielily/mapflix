@@ -11,6 +11,7 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  avatar: String,
 });
 
 export const User = Mongoose.model("User", userSchema);

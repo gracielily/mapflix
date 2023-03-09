@@ -40,13 +40,17 @@ export const userMongoStore = {
   },
 
   async update(currentUser, updatedUser){
-    await User.updateOne(
-      {_id: currentUser._id}, 
-      {
-        firstName: updatedUser.firstName,
-        lastName: updatedUser.lastName,
-        email: updatedUser.email,
-        password: updatedUser.password
-      });
-  }
+    const user = await this.getUserById(currentUser._id);
+    if(user){
+      await User.updateOne(
+        {_id: currentUser._id}, 
+        {
+          firstName: updatedUser.firstName,
+          lastName: updatedUser.lastName,
+          email: updatedUser.email,
+          password: updatedUser.password,
+          avatar: updatedUser.avatar
+        });
+    }
+  },
 };
