@@ -3,6 +3,7 @@
 <section class="section">
   <div class="title">
     {{show.title}}
+    
   </div>
   <!-- Point Form Nav Link -->
 <section class="ui segment">
@@ -19,7 +20,7 @@
 </section>
 <!-- Show Map -->
 <section class="ui segment">
-  <div id="map"></div>
+  <div id="map" style="height: 500px"></div>
 </section>
 {{#if show.points}}
   <!-- Points List -->
@@ -43,6 +44,10 @@
 </section>
 
 <script>
+    const show = {{{ showJSON }}} 
+    const points = show.points;
+    let latLngs = [];
+
     function deleteAllPoints() {
         const proceed = confirm(
         "This will delete ALL Points for this Show. Are you sure you wish to proceed?");
@@ -51,4 +56,31 @@
             location.href = location.href += "/deleteallpoints";
         }
     }
+
+   const zoomLevel = points.length > 1 ? 7 : 13
+  // set up points map
+  const map = L.map("map", {
+    dragging: true,
+    doubleClickZoom: false,
+    zoomControl: true,
+    scrollWheelZoom: true
+  }).setView([points[0].location.latitude, points[0].location.longitude], zoomLevel);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "© OpenStreetMap"
+  }).addTo(map);
+
+  points.forEach((point) => {
+    latLngs.push(L.latLng(point.location.latitude, point.location.longitude));
+    let marker = L.marker([point.location.latitude, point.location.longitude]).addTo(map);
+    // TODO: add URL
+    const markerUrl = "#"
+        marker.bindPopup(
+        "<b>" + point.name + "</b><br/><a href='" + markerUrl + "'>View</a>");
+  })
+
+  if(points.length > 1) {
+    map.fitBounds(latLngs);
+  };
+
 </script>

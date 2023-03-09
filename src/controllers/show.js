@@ -14,6 +14,7 @@ export const showController = {
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
       contextData.show = show
+      contextData.showJSON = JSON.stringify(show)
       return h.view("show", contextData);
     },
   },
