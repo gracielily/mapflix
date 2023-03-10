@@ -30,10 +30,10 @@ export const accountController = {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
       if (!user || user.password !== password) {
-        return h.view("login", { title: "Login Error", errors: [{message: "Invalid Credentials"}]}).takeover().code(400);
+        return h.view("login", { title: "Login Error", errors: [{ message: "Invalid Credentials" }] }).takeover().code(400);
       }
       request.cookieAuth.set({ id: user._id });
-      if(user.isAdmin){
+      if (user.isAdmin) {
         return h.redirect("/admin");
       }
       return h.redirect("/dashboard");
@@ -106,7 +106,7 @@ export const accountController = {
         return h.redirect("/account");
       } catch (error) {
         const errorContextData = { ...editUserContextData };
-        errorContextData.errors = [{message: "Could not update your account details."}];
+        errorContextData.errors = [{ message: "Could not update your account details." }];
         return h.view("account", errorContextData);
       }
     },
@@ -119,14 +119,14 @@ export const accountController = {
         const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
           const imgUrl = await imageStore.uploadImage(request.payload.imagefile);
-          const updatedUser = {...loggedInUser}
+          const updatedUser = { ...loggedInUser }
           updatedUser.avatar = imgUrl;
           await db.userStore.update(loggedInUser, updatedUser);
         }
         return h.redirect("/account");
       } catch (error) {
         const errorContextData = { ...editUserContextData };
-        errorContextData.errors = [{message: "The image could not be uploaded."}];
+        errorContextData.errors = [{ message: "The image could not be uploaded." }];
         return h.view("account", errorContextData);
       }
     },
@@ -137,4 +137,26 @@ export const accountController = {
       parse: true,
     },
   },
+
+  deleteAvatar: {
+    handler: async function (request, h) {
+      try {
+        const loggedInUser = request.auth.credentials
+        const avatarUrl = loggedInUser.avatar
+        // get image's public id
+        const imageId = avatarUrl.split("/").slice(-1)[0].split(".")[0]
+        // delete the image from cloudinary
+        await imageStore.deleteImage(imageId);
+        // update user details
+        const updatedUser = { ...loggedInUser }
+        updatedUser.avatar = "";
+        await db.userStore.update(loggedInUser, updatedUser);
+        return h.redirect("/account");
+      } catch (error) {
+        const errorContextData = { ...editUserContextData };
+        errorContextData.errors = [{ message: "The image could not be deleted." }];
+        return h.view("account", errorContextData);
+      }
+    },
+  }
 };
