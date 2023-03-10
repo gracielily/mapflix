@@ -1,5 +1,7 @@
 import { PointFormSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { imageStore } from "../models/image-store.js";
+import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
 
 const contextData = {
     pageTitle: "Show Details",
@@ -14,6 +16,7 @@ export const showController = {
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
       contextData.show = show
+      contextData.imagePostUrl = `/show/${show._id}/uploadimage`;
       contextData.showJSON = JSON.stringify(show)
       return h.view("show", contextData);
     },
@@ -59,4 +62,50 @@ export const showController = {
       return h.redirect(`/show/${show._id}`);
     },
   },
+
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const show = await db.showStore.getById(request.params.id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const imgUrl = await imageStore.uploadImage(request.payload.imagefile);
+          const updatedShow = { ...show }
+          updatedShow.image = imgUrl;
+          console.log("IMAGE URL HERE", imgUrl);
+          await db.showStore.update(show, updatedShow);
+        }
+        return h.redirect(`/show/${show._id}`);
+      } catch (error) {
+        console.log(error);
+        const errorContextData = { ...contextData };
+        errorContextData.errors = [{ message: "The image could not be uploaded." }];
+        return h.view("show", errorContextData);
+      }
+    },
+    payload: IMAGE_PAYLOAD,
+  },
+
+  deleteImage: {
+    handler: async function (request, h) {
+      try {
+        const show = await db.showStore.getById(request.params.id);
+        const imageUrl = show.image;
+        // get image's public id
+        const imageId = getImagePublicId(imageUrl)
+        // delete the image from cloudinary
+        await imageStore.deleteImage(imageId);
+        // update show details
+        const updatedShow = { ...show }
+        updatedShow.image = "";
+        await db.showStore.update(show, updatedShow);
+        return h.redirect(`/show/${show._id}`);
+      } catch (error) {
+        const errorContextData = { ...editUserContextData };
+        errorContextData.errors = [{ message: "The image could not be deleted." }];
+        return h.view("show", errorContextData);
+      }
+    },
+  }
+
 };
