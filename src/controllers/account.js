@@ -1,13 +1,15 @@
 import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
+import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
 
 const editUserContextData = {
   pageTitle: "Edit User Details",
   navBreadcrumbs: [
     { title: "Dashboard", link: "/dashboard" },
     { title: "Account Details" }
-  ]
+  ],
+  imagePostUrl: "/account/uploadavatar",
 };
 
 export const accountController = {
@@ -130,12 +132,7 @@ export const accountController = {
         return h.view("account", errorContextData);
       }
     },
-    payload: {
-      multipart: true,
-      output: "data",
-      maxBytes: 209715200,
-      parse: true,
-    },
+    payload: IMAGE_PAYLOAD,
   },
 
   deleteAvatar: {
@@ -144,7 +141,7 @@ export const accountController = {
         const loggedInUser = request.auth.credentials
         const avatarUrl = loggedInUser.avatar
         // get image's public id
-        const imageId = avatarUrl.split("/").slice(-1)[0].split(".")[0]
+        const imageId = getImagePublicId(avatarUrl)
         // delete the image from cloudinary
         await imageStore.deleteImage(imageId);
         // update user details

@@ -13,6 +13,7 @@ const showSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  image: String,
 });
 
 export const Show = Mongoose.model("Show", showSchema);

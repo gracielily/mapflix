@@ -35,7 +35,7 @@ export const showMongoStore = {
   async delete(id) {
     try {
       // delete associated points 
-      await Point.deleteMany({showId: id});  
+      await Point.deleteMany({ showId: id });
       await Show.deleteOne({ _id: id });
     } catch (error) {
       console.log("Invalid Show ID");
@@ -46,5 +46,18 @@ export const showMongoStore = {
     // delete all points then shows
     await Point.deleteMany({})
     await Show.deleteMany({});
+  },
+
+  async update(currentShow, updatedShow) {
+    const show = await this.getById(currentShow._id);
+    if (show) {
+      await Show.updateOne(
+        { _id: currentShow._id },
+        {
+          title: updatedShow.title,
+          image: updatedShow.image,
+          imdbId: updatedShow.imdbId,
+        });
+    }
   }
 };

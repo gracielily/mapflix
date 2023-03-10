@@ -30,6 +30,8 @@ export const webRoutes = [
     { method: "GET", path: "/show/{id}/deleteallpoints", config: showController.deleteAllPoints },
     { method: "GET", path: "/show/{id}/point/{pointId}", config: pointController.index },
     { method: "POST", path: "/show/{id}/point/{pointId}/update", config: pointController.update },
+    { method: "POST", path: "/show/{id}/uploadimage", config: showController.uploadImage },
+    { method: "GET", path: "/show/{id}/deleteimage", config: showController.deleteImage },
 
     
     // 404 page

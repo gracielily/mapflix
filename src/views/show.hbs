@@ -6,7 +6,7 @@
     
   </div>
   <!-- Point Form Nav Link -->
-<section class="ui segment">
+<section class="section">
   <a href="#createPointForm">
     <button class="button is-link">
       <i class="plus icon"></i>Add New Point
@@ -18,8 +18,15 @@
     </button>
   {{/if}}
 </section>
+<figure class="image is-128x128">
+        <img class="is-rounded" src={{show.image}} style="width: 128px; height: 128px; object-fit: cover">
+</figure>
+
+<section>
+  {{> image-upload-form}}
+</section>
 <!-- Show Map -->
-<section class="ui segment">
+<section class="section">
   <div id="map" style="height: 500px"></div>
 </section>
 {{#if show.points}}
