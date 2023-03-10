@@ -68,4 +68,26 @@ suite("Show Model tests", () => {
     const shows = await db.showStore.getAll();
     assert.equal(shows.length, testShows.length);
   });
+
+  test("update show - success", async () => {
+    const show = await db.showStore.create(testShow)
+    const updatedShow = {...testShow}
+    updatedShow.title = "Updated"
+    await db.showStore.update(show, updatedShow);
+    const returnedShow = await db.showStore.getById(show._id)
+    assert.equal(returnedShow.title, "Updated")
+  });
+
+  test("update show - fail", async () => {
+    await db.showStore.create(testShow)
+    const updatedShow = {...testShow}
+    updatedShow.title = "Updated"
+    await db.showStore.update("invalid", updatedShow);
+    const shows = await db.showStore.getAll();
+    // users not updated
+    shows.forEach((show) => {
+      assert.notEqual(show.title, "Updated");
+    })
+  });
+
 });
