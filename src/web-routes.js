@@ -3,6 +3,7 @@ import { adminController } from "./controllers/admin.js";
 import { dashboardController } from "./controllers/dashboard.js";
 import { pointController } from "./controllers/point.js";
 import { showController } from "./controllers/show.js";
+import { homeController } from "./controllers/home.js";
 
 export const webRoutes = [
     { method: "GET", path: "/dashboard", config: dashboardController.index },
@@ -33,7 +34,8 @@ export const webRoutes = [
     { method: "POST", path: "/show/{id}/uploadimage", config: showController.uploadImage },
     { method: "GET", path: "/show/{id}/deleteimage", config: showController.deleteImage },
 
-    
+    // home page
+    { method: "GET", path: "/", config: homeController.index},
     // 404 page
     { method: "GET", path: "/not-found", options: { auth: false, handler: function (request, h) {
         return h.view("404", { title: "Not Found" });
