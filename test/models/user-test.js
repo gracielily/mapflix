@@ -75,4 +75,32 @@ suite("User Model tests", () => {
       assert.notEqual(user.firstName, "Updated");
     })
   });
+
+  test("toggle admin - enable success", async () => {
+    const user = await db.userStore.addUser(testUser)
+    assert.equal(user.isAdmin, false)
+    await db.userStore.toggleAdmin(user._id);
+    const returnedUser = await db.userStore.getUserById(user._id)
+    assert.equal(returnedUser.isAdmin, true)
+  });
+
+  test("toggle admin - disable success", async () => {
+    const adminUser = {...testUser}
+    adminUser.isAdmin = true
+    const user = await db.userStore.addUser(adminUser)
+    assert.equal(user.isAdmin, true)
+    await db.userStore.toggleAdmin(user._id);
+    const returnedUser = await db.userStore.getUserById(user._id)
+    assert.equal(returnedUser.isAdmin, false)
+  });
+
+  test("toggle admin - fail", async () => {
+    const user = await db.userStore.addUser(testUser)
+    assert.equal(user.isAdmin, false)
+    await db.userStore.toggleAdmin();
+    // user not updated
+    const returnedUser = await db.userStore.getUserById(user._id)
+    assert.equal(returnedUser.isAdmin, false)
+  });
+
 });
