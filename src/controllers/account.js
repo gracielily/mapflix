@@ -33,6 +33,9 @@ export const accountController = {
         return h.view("login", { title: "Login Error", errors: [{message: "Invalid Credentials"}]}).takeover().code(400);
       }
       request.cookieAuth.set({ id: user._id });
+      if(user.isAdmin){
+        return h.redirect("/admin");
+      }
       return h.redirect("/dashboard");
     },
   },

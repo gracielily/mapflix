@@ -1,0 +1,107 @@
+{{> menu}}
+<div class="container">
+    <section>
+        <div class="columns">
+            <div class="column has-text-centered">
+                <h1 class="title">Admin Dashboard</h1><br>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero is-primary is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Welcome back, {{admin.firstName}}.
+                </h1>
+                <h2 class="subtitle">
+                    See analytics and manage Mapflix's users below
+                </h2>
+            </div>
+        </div>
+    </section>
+    <section class="info-tiles">
+        <div class="tile is-ancestor has-text-centered">
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title">{{users.length}}</p>
+                    <p class="subtitle">Users</p>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title">{{shows.length}}</p>
+                    <p class="subtitle">Shows</p>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p class="title">{{points.length}}</p>
+                    <p class="subtitle">Points</p>
+                </article>
+            </div>
+            
+        </div>
+    </section>
+    <div class="columns">
+        <div class="column is-12">
+            <div class="card events-card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Users
+                    </p>
+                </header>
+                <div class="card-table">
+                    <div class="content">
+                        <table class="table is-fullwidth is-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Is Admin</th>
+                                    <th>Shows Created</th>
+                                    <th>Points Created</th>
+                                    <th class="level-right">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each users as | user i|}}
+                                <tr>
+                                    <td>{{lastName}}, {{firstName}}</td>
+                                    <td><span class="icon">
+                                        {{#if isAdmin}}
+                                            <i class="fas fa-check-circle has-text-success"></i>
+                                        {{else}}
+                                            <i class="fas fa-circle-xmark has-text-danger"></i>
+                                        {{/if}}
+                                        </span></td>
+                                    {{#with (lookup ../userStats @index)}}
+                                    <td>{{this.showCount}}</td>
+                                    <td>{{this.pointCount}}</td>
+                                    {{/with}}
+                                    <td class="level-right">
+                                        <a href="/admin/users/{{_id}}/toggleadmin">
+                                            <button class="button is-small is-warning">
+                                                <span class="icon"><i class="fas fa-user"></i></span><span>{{#if
+                                                    isAdmin}}Disable Admin{{else}}Enable Admin{{/if}}</span>
+                                            </button>
+                                        </a>
+                                        {{#unless isAdmin}}
+                                        <a href="/admin/users/{{_id}}/delete">
+                                            <button class="button is-small is-danger">
+                                                <span class="icon"><i class="fas fa-trash"></i></span><span>Delete
+                                                    User</span>
+                                            </button>
+                                        </a>
+                                        {{/unless}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

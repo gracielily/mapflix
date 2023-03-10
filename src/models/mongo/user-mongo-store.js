@@ -53,4 +53,16 @@ export const userMongoStore = {
         });
     }
   },
+
+  async toggleAdmin(currentUserId) {
+    const user = await this.getUserById(currentUserId);
+    if(user){
+      await User.updateOne(
+        {_id: currentUserId},
+        {
+          isAdmin: !user.isAdmin
+        }
+      );
+    }
+  }
 };
