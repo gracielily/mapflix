@@ -19,6 +19,17 @@ export const showMongoStore = {
     return null;
   },
 
+  async searchByUserAndTitle(userId, searchTerm) {
+    if (userId && searchTerm) {
+      // do a case insensitive search
+      console.log(searchTerm)
+      const shows = await Show.find({userId: userId, title: {$regex: new RegExp(searchTerm, "i")}}).lean()
+      console.log("FILTERED SHOWS", shows)
+      return shows;
+    }
+    return null;
+  },
+
   async create(show) {
     const createdShow = await new Show(show).save();
     return this.getById(createdShow._id);

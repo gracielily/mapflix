@@ -1,20 +1,28 @@
 import { ShowSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
-let contextData = {
-  pageTitle: "Dashboard"
+const contextData = {
+  title: "Mapflix Dashboard",
 };
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
-      contextData = {
-        title: "Mapflix Dashboard",
-        user: loggedInUser,
-        shows: userShows,
-      };
+      contextData.user = loggedInUser
+
+      if(request.query.search){
+        const searchTerm = request.query.search
+        const filteredShows = await db.showStore.searchByUserAndTitle(loggedInUser._id, searchTerm)
+        contextData.shows = filteredShows;
+        if(!filteredShows.length) {
+          contextData.noShowsMessage = `No Shows found for search term ${searchTerm}. Please try again`
+        }
+      } else {
+        const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
+        contextData.shows = userShows;
+      }
+
       return h.view("dashboard", contextData);
     },
   },

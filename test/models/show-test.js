@@ -39,6 +39,25 @@ suite("Show Model tests", () => {
     assert.isNull(await db.showStore.getCreatedByUser(""));
   })
 
+
+  test("search by user and title", async () => {
+    await db.showStore.create({title: "test", userId: user._id})
+    const userShows = await db.showStore.searchByUserAndTitle(user._id, "tes")
+    assert.equal(userShows.length, 1)
+    assert.equal(userShows[0].userId.str, user._id.str)
+  })
+
+  test("search by user and title - none found", async () => {
+    await db.showStore.create({title: "test", userId: user._id})
+    const userShows = await db.showStore.searchByUserAndTitle(user._id, "does not exist")
+    assert.equal(userShows.length, 0)
+  })
+
+  test("search by user and title - bad params", async () => {
+    assert.isNull(await db.showStore.searchByUserAndTitle());
+    assert.isNull(await db.showStore.searchByUserAndTitle(""));
+  })
+
   test("create a show", async () => {
     const show = await db.showStore.create(testShow);
     assertSubset(testShow, show);

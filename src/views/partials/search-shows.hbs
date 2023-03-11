@@ -1,0 +1,17 @@
+<div class="field has-addons">
+    <div class="control">
+        <input class="input" type="text" placeholder="Find a show" id="searchTerm" onkeydown="if(event.keyCode == 13) searchMovies()">
+    </div>
+    <div class="control">
+        <a class="button is-info" onclick="searchMovies()">
+            Search
+        </a>
+    </div>
+</div>
+
+<script>
+    function searchMovies() {
+        const searchTerm = document.getElementById("searchTerm").value;
+        location.href = `/dashboard?search=${searchTerm}`;
+    }
+</script>
