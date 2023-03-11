@@ -3,12 +3,18 @@
     <h1>Welcome to MapFlix</h1>
     <section class="section">
         {{#if shows}}
-        <a class="button is-danger" href="/dashboard/deleteallshows">
-            Delete All Shows
-        </a>
-        {{> list-shows }}
+            <a class="button is-danger" href="/dashboard/deleteallshows">
+                Delete All Shows
+            </a>
+            {{> search-shows }}
+            {{> list-shows }}
         {{else}}
-        <p>You have no shows. Add one using the form below.</p>
+            {{#if noShowsMessage}}
+                <p>{{noShowsMessage}}</p>
+                {{> search-shows }}
+            {{else}}
+                <p>You have no shows. Add one using the form below.</p>
+            {{/if}}
         {{/if}}
         {{> add-show }}
     </section>
