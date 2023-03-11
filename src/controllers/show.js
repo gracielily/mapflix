@@ -1,7 +1,7 @@
 import { PointFormSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
-import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
+import { getImagePublicId, getMovieData, IMAGE_PAYLOAD } from "./utils.js";
 
 const contextData = {
     pageTitle: "Show Details",
@@ -18,6 +18,13 @@ export const showController = {
       contextData.show = show
       contextData.imagePostUrl = `/show/${show._id}/uploadimage`;
       contextData.showJSON = JSON.stringify(show)
+      const showExtraInfo = await getMovieData(show.imdbId);
+
+      if(!showExtraInfo?.success === false) {
+        contextData.errors = [{message: "could not retrieve movie details"}]
+      } else {
+        contextData.showExtraInfo = showExtraInfo
+      }
       return h.view("show", contextData);
     },
   },

@@ -1,70 +1,68 @@
 {{> menu}}
 
-<section class="section">
-  <div class="title">
-    {{show.title}}
-    
-  </div>
-  <!-- Point Form Nav Link -->
+{{> show-overview }}
+{{> errormsg }}
+<!-- Point Form Nav Link -->
 <section class="section">
   <a href="#createPointForm">
     <button class="button is-link">
       <i class="plus icon"></i>Add New Point
     </button>
   </a>
-  {{#if show.points}}
-    <button onclick="deleteAllPoints()" class="button is-link">
-      <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Points</span>
-    </button>
-  {{/if}}
 </section>
-<figure class="image is-128x128">
-        <img class="is-rounded" src={{show.image}} style="width: 128px; height: 128px; object-fit: cover">
-</figure>
-
-<section>
-  {{> image-upload-form}}
-</section>
+{{#if show.points}}
+<!-- Points List -->
+<div class="column is-12">
+  <h1 class="title has-text-centered section-title">Points for {{show.title}}</h1>
+</div>
 <!-- Show Map -->
 <section class="section">
   <div id="map" style="height: 500px"></div>
 </section>
-{{#if show.points}}
-  <!-- Points List -->
-  <section class="ui raised segment">
-    {{> list-points}}
-  </section>
+
+<button onclick="deleteAllPoints()" class="button is-danger">
+  <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Points</span>
+</button>
+
+<!-- Points Table -->
+<section class="ui raised segment">
+  {{> list-points}}
+</section>
+
 {{else}}
-  <!-- No Points Message -->
-  <section>
-    <i class="lightbulb icon"></i>
-    <div class="content">
-      <div class="header">
-        No Points for {{show.title}}
-      </div>
-      <p>You can create a Point by filling out the form below.</p>
+<!-- No Points Message -->
+<section>
+  <i class="lightbulb icon"></i>
+  <div class="content">
+    <div class="header">
+      No Points for {{show.title}}
     </div>
-  </section>
+    <p>You can create a Point by filling out the form below.</p>
+  </div>
+</section>
 {{/if}}
+<section>
+  {{> image-upload-form}}
+</section>
 <!-- Create New Point Form -->
 {{> point-form }}
 </section>
 
 <script>
-    const show = {{{ showJSON }}} 
-    const points = show.points;
-    let latLngs = [];
+  const show = {{{ showJSON }}}
+  const points = show.points;
+  let latLngs = [];
 
-    function deleteAllPoints() {
-        const proceed = confirm(
-        "This will delete ALL Points for this Show. Are you sure you wish to proceed?");
-        // if user clicks confirm direct to delete all points endpoint
-        if (proceed) {
-            location.href = location.href += "/deleteallpoints";
-        }
+  function deleteAllPoints() {
+    const proceed = confirm(
+      "This will delete ALL Points for this Show. Are you sure you wish to proceed?");
+    // if user clicks confirm direct to delete all points endpoint
+    if (proceed) {
+      location.href = location.href += "/deleteallpoints";
     }
+  }
 
-   const zoomLevel = points.length > 1 ? 7 : 13
+  const zoomLevel = points.length > 1 ? 7 : 13
   // set up points map
   const map = L.map("map", {
     dragging: true,
@@ -82,11 +80,11 @@
     let marker = L.marker([point.location.latitude, point.location.longitude]).addTo(map);
     // TODO: add URL
     const markerUrl = `/show/${show._id}/point/${point._id}`
-        marker.bindPopup(
-        "<b>" + point.name + "</b><br/><a href='" + markerUrl + "'>View</a>");
+    marker.bindPopup(
+      "<b>" + point.name + "</b><br/><a href='" + markerUrl + "'>View</a>");
   })
 
-  if(points.length > 1) {
+  if (points.length > 1) {
     map.fitBounds(latLngs);
   };
 

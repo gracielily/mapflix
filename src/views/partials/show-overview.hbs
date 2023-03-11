@@ -1,0 +1,90 @@
+<section class="section">
+    <div class="container">
+        <div class="column is-12">
+            <h1 class="title has-text-centered section-title">{{show.title}}</h1>
+            <br />
+        </div>
+        {{#if showExtraInfo}}
+        <div class="columns is-multiline">
+            <div class="column is-6 has-vertically-aligned-content">
+                <p class="is-larger">
+                    <strong>{{showExtraInfo.tagline}}</strong>
+                </p>
+                <br />
+                <p>
+                    {{showExtraInfo.overview}}
+                </p>
+                <br />
+                <div class="columns">
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Release Date</strong>
+                        </p>
+                        <p class="subheading">
+                            {{showExtraInfo.release_date}}
+                        </p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Runtime</strong>
+                        </p>
+                        <p class="subheading">
+                            {{showExtraInfo.runtime}} minutes
+                        </p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Rating</strong>
+                        </p>
+                        <p class="subheading">
+                            {{toFixed showExtraInfo.vote_average 1}}
+                        </p>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Budget</strong>
+                        </p>
+                        <p class="subheading">
+                            ${{showExtraInfo.budget}}
+                        </p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Revenue</strong>
+                        </p>
+                        <p class="subheading">
+                            ${{showExtraInfo.revenue}}
+                        </p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Cast &#38; Crew</strong>
+                        </p>
+                        <p class="subheading">
+                            <a href="https://www.imdb.com/title/{{showExtraInfo.imdb_id}}/fullcredits"
+                                target="_blank">Read Here</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Genres</strong>
+                        </p>
+                        <p class="subheading">
+                            {{#each showExtraInfo.genres}}
+                            <span class="tag is-dark">{{name}}</span>
+                            {{/each}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-6 right-image">
+                <img class="is-rounded" src="{{#if show.image }}{{show.image}}{{else}}/img/placeholder-image.jpg{{/if}}" alt="Show image" />
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</section>

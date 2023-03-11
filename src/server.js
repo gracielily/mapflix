@@ -73,7 +73,13 @@ async function init() {
       return options.fn(this);
     }
     return options.inverse(this);
-  })
+  });
+
+  // eslint-disable-next-line prefer-arrow-callback
+  Handlebars.registerHelper("toFixed", function(val, places){
+    return val?.toFixed(places)
+  });
+
   server.auth.default("session");
   server.views({
     engines: {
