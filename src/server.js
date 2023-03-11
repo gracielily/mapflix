@@ -68,6 +68,12 @@ async function init() {
     verifyOptions: { algorithms: ["HS256"] }
   });
 
+  Handlebars.registerHelper("ifSameObj", function(a, b, options) {
+    if(a.equals(b)){
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  })
   server.auth.default("session");
   server.views({
     engines: {
