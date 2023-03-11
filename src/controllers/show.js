@@ -72,12 +72,10 @@ export const showController = {
           const imgUrl = await imageStore.uploadImage(request.payload.imagefile);
           const updatedShow = { ...show }
           updatedShow.image = imgUrl;
-          console.log("IMAGE URL HERE", imgUrl);
           await db.showStore.update(show, updatedShow);
         }
         return h.redirect(`/show/${show._id}`);
       } catch (error) {
-        console.log(error);
         const errorContextData = { ...contextData };
         errorContextData.errors = [{ message: "The image could not be uploaded." }];
         return h.view("show", errorContextData);
@@ -101,7 +99,7 @@ export const showController = {
         await db.showStore.update(show, updatedShow);
         return h.redirect(`/show/${show._id}`);
       } catch (error) {
-        const errorContextData = { ...editUserContextData };
+        const errorContextData = { ...contextData };
         errorContextData.errors = [{ message: "The image could not be deleted." }];
         return h.view("show", errorContextData);
       }

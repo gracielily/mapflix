@@ -52,7 +52,8 @@ export const pointMongoStore = {
                 "location.longitude": updatedPoint.longitude,
                 features: {
                     publicTransport: updatedPoint.publicTransport
-                }
+                },
+                images: updatedPoint.images,
                 });
             }
     },

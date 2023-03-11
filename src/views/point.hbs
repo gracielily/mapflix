@@ -2,8 +2,23 @@
 <h1>Details for {{ point.name }} - {{ show.title }}</h1>
 
 <a href="/show/{{show._id}}/deletepoint/{{point._id}}">
-<button class="button is-link">
- <i class="fas fa-trash"></i> Delete Point
+<button class="button is-link is-danger">
+ <span class="icon"><i class="fas fa-trash"></i> </span><span>Delete Point</span>
 </button>
 </a>
+{{#each point.images as | image|}}
+    {{image}}
+    <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}">
+<button class="button is-link is-danger">
+ <span class="icon"><i class="fas fa-trash"></i> </span><span>Remove Image</span>
+</button>
+</a>
+{{/each}}
+<a href="/show/{{show._id}}/point/{{point._id}}/deleteallimages">
+<button class="button is-link is-danger">
+ <span class="icon"><i class="fas fa-fire"></i> </span><span>Clear Images</span>
+</button>
+</a>
+{{> image-upload-form }}
+
 {{> edit-point-form }}

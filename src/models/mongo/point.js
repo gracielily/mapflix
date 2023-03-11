@@ -21,6 +21,7 @@ const pointSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Show",
   },
+  images: [String],
 });
 
 export const Point = Mongoose.model("Point", pointSchema);
