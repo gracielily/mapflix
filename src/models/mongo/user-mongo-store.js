@@ -1,3 +1,4 @@
+import { showMongoStore } from "./show-mongo-store.js";
 import { User } from "./user.js";
 
 export const userMongoStore = {
@@ -29,6 +30,11 @@ export const userMongoStore = {
 
   async deleteUserById(id) {
     try {
+      // delete associated shows and points
+      const shows = await showMongoStore.getCreatedByUser(id)
+      shows.map(async(show) => {
+        await showMongoStore.delete(show._id)
+      })
       await User.deleteOne({ _id: id });
     } catch (error) {
       console.log("Invalid ID");
@@ -36,6 +42,8 @@ export const userMongoStore = {
   },
 
   async deleteAllUsers() {
+    // delete all shows and points
+    await showMongoStore.deleteAll();
     await User.deleteMany({});
   },
 

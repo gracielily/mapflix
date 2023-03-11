@@ -40,7 +40,7 @@
                     <p class="subtitle">Points</p>
                 </article>
             </div>
-            
+
         </div>
     </section>
     <div class="columns">
@@ -68,23 +68,32 @@
                                 <tr>
                                     <td>{{lastName}}, {{firstName}}</td>
                                     <td><span class="icon">
-                                        {{#if isAdmin}}
+                                            {{#if isAdmin}}
                                             <i class="fas fa-check-circle has-text-success"></i>
-                                        {{else}}
+                                            {{else}}
                                             <i class="fas fa-circle-xmark has-text-danger"></i>
-                                        {{/if}}
+                                            {{/if}}
                                         </span></td>
                                     {{#with (lookup ../userStats @index)}}
                                     <td>{{this.showCount}}</td>
                                     <td>{{this.pointCount}}</td>
                                     {{/with}}
                                     <td class="level-right">
+                                        {{#ifSameObj user._id ../loggedInAdmin._id }}
+                                        <a href="/account" class="button is-small is-primary">
+                                            <span class="icon">
+                                                <i class="fas fa-eye"></i>
+                                            </span>
+                                            <span>View</span>
+                                        </a>
+                                        {{else}}
                                         <a href="/admin/users/{{_id}}/toggleadmin">
                                             <button class="button is-small is-warning">
                                                 <span class="icon"><i class="fas fa-user"></i></span><span>{{#if
                                                     isAdmin}}Disable Admin{{else}}Enable Admin{{/if}}</span>
                                             </button>
                                         </a>
+                                        {{/ifSameObj}}
                                         {{#unless isAdmin}}
                                         <a href="/admin/users/{{_id}}/delete">
                                             <button class="button is-small is-danger">

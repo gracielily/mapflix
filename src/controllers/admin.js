@@ -7,10 +7,12 @@ let contextData = {
 
 async function getStats(users) {
     const userStats = []
-    for (let i = 0; i < users.length; i++) {
+    for (let i = 0; i < users.length; i+=1) {
+        // eslint-disable-next-line no-await-in-loop
         const userShows = await db.showStore.getCreatedByUser(users[i]._id);
         let pointsCount = 0;
-        for (let j = 0; j < userShows.length; j++) {
+        for (let j = 0; j < userShows.length; j+=1) {
+            // eslint-disable-next-line no-await-in-loop
             const userPoints = await db.pointStore.getByShowId(userShows[j]._id)
             pointsCount += userPoints.length;
         }
@@ -32,7 +34,7 @@ export const adminController = {
             };
             const users = await db.userStore.getAllUsers();
             // display all users except for logged in admin
-            const filteredUsers = users.filter(user => user._id.equals(loggedInAdmin._id))
+            const filteredUsers = users
             const allShows = await db.showStore.getAll();
             const allPoints = await db.pointStore.getAll();
             const userStats = await getStats(filteredUsers);
@@ -42,7 +44,8 @@ export const adminController = {
                 users: filteredUsers,
                 shows: allShows,
                 points: allPoints,
-                userStats: userStats
+                userStats: userStats,
+                loggedInAdmin: loggedInAdmin,
             };
             return h.view("admin", contextData);
         },
