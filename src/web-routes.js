@@ -24,6 +24,7 @@ export const webRoutes = [
     { method: "POST", path: "/account/savedetails", config: accountController.saveDetails },
     { method: "POST", path: "/account/uploadavatar", config: accountController.uploadAvatar },
     { method: "GET", path: "/account/deleteavatar", config: accountController.deleteAvatar },
+    { method: "GET", path: "/account/deleteaccount", config: accountController.deleteAccount },
 
     { method: "GET", path: "/show/{id}", config: showController.index },
     { method: "POST", path: "/show/{id}/addpoint", config: showController.addPoint },

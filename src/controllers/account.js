@@ -155,5 +155,19 @@ export const accountController = {
         return h.view("account", errorContextData);
       }
     },
+  },
+
+  deleteAccount: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials
+      try {
+        await db.userStore.deleteUserById(loggedInUser._id);
+        return h.redirect("/").unstate(process.env.COOKIE_NAME);
+      } catch (error) {
+        const errorContextData = { ...editUserContextData };
+        errorContextData.errors = [{message: "Could not delete account."}];
+        return h.view("account", errorContextData).takeover().code(400);
+      }
+    },
   }
 };

@@ -41,7 +41,10 @@ suite("User Model tests", () => {
     assert.equal(returnedUsers.length, testUsers.length - 1);
     const deletedUser = await db.userStore.getUserById(testUsers[0]._id);
     assert.isNull(deletedUser);
+    const shows = await db.showStore.getCreatedByUser(testUsers[0]._id);
+    assert.equal(shows.length, 0)
   });
+
 
   test("get a user - bad params", async () => {
     assert.isNull(await db.userStore.getUserByEmail(""));
