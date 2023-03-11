@@ -33,6 +33,10 @@ export const webRoutes = [
     { method: "POST", path: "/show/{id}/point/{pointId}/update", config: pointController.update },
     { method: "POST", path: "/show/{id}/uploadimage", config: showController.uploadImage },
     { method: "GET", path: "/show/{id}/deleteimage", config: showController.deleteImage },
+    { method: "POST", path: "/show/{id}/point/{pointId}/uploadimage", config: pointController.uploadImage },
+    { method: "GET", path: "/show/{id}/point/{pointId}/deleteimage/{imageIndex}", config: pointController.deleteImage },
+    { method: "GET", path: "/show/{id}/point/{pointId}/deleteallimages", config: pointController.deleteAllImages },
+
 
     // home page
     { method: "GET", path: "/", config: homeController.index},
