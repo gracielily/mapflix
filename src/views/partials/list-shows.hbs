@@ -2,15 +2,14 @@
   {{#each shows}}
   <div class="column is-4">
     <div class="card">
-      {{#if image}}
       <a href="/show/{{_id}}">
         <div class="card-image">
           <figure class="image">
-            <img src="{{image}}" alt="Show Image" style="object-fit: cover; height:400px">
+            <img src="{{#if image }}{{image}}{{else}}/img/placeholder-image.jpg{{/if}}" alt="Show Image"
+              style="object-fit: cover; height:400px">
           </figure>
         </div>
       </a>
-      {{/if}}
       <div class="card-content">
         <div class="media">
           <div class="media-content">
