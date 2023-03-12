@@ -1,19 +1,43 @@
+<div class="field">
+  <label class="label">Name</label>
+  <input class="input" type="text" placeholder="Name" name="name" value="{{values.name}}" />
+</div>
+<label class="label">Location</label>
+<div class="field is-horizontal">
+  <div class="field-body">
     <div class="field">
-      <label class="label">Name</label>
-      <input class="input" type="text" placeholder="Name" 
-      name="name" value="{{values.name}}"/>
+      <input class="input" type="text" name="latitude" min="-85" max="85" placeholder="00.00" step=".000000000000001"
+        value="{{values.latitude}}" />
     </div>
-    <label class="label">Location</label>
-    <div class="field is-horizontal">
-      <div class="field-body">
-        <div class="field">
-          <input class="input" type="text" name="latitude" 
-          min="-85" max="85" placeholder="00.00" step=".000000000000001"
-          value="{{values.latitude}}"/>
-        </div>
-        <div class="field">
-          <input class="input" type="text" name="longitude" min="-180" max="180" placeholder="00.00" step=".000000000000001"
-          value="{{values.longitude}}"/>
-        </div>
-      </div>
+    <div class="field">
+      <input class="input" type="text" name="longitude" min="-180" max="180" placeholder="00.00" step=".000000000000001"
+        value="{{values.longitude}}" />
     </div>
+  </div>
+</div>
+<div class="field">
+  <label class="label">Description</label>
+  <input class="input" type="text" placeholder="Description" name="description" value="{{values.description}}" />
+</div>
+<div class="field is-horizontal">
+  <div class="field-body">
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" name="publicTransport" value="true" {{#if values.publicTransport}}checked{{/if}}>
+        <span class="icon"><i class="fas fa-bus"></i></span><span>Public Transport</span>
+      </label>
+    </div>
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" name="wheelchairAccessible" value="true" {{#if values.wheelchairAccessible}}checked{{/if}}>
+        <span class="icon"><i class="fas fa-wheelchair"></i></span><span>Wheelchair Friendly</span>
+      </label>
+    </div>
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" name="facilitiesAvailable" value="true" {{#if values.facilitiesAvailable}}checked{{/if}}>
+        <span class="icon"><i class="fas fa-restroom"></i></span><span>Facilities</span>
+      </label>
+    </div>
+  </div>
+</div>

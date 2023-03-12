@@ -4,18 +4,24 @@ const { Schema } = Mongoose;
 
 const pointSchema = new Schema({
   name: String,
-  location: {
-    latitude: Number,
-    longitude: Number,
-  },
+  description: String,
+  latitude: Number,
+  longitude: Number,
   dateAdded: {
     type: Date,
     default: Date.now,
   },
-  features : {
-    publicTransport: Boolean,
-    wheelchairAccessible: Boolean,
-    facilitiesAvailable: Boolean,
+  publicTransport: {
+    type: Boolean,
+    default: false,
+  },
+  wheelchairAccessible: {
+    type: Boolean,
+    default: false,
+  },
+  facilitiesAvailable: {
+    type: Boolean,
+    default: false,
   },
   showId: {
     type: Schema.Types.ObjectId,

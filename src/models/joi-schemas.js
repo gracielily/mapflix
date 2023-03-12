@@ -19,38 +19,22 @@ export const UserSpecExtra = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecExtra).label("UserArray");
 
-export const PointFormSpec = Joi.object()
-.keys({
-  name: Joi.string().required().example("Raven Point"),
-  latitude: Joi.number().required().example(8472.29302),
-  longitude: Joi.number().required().example(79813.31),
-})
-
-export const PointFormExtended = PointFormSpec
-.keys({
-  publicTransport: Joi.bool()
-})
-
-export const PointSpec = Joi.object()
-  .keys({
+export const PointSpec = Joi.object().keys({
     name: Joi.string().required().example("Raven Point"),
-    location: Joi.object().keys({
-      latitude: Joi.number().required().example(8472.29302),
-      longitude: Joi.number().required().example(79813.31),
-    }).required(),
+    description: Joi.string().required().example("Where the iconic scene was filmed"),
+    latitude: Joi.number().greater(-85).less(85).messages({ "latitude": "Invalid latitude!" }).required().example(84),
+    longitude: Joi.number().greater(-180).less(180).messages({ "longitude": "Invalid longitude!" }).required().required().example(22),
     dateAdded: Joi.date(),
-    features: Joi.object().keys({
-      publicTransport: Joi.bool().example(false),
-      wheelchairAccessible: Joi.bool().example(true),
-      facilitiesAvailable: Joi.bool().example(true),
-    }),
-    showId: IdSpec,
-  })
-  .label("Point Details");
+    images: Joi.array().items(Joi.string()),
+    publicTransport: Joi.boolean().example("false"),
+    wheelchairAccessible: Joi.boolean().example("true"),
+    facilitiesAvailable: Joi.boolean().example("true"),
+  }).label("Point Details");
 
 export const PointSpecExtra = PointSpec.keys({
   _id: IdSpec,
   __v: Joi.number(),
+  showId: IdSpec,
 }).label("PointDetailsExtra");
 
 export const PointArraySpec = Joi.array().items(PointSpecExtra).label("PointArray");
@@ -61,6 +45,7 @@ export const ShowSpec = Joi.object().keys({
   userId: IdSpec,
   points: PointArraySpec,
   dateAdded: Joi.date(),
+  image: Joi.string(),
 }).label("Show Details")
 
 export const ShowSpecExtra = ShowSpec.keys({
