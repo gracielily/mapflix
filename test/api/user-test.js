@@ -23,10 +23,35 @@ suite("User API Tests", () => {
   teardown(async () => {
   });
 
+  test("Gets all Users - Success", async () => {
+    const returnedUsers = await mapflixService.getAllUsers();
+    assert.deepEqual(returnedUsers.length, 4);
+  });
+
   test("Creates a User", async () => {
     const newUser = await mapflixService.createUser(testUser);
     assertSubset(testUser, newUser);
     assert.isDefined(newUser._id);
+  });
+
+  test("Deletes a User", async () => {
+    const returnedUsers = await mapflixService.getAllUsers();
+    assert.equal(returnedUsers.length, 4);
+    await mapflixService.deleteUser(users[0]._id);
+    const usersAfterDelete = await mapflixService.getAllUsers();
+    assert.equal(usersAfterDelete.length, 3);
+  });
+
+  test("Deletes a User - fail", async () => {
+    const returnedUsers = await mapflixService.getAllUsers();
+    assert.equal(returnedUsers.length, 4);
+    try {
+      await mapflixService.deleteUser("invalid");
+      assert.fail("does not delete user")
+    } catch(error){
+      const usersAfterDelete = await mapflixService.getAllUsers();
+      assert.equal(usersAfterDelete.length, 4);
+    }
   });
 
   test("Deletes every User", async () => {

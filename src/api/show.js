@@ -1,5 +1,5 @@
 import Boom from "@hapi/boom";
-import { IdSpec, ShowArraySpec, ShowSpec, ShowSpecExtra } from "../models/joi-schemas.js";
+import { IdSpec, ShowArraySpec, ShowSpec, ShowSpecExtra, ShowSearchTermSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const showApi = {
@@ -9,16 +9,25 @@ export const showApi = {
       },
     handler: async function (request, h) {
       try {
-        const shows = await db.showStore.getAll();
+        let shows = [];
+        if(request.query.search){
+          shows = await db.showStore.searchByTitle(request.query.search)
+        } else {
+          shows = await db.showStore.getAll();
+        }
         return shows;
       } catch (err) {
-        return Boom.serverUnavailable("No Show found with this ID");
+        console.log(err)
+        return Boom.serverUnavailable("No Shows Found");
       }
     },
     tags: ["api"],
     response: { schema: ShowArraySpec },
     description: "Get all shows",
     notes: "Returns all shows",
+    validate: {
+      query: ShowSearchTermSpec,
+    }
   },
 
   findOne: {

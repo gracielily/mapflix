@@ -83,6 +83,22 @@ export const userApi = {
         response: { schema: UserSpecExtra, failAction: "log" },
     },
 
+    deleteOne: {
+        auth: { strategy: "jwt" },
+        handler: async function (request, h) {
+            try {
+                await db.userStore.deleteUserById(request.params.id);
+                return h.response().code(204);
+            } catch (err) {
+                return Boom.serverUnavailable("Database Error");
+            }
+        },
+        tags: ["api"],
+        description: "Delete a user",
+        notes: "Deletes one user from the Mapflix system.",
+        validate: { params: { id: IdSpec }, failAction: "log" },
+    },
+
     deleteAll: {
         auth: { strategy: "jwt" },
         handler: async function (request, h) {

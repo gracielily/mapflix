@@ -15,12 +15,10 @@ suite("Point API tests", () => {
     user = await mapflixService.createUser(testUser);
     await mapflixService.authenticate(testUserCredentials);
     testShow.userId = user._id;
-    console.log('hello')
     show = await mapflixService.createShow(testShow)
-    console.log('bye')
   });
 
-  teardown(async () => {});
+  teardown(async () => { });
 
   test("create point", async () => {
     const returnedPoint = await mapflixService.createPoint(show._id, testPoint);
@@ -29,10 +27,10 @@ suite("Point API tests", () => {
 
   test("create point - fail - bad data", async () => {
     try {
-        await mapflixService.createPoint(show._id, {});
-        assert.fail("Should return a 400");
-    } catch(error){
-        assert.equal(error.response.data.message, "Invalid request payload input");
+      await mapflixService.createPoint(show._id, {});
+      assert.fail("Should return a 400");
+    } catch (error) {
+      assert.equal(error.response.data.message, "Invalid request payload input");
     }
   });
 
@@ -77,4 +75,57 @@ suite("Point API tests", () => {
       assertSubset(testPoints[i], returnedShow.points[i]);
     }
   });
+
+  test("Get all Points - Success", async () => {
+    await mapflixService.createPoint(show._id, testPoint);
+    const points = await mapflixService.getAllPoints();
+    assert.equal(points.length, 1);
+    assert.equal(points[0].name, testPoint.name);
+  });
+
+  test("Get all Points - Success - Empty Response", async () => {
+    const points = await mapflixService.getAllPoints();
+    assert.equal(points.length, 0);
+  });
+
+  test("Gets a Point - Success", async () => {
+    const point = await mapflixService.createPoint(show._id, testPoint);
+    const returnedPoint = await mapflixService.getPoint(point._id);
+    assertSubset(testPoint, returnedPoint);
+  });
+
+  test("Gets a Point - Invalid Id", async () => {
+    try {
+      await mapflixService.getPoint("invalid");
+      assert.fail("should not return a show");
+    } catch (error) {
+      assert.equal(error.response.data.message, "No Point found with this ID");
+      assert.equal(error.response.data.statusCode, 503);
+    }
+  });
+
+  test("Gets a Point - Point Deleted", async () => {
+    const point = await mapflixService.createPoint(show._id, testPoint);
+    await mapflixService.deleteAllPoints();
+    try {
+      await mapflixService.getPoint(point._id);
+      assert.fail("Should not return a point");
+    } catch (error) {
+      assert.equal(error.response.data.message, "Not Found.");
+      assert.equal(error.response.data.statusCode, 404);
+    }
+  });
+
+  test("Gets a Point - Show Deleted", async () => {
+    const point = await mapflixService.createPoint(show._id, testPoint);
+    await mapflixService.deleteAllShows();
+    try {
+      await mapflixService.getPoint(point._id);
+      assert.fail("Should not return a point");
+    } catch (error) {
+      assert.equal(error.response.data.message, "Not Found.");
+      assert.equal(error.response.data.statusCode, 404);
+    }
+  });
+
 });

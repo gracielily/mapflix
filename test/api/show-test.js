@@ -84,4 +84,70 @@ suite("Show API tests", () => {
     assert.equal(shows.length, 0);
   });
 
+
+  test("Get all Shows - Success", async () => {
+    await mapflixService.createShow(testShow);
+    const shows = await mapflixService.getAllShows();
+    assert.equal(shows.length, 1);
+    assert.equal(shows[0].title, testShow.title);
+  });
+
+  test("Get all Shows - Success - Empty Response", async () => {
+    const shows = await mapflixService.getAllShows();
+    assert.equal(shows.length, 0);
+  });
+
+
+  test("Search show - Success", async () => {
+    await mapflixService.createShow(testShow);
+    const shows = await mapflixService.searchForShow("search", testShow.title.slice(0,3));
+    assert.equal(shows.length, 1);
+    assert.equal(shows[0].title, testShow.title);
+  });
+
+  test("Search show - Success - Empty Response", async () => {
+    await mapflixService.createShow(testShow);
+    const shows = await mapflixService.searchForShow("search", "hjkhkjhkjhk");
+    assert.equal(shows.length, 0);
+  });
+
+  test("Search show - Fail - invalid query", async () => {
+    await mapflixService.createShow(testShow);
+    try {
+      await mapflixService.searchForShow("invalid", "hjkhkjhkjhk");
+      assert.fail("raise a 400")
+    } catch(error){
+      assert.equal(error.response.data.statusCode, 400)
+      assert.equal(error.response.data.message, "Invalid request query input")
+    }
+  });
+
+  test("Gets a Show - Success", async () => {
+    const show = await mapflixService.createShow(testShow);
+    const returnedShow = await mapflixService.getShow(show._id);
+    assertSubset(testShow, returnedShow);
+  });
+
+  test("Gets a Show - Invalid Id", async () => {
+    try {
+      await mapflixService.getShow("invalid");
+      assert.fail("should not return a show");
+    } catch (error) {
+      assert.equal(error.response.data.message, "No Show found with this ID");
+      assert.equal(error.response.data.statusCode, 503);
+    }
+  });
+
+  test("Gets a Show - Show Deleted", async () => {
+    const show = await mapflixService.createShow(testShow);
+    await mapflixService.deleteAllShows();
+    try {
+      await mapflixService.getShow(show._id);
+      assert.fail("Should not return a show");
+    } catch (error) {
+      assert.equal(error.response.data.message, "Not Found.");
+      assert.equal(error.response.data.statusCode, 404);
+    }
+  });
+
 });
