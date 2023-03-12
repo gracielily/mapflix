@@ -61,3 +61,5 @@ export const JwtAuth = Joi.object()
     token: Joi.string().required().example("eyJhbGciOiJIUzR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMtZSIaWF0IjoxNTE2MjM5MDIyfQ.SflKxT4fwp_adQssw5c"),
   })
   .label("JwtAuth");
+
+export const ShowSearchTermSpec = Joi.object({search: Joi.string().optional().allow("")});

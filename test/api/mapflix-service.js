@@ -30,6 +30,11 @@ export const mapflixService = {
         return res.data;
     },
 
+    async deleteUser(id) {
+        const res = await axios.delete(`${this.baseUrl}/api/users/${id}`);
+        return res.data;
+    },
+
     async deleteAllUsers() {
         const res = await axios.delete(`${this.baseUrl}/api/users`);
         return res.data;
@@ -53,6 +58,11 @@ export const mapflixService = {
     async getAllShows() {
     const res = await axios.get(`${this.baseUrl}/api/shows`);
     return res.data;
+    },
+
+    async searchForShow(queryParam, searchTerm) {
+        const res = await axios.get(`${this.baseUrl}/api/shows?${queryParam}=${searchTerm}`);
+        return res.data;
     },
     
     async getShow(id) {

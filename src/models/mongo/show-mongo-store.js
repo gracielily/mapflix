@@ -28,6 +28,14 @@ export const showMongoStore = {
     return null;
   },
 
+  async searchByTitle(searchTerm){
+    if(searchTerm){
+      const shows = await Show.find({title: {$regex: new RegExp(searchTerm, "i")}}).lean()
+      return shows;
+    }
+    return null;
+  },
+
   async create(show) {
     const createdShow = await new Show(show).save();
     return this.getById(createdShow._id);
