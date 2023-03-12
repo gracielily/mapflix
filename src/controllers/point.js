@@ -1,4 +1,4 @@
-import { PointFormExtended } from "../models/joi-schemas.js";
+import { PointSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
@@ -20,9 +20,8 @@ export const pointController = {
       ]
       contextData.show = show;
       contextData.point = point;
+      // pre-populate form data
       contextData.values = point;
-      contextData.values.latitude = point.location.latitude
-      contextData.values.longitude = point.location.longitude
       contextData.imagePostUrl = `/show/${show._id}/point/${point._id}/uploadimage`;
       return h.view("point", contextData);
     },
@@ -30,7 +29,7 @@ export const pointController = {
 
   update: {
     validate: {
-      payload: PointFormExtended,
+      payload: PointSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
@@ -41,11 +40,7 @@ export const pointController = {
     },
     handler: async function (request, h) {
       const point = await db.pointStore.getById(request.params.pointId);
-      const newPoint = {
-        name: request.payload.name,
-        latitude: request.payload.latitude,
-        longitude: request.payload.longitude,
-      };
+      const newPoint = request.payload;
       await db.pointStore.update(point, newPoint);
       return h.redirect(`/show/${request.params.id}`);
     },

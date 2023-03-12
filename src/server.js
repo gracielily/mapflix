@@ -96,7 +96,6 @@ async function init() {
   server.route(webRoutes);
   server.route(apiRoutes);
   server.ext("onPreResponse", (request, reply) => {
-
     if (request.response.isBoom) {
       if (request.response.output.statusCode === 404) {
         const {accept} = request.headers

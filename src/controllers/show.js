@@ -1,4 +1,4 @@
-import { PointFormSpec } from "../models/joi-schemas.js";
+import { PointSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, getMovieData, IMAGE_PAYLOAD } from "./utils.js";
@@ -19,7 +19,6 @@ export const showController = {
       contextData.imagePostUrl = `/show/${show._id}/uploadimage`;
       contextData.showJSON = JSON.stringify(show)
       const showExtraInfo = await getMovieData(show.imdbId);
-
       if(!showExtraInfo?.success === false) {
         contextData.errors = [{message: "could not retrieve movie details"}]
       } else {
@@ -31,7 +30,7 @@ export const showController = {
 
   addPoint: {
     validate: {
-      payload: PointFormSpec,
+      payload: PointSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
@@ -42,13 +41,7 @@ export const showController = {
     },
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
-      const pointPayload = {
-        name: request.payload.name,
-        location: {
-            latitude: request.payload.latitude,
-            longitude: request.payload.longitude,
-        }
-      };
+      const pointPayload = request.payload;
       await db.pointStore.create(show._id, pointPayload);
       return h.redirect(`/show/${show._id}`);
     },

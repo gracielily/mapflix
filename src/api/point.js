@@ -61,7 +61,7 @@ export const pointApi = {
     tags: ["api"],
     description: "Creates a Point",
     notes: "Creates a new Point and returns its details",
-    validate: { payload: PointSpec },
+    validate: { params: { id: IdSpec }, payload: PointSpec },
     response: { schema: PointSpecExtra },
   },
 

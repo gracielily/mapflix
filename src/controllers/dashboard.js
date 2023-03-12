@@ -42,6 +42,7 @@ export const dashboardController = {
       const showPayload = {
         userId: loggedInUser._id,
         title: request.payload.title,
+        imdbId: request.payload.imdbId,
       };
       await db.showStore.create(showPayload);
       return h.redirect("/dashboard");

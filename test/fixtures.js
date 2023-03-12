@@ -42,20 +42,18 @@ export const url = "http://localhost:3000";
 
 export const testPoints = [{
   name: "The Raven", 
-  location: {
-    latitude: 41.412,
-    longitude: 582.8529,
-  }
+  latitude: 41.412,
+  longitude: 100.8529,
+  description: "Scene filmed here",
 }]
 
 export const testShow = { title: "test movie", imdbId: "tt839038" }
 
 export const testPoint = {
   name: "Wexford Town",
-  location: {
-    latitude: 41.412,
-    longitude: 582.8529,
-  }
+  latitude: 41.412,
+  longitude: 100.8529,
+  description: "Where the movie was filmed.",
 }
 
 export const testShows = [

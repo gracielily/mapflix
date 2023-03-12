@@ -11,13 +11,13 @@ suite("Point API tests", () => {
     mapflixService.clearAuth();
     user = await mapflixService.createUser(testUser);
     await mapflixService.authenticate(testUserCredentials);
-    await mapflixService.deleteAllShows();
-    await mapflixService.deleteAllPoints();
     await mapflixService.deleteAllUsers();
     user = await mapflixService.createUser(testUser);
     await mapflixService.authenticate(testUserCredentials);
+    testShow.userId = user._id;
+    console.log('hello')
     show = await mapflixService.createShow(testShow)
-    testShow.userid = user._id;
+    console.log('bye')
   });
 
   teardown(async () => {});
@@ -30,7 +30,7 @@ suite("Point API tests", () => {
   test("create point - fail - bad data", async () => {
     try {
         await mapflixService.createPoint(show._id, {});
-        assert.fail("Should fail");
+        assert.fail("Should return a 400");
     } catch(error){
         assert.equal(error.response.data.message, "Invalid request payload input");
     }

@@ -69,15 +69,15 @@
     doubleClickZoom: false,
     zoomControl: true,
     scrollWheelZoom: true
-  }).setView([points[0].location.latitude, points[0].location.longitude], zoomLevel);
+  }).setView([points[0].latitude, points[0].longitude], zoomLevel);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: "© OpenStreetMap"
   }).addTo(map);
 
   points.forEach((point) => {
-    latLngs.push(L.latLng(point.location.latitude, point.location.longitude));
-    let marker = L.marker([point.location.latitude, point.location.longitude]).addTo(map);
+    latLngs.push(L.latLng(point.latitude, point.longitude));
+    let marker = L.marker([point.latitude, point.longitude]).addTo(map);
     // TODO: add URL
     const markerUrl = `/show/${show._id}/point/${point._id}`
     marker.bindPopup(
