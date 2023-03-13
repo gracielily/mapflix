@@ -1,42 +1,55 @@
 {{> show-overview }}
-{{> errormsg }}
-<!-- Point Form Nav Link -->
-{{!-- <section class="section">
-  <a href="#createPointForm">
-    <button class="button is-link">
-      <i class="plus icon"></i>Add New Point
-    </button>
-  </a>
-</section> --}}
 {{#if show.points}}
-<!-- Points List -->
-<div class="column is-12">
-  <h1 class="title has-text-centered section-title">Placemarks for {{show.title}}</h1>
-</div>
 
 <!-- Show Map -->
-<section class="section">
-  <div id="map" style="height: 500px"></div>
-</section>
 
-<!-- Points Table -->
-<section class="ui raised segment">
-  {{> list-points}}
-</section>
+<div class="card mt-6 mb-6">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="fas fa-map-marker-alt"></i></span><span>Placemarks</span>
+    </p>
+  </header>
+  <div class="card-content">
+    <div id="map" style="height: 500px"></div>
+    {{> list-points }}
+  </div>
+  <!-- Points Table -->
 
-
+</div>
 {{else}}
 <!-- No Points Message -->
-<section>
-  <i class="lightbulb icon"></i>
-  <div class="content">
-    <div class="header">
-      No Placemarks for {{show.title}}
-    </div>
-    <p>You can create a Placemark by filling out the form below.</p>
-  </div>
-</section>
+{{> message title="No Placemarks" message="You can create a Placemark by filling out the form below."}}
+
 {{/if}}
+
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
+    </p>
+  </header>
+  <div class="card-content">
+        <div class="columns is-multiline">
+      <div class="column is-5">
+        {{> show-form formTitle="Edit Movie" formIcon="pencil" postUrl=postUrl btnTitle="Edit Movie"}}
+      </div>
+      <div class="column is-1"></div>
+      <div class="column is-5">
+        {{> point-form }}
+      </div>
+      <div class="column is-1"></div>
+      <div class="is-12">
+        <h2 class="subtitle">Options</h2>
+        <button onclick="deleteAllPoints()" class="button is-danger">
+          <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Placemarks</span>
+        </button>
+        <button class="button is-danger">
+          <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <section>
   <article class="panel is-primary">
     <p class="panel-heading">
@@ -47,7 +60,7 @@
       <div class="column is-4">
         <h2 class="subtitle">Set Show Image</h2>
         {{> image-upload-form}}
-        
+
       </div>
       <div class="column is-1"></div>
       <div class="column is-5">
@@ -68,43 +81,43 @@
 
   </article>
 
-<script>
-  const show = {{{ showJSON }}}
-  const points = show.points;
-  let latLngs = [];
+  <script>
+    const show = {{{ showJSON }}}
+    const points = show.points;
+    let latLngs = [];
 
-  function deleteAllPoints() {
-    const proceed = confirm(
-      "This will delete ALL Points for this Show. Are you sure you wish to proceed?");
-    // if user clicks confirm direct to delete all points endpoint
-    if (proceed) {
-      location.href = location.href += "/deleteallpoints";
+    function deleteAllPoints() {
+      const proceed = confirm(
+        "This will delete ALL Points for this Show. Are you sure you wish to proceed?");
+      // if user clicks confirm direct to delete all points endpoint
+      if (proceed) {
+        location.href = location.href += "/deleteallpoints";
+      }
     }
-  }
 
-  const zoomLevel = points.length > 1 ? 7 : 13
-  // set up points map
-  const map = L.map("map", {
-    dragging: true,
-    doubleClickZoom: false,
-    zoomControl: true,
-    scrollWheelZoom: true
-  }).setView([points[0].latitude, points[0].longitude], zoomLevel);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "© OpenStreetMap"
-  }).addTo(map);
+    const zoomLevel = points.length > 1 ? 7 : 13
+    // set up points map
+    const map = L.map("map", {
+      dragging: true,
+      doubleClickZoom: false,
+      zoomControl: true,
+      scrollWheelZoom: true
+    }).setView([points[0].latitude, points[0].longitude], zoomLevel);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "© OpenStreetMap"
+    }).addTo(map);
 
-  points.forEach((point) => {
-    latLngs.push(L.latLng(point.latitude, point.longitude));
-    let marker = L.marker([point.latitude, point.longitude]).addTo(map);
-    const markerUrl = `/show/${show._id}/point/${point._id}`
-    marker.bindPopup(
-      "<b>" + point.name + "</b><br/><a href='" + markerUrl + "'>View</a>");
-  })
+    points.forEach((point) => {
+      latLngs.push(L.latLng(point.latitude, point.longitude));
+      let marker = L.marker([point.latitude, point.longitude]).addTo(map);
+      const markerUrl = `/show/${show._id}/point/${point._id}`
+      marker.bindPopup(
+        "<b>" + point.name + "</b><br/><a href='" + markerUrl + "'>View</a>");
+    })
 
-  if (points.length > 1) {
-    map.fitBounds(latLngs);
-  };
+    if (points.length > 1) {
+      map.fitBounds(latLngs);
+    };
 
-</script>
+  </script>

@@ -1,19 +1,19 @@
-<section class="section">
-    <div class="container">
-        <div class="column is-12">
-            <h1 class="title has-text-centered section-title">{{show.title}}</h1>
-            <br />
-        </div>
+{{>heading heading=show.title}}
+
+<div class="card">
+    <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="fas fa-info-circle"></i></span><span>Overview</span>
+    </p>
+  </header>
+    <div class="card-content">
         {{#if showExtraInfo}}
         <div class="columns is-multiline">
             <div class="column is-6 has-vertically-aligned-content">
-                <p class="is-larger">
+                <p class="is-larger mb-5">
                     <strong>{{showExtraInfo.tagline}}</strong>
                 </p>
-                <br />
-                <p>
-                    {{showExtraInfo.overview}}
-                </p>
+                <p>{{showExtraInfo.overview}}</p>
                 <br />
                 <div class="columns">
                     <div class="column">
@@ -87,4 +87,4 @@
         </div>
         {{/if}}
     </div>
-</section>
+</div>

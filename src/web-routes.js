@@ -27,6 +27,7 @@ export const webRoutes = [
     { method: "GET", path: "/account/deleteaccount", config: accountController.deleteAccount },
 
     { method: "GET", path: "/show/{id}", config: showController.index },
+    { method: "POST", path: "/show/{id}/update", config: showController.update },
     { method: "POST", path: "/show/{id}/addpoint", config: showController.addPoint },
     { method: "GET", path: "/show/{id}/deletepoint/{pointId}", config: showController.deletePoint },
     { method: "GET", path: "/show/{id}/deleteallpoints", config: showController.deleteAllPoints },

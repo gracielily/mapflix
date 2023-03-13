@@ -1,12 +1,12 @@
-<div class="card mt-6" id="createMovie">
+<div class="card mt-6" id="movieForm">
   <header class="card-header">
     <p class="card-header-title">
-      <span class="icon"><i class="fas fa-plus"></i></span><span>Create Movie</span>
+      <span class="icon"><i class="fas fa-{{formIcon}}"></i></span><span>{{formTitle}}</span>
     </p>
   </header>
   <div class="card-content">
     {{> errormsg }}
-    <form action="/dashboard/addshow" method="POST">
+    <form action="{{postUrl}}" method="POST">
 
       <div class="field is-horizontal mb-4">
         <div class="field-body">
@@ -22,7 +22,7 @@
           <div class="field">
             <label class="label">IMDB ID</label>
             <div class="control has-icons-left">
-              <input class="input" type="text" placeholder="Enter IMBD ID (tt.....)" name="imdbId" value="{{values.imdbID}}">
+              <input class="input" type="text" placeholder="Enter IMBD ID (tt.....)" name="imdbId" value="{{values.imdbId}}">
               <span class="icon is-small is-left">
                 <i class="fa fa-clapperboard"></i>
               </span>
@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <button class="button is-success is-fullwidth">Create Movie</button>
+      <button class="button is-success is-fullwidth">{{btnTitle}}</button>
     </form>
   </div>
 </div>

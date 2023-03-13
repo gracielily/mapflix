@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="column is-4">
-                <a class="button is-success mr-1" href="#createMovie">
+                <a class="button is-success mr-1" href="#movieForm">
                     <span class="icon"><i class="fas fa-plus"></i></span><span>Create Movie</span>
                 </a>
                 {{#if shows}}
@@ -52,7 +52,7 @@
             "This will delete ALL of your movies and their associated points. Are you sure you wish to proceed?");
         // if user clicks confirm direct to delete all shows endpoint
         if (proceed) {
-            // remove prepending #createMovie and search term if present
+            // remove prepending #moviForm and search term if present
             location.href = location.href.split("#")[0].split('?')[0] += "/deleteallshows";
         }
     }
