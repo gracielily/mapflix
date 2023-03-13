@@ -20,7 +20,8 @@ export const showController = {
       contextData.showJSON = JSON.stringify(show)
       contextData.user = request.auth.credentials
       contextData.values = show
-      contextData.postUrl = `/show/${show._id}/update`
+      contextData.showPostUrl = `/show/${show._id}/update`
+      contextData.pointPostUrl = `/show/${show._id}/addpoint`
       const showExtraInfo = await getMovieData(show.imdbId);
       if(!showExtraInfo?.success === false) {
         contextData.errors = [{message: "could not retrieve movie details"}]

@@ -1,23 +1,126 @@
-<h1>Details for {{ point.name }} - {{ show.title }}</h1>
+{{> heading heading="Placemark Details"}}
 
-<a href="/show/{{show._id}}/deletepoint/{{point._id}}">
-<button class="button is-link is-danger">
- <span class="icon"><i class="fas fa-trash"></i> </span><span>Delete Point</span>
-</button>
-</a>
-{{#each point.images as | image|}}
-    {{image}}
-    <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}">
-<button class="button is-link is-danger">
- <span class="icon"><i class="fas fa-trash"></i> </span><span>Remove Image</span>
-</button>
-</a>
-{{/each}}
-<a href="/show/{{show._id}}/point/{{point._id}}/deleteallimages">
-<button class="button is-link is-danger">
- <span class="icon"><i class="fas fa-fire"></i> </span><span>Clear Images</span>
-</button>
-</a>
-{{> image-upload-form }}
+<div class="card mb-6">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-info-circle"></i></span><span>Overview</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <div class="columns is-multiline">
+            <div class="column is-6 left-image">
+                <img class="is-rounded"
+                    src="{{#if point.images }}{{point.images.[0]}}{{else}}/img/placeholder-image.jpg{{/if}}"
+                    alt="Show image" />
+            </div>
+            <div class="column is-6 has-vertically-aligned-content">
+                <p class="is-larger mb-5 title">
+                    <strong>{{point.name}}</strong>
+                </p>
+                <p>{{point.description}}</p>
+                <br />
+                <div class="columns">
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Movie Filmed Here</strong>
+                        </p>
+                        <p class="subheading">
+                            {{show.title}}
+                        </p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Location</strong>
+                        </p>
+                        <p class="subheading">
+                            {{toFixed point.latitude 2}}, {{toFixed point.longitude 2}}
+                        </p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Facilities</strong>
+                        </p>
+                        <p class="subheading">
+                            {{#if point.publicTransport}}<span class="icon"><i class="fas fa-bus"></i></span>{{/if}}
+                            {{#if point.wheelchairAccessible}}<span class="icon"><i
+                                    class="fas fa-wheelchair"></i></span>{{/if}}
+                            {{#if point.facilitiesAvailable}}<span class="icon"><i
+                                    class="fas fa-restroom"></i></span>{{/if}}
+                        </p>
+                    </div>
 
-{{> edit-point-form }}
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Weather</strong>
+                        </p>
+                        <p class="subheading">
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-image"></i></span><span>Images</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <div class="columns is-multiline">
+        {{#each point.images as | image|}}
+        <div class="tile is-parent column is-4">
+            <article class="tile is-child box">
+                <figure class="image">
+                    <img
+                        src="{{image}}">
+                </figure>
+                {{#unless @first}}
+                <a href="/show/{{../show._id}}/point/{{../point._id}}/setcoverimage/{{@index}}" class="button"><span
+                        class="icon"><i class="fas fa-thumbtack"></i> </span><span>Set Cover Image</span></a>
+                {{/unless}}
+                <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button"><span
+                        class="icon"><i class="fas fa-trash"></i> </span><span>Delete</span></a>
+            </article>
+        </div>
+        {{/each}}
+        </div>
+    </div>
+</div>
+<div class="card mt-6">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                {{> point-form formTitle="Edit Placemark" formIcon="pencil" postUrl=showPostUrl btnTitle="Edit
+                Placemark"}}
+                {{> image-upload-form heading="Upload Image"}}
+            </div>
+            <div class="column is-12 pb-6">
+                <a href="/show/{{show._id}}/deletepoint/{{point._id}}">
+                    <button class="button is-link is-danger is-pulled-right mr-3">
+                        <span class="icon"><i class="fas fa-trash"></i> </span><span>Delete Placemark</span>
+                    </button>
+                </a>
+                {{#if point.images}}
+                <a href="/show/{{show._id}}/point/{{point._id}}/deleteallimages">
+                    <button class="button is-link is-danger is-pulled-right mr-3">
+                        <span class="icon"><i class="fas fa-fire"></i> </span><span>Clear Images</span>
+                    </button>
+                </a>
+                {{/if}}
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,6 @@
+
 {{> show-overview }}
 {{#if show.points}}
-
-<!-- Show Map -->
-
 <div class="card mt-6 mb-6">
   <header class="card-header">
     <p class="card-header-title">
@@ -18,68 +16,40 @@
 </div>
 {{else}}
 <!-- No Points Message -->
-{{> message title="No Placemarks" message="You can create a Placemark by filling out the form below."}}
+{{> message title="No Placemarks" message="You can create a Placemark by filling out the Placemark form below."}}
 
 {{/if}}
 
-<div class="card">
+<div class="card mt-6">
   <header class="card-header">
     <p class="card-header-title">
       <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
     </p>
   </header>
   <div class="card-content">
-        <div class="columns is-multiline">
+    <div class="columns is-multiline">
       <div class="column is-5">
-        {{> show-form formTitle="Edit Movie" formIcon="pencil" postUrl=postUrl btnTitle="Edit Movie"}}
-      </div>
-      <div class="column is-1"></div>
-      <div class="column is-5">
-        {{> point-form }}
-      </div>
-      <div class="column is-1"></div>
-      <div class="is-12">
-        <h2 class="subtitle">Options</h2>
-        <button onclick="deleteAllPoints()" class="button is-danger">
-          <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Placemarks</span>
-        </button>
-        <button class="button is-danger">
+        {{> show-form formTitle="Edit Movie" formIcon="pencil" postUrl=showPostUrl btnTitle="Edit Movie"}}
+        <br>
+        {{> image-upload-form heading="Set Show Image"}}
+        <br>
+        <button class="button is-danger is-pulled-right">
           <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
         </button>
+        {{#if show.points}}
+        <button onclick="deleteAllPoints()" class="button is-danger is-pulled-right mr-3">
+          <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Placemarks</span>
+        </button>
+        {{/if}}
       </div>
+      <div class="column is-1"></div>
+      <div class="column is-6">
+        {{> point-form formTitle="Add Placemark" formIcon="plus" postUrl=pointPostUrl btnTitle="Add Placemark"}}
+      </div>
+      <div class="column is-1"></div>
     </div>
   </div>
 </div>
-<section>
-  <article class="panel is-primary">
-    <p class="panel-heading">
-      Configure Show
-    </p>
-    <div class="panel-block columns is-multiline">
-      <div class="column is-1"></div>
-      <div class="column is-4">
-        <h2 class="subtitle">Set Show Image</h2>
-        {{> image-upload-form}}
-
-      </div>
-      <div class="column is-1"></div>
-      <div class="column is-5">
-        <h2 class="subtitle">Create New Placemark</h2>
-        {{> point-form }}
-      </div>
-      <div class="column is-1"></div>
-      <div class="is-12">
-        <h2 class="subtitle">Options</h2>
-        <button onclick="deleteAllPoints()" class="button is-danger">
-          <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Placemarks</span>
-        </button>
-        <button class="button is-danger">
-          <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
-        </button>
-      </div>
-    </div>
-
-  </article>
 
   <script>
     const show = {{{ showJSON }}}

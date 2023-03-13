@@ -1,6 +1,85 @@
-<form action="/show/{{show._id}}/addpoint" method="POST" id="createPointForm">
-    {{> point-form-common }}
-    <div class="field is-grouped">
-      <button class="button is-link">Add Point</button>
-    </div>
-</form>
+{{> errormsg }}
+<div class="card" id="pointForm">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="fas fa-{{formIcon}}"></i></span><span>{{formTitle}}</span>
+    </p>
+  </header>
+  <div class="card-content">
+    {{> errormsg }}
+    <form action="{{postUrl}}" method="POST">
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Name" name="name" value="{{values.name}}" />
+              <span class="icon is-small is-left">
+                <i class="fa fa-signs-post"></i>
+              </span>
+            </div>
+          </div>
+          <label class="label">Location</label>
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <div class="control has-icons-left">
+                  <input class="input" type="text" name="latitude" min="-85" max="85" placeholder="Latitude"
+                    step=".000000000000001" value="{{values.latitude}}" />
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-map-marker-alt"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="field">
+                <div class="control has-icons-left">
+                  <input class="input" type="text" name="longitude" min="-180" max="180" placeholder="Longitude"
+                    step=".000000000000001" value="{{values.longitude}}" />
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-map-marker-alt"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Description</label>
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Description" name="description"
+                value="{{values.description}}" />
+              <span class="icon is-small is-left">
+                <i class="fa fa-note-sticky"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="field">
+                <label class="checkbox">
+                  <input type="checkbox" name="publicTransport" value="true" {{#if
+                    values.publicTransport}}checked{{/if}}>
+                  <span class="icon"><i class="fas fa-bus"></i></span><span>Public Transport</span>
+                </label>
+              </div>
+              <div class="field">
+                <label class="checkbox">
+                  <input type="checkbox" name="wheelchairAccessible" value="true" {{#if
+                    values.wheelchairAccessible}}checked{{/if}}>
+                  <span class="icon"><i class="fas fa-wheelchair"></i></span><span>Wheelchair Friendly</span>
+                </label>
+              </div>
+              <div class="field">
+                <label class="checkbox">
+                  <input type="checkbox" name="facilitiesAvailable" value="true" {{#if
+                    values.facilitiesAvailable}}checked{{/if}}>
+                  <span class="icon"><i class="fas fa-restroom"></i></span><span>Facilities</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="button is-success is-fullwidth">{{btnTitle}}</button>
+    </form>
+  </div>
+</div>
