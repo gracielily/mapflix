@@ -3,31 +3,29 @@
 {{> show-overview }}
 {{> errormsg }}
 <!-- Point Form Nav Link -->
-<section class="section">
+{{!-- <section class="section">
   <a href="#createPointForm">
     <button class="button is-link">
       <i class="plus icon"></i>Add New Point
     </button>
   </a>
-</section>
+</section> --}}
 {{#if show.points}}
 <!-- Points List -->
 <div class="column is-12">
-  <h1 class="title has-text-centered section-title">Points for {{show.title}}</h1>
+  <h1 class="title has-text-centered section-title">Placemarks for {{show.title}}</h1>
 </div>
+
 <!-- Show Map -->
 <section class="section">
   <div id="map" style="height: 500px"></div>
 </section>
 
-<button onclick="deleteAllPoints()" class="button is-danger">
-  <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Points</span>
-</button>
-
 <!-- Points Table -->
 <section class="ui raised segment">
   {{> list-points}}
 </section>
+
 
 {{else}}
 <!-- No Points Message -->
@@ -35,18 +33,42 @@
   <i class="lightbulb icon"></i>
   <div class="content">
     <div class="header">
-      No Points for {{show.title}}
+      No Placemarks for {{show.title}}
     </div>
-    <p>You can create a Point by filling out the form below.</p>
+    <p>You can create a Placemark by filling out the form below.</p>
   </div>
 </section>
 {{/if}}
 <section>
-  {{> image-upload-form}}
-</section>
-<!-- Create New Point Form -->
-{{> point-form }}
-</section>
+  <article class="panel is-primary">
+    <p class="panel-heading">
+      Configure Show
+    </p>
+    <div class="panel-block columns is-multiline">
+      <div class="column is-1"></div>
+      <div class="column is-4">
+        <h2 class="subtitle">Set Show Image</h2>
+        {{> image-upload-form}}
+        
+      </div>
+      <div class="column is-1"></div>
+      <div class="column is-5">
+        <h2 class="subtitle">Create New Placemark</h2>
+        {{> point-form }}
+      </div>
+      <div class="column is-1"></div>
+      <div class="is-12">
+        <h2 class="subtitle">Options</h2>
+        <button onclick="deleteAllPoints()" class="button is-danger">
+          <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Placemarks</span>
+        </button>
+        <button class="button is-danger">
+          <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
+        </button>
+      </div>
+    </div>
+
+  </article>
 
 <script>
   const show = {{{ showJSON }}}
@@ -78,7 +100,6 @@
   points.forEach((point) => {
     latLngs.push(L.latLng(point.latitude, point.longitude));
     let marker = L.marker([point.latitude, point.longitude]).addTo(map);
-    // TODO: add URL
     const markerUrl = `/show/${show._id}/point/${point._id}`
     marker.bindPopup(
       "<b>" + point.name + "</b><br/><a href='" + markerUrl + "'>View</a>");
