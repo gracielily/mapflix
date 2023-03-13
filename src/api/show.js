@@ -98,7 +98,9 @@ export const showApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.showStore.deleteAll();

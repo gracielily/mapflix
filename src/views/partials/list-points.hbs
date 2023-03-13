@@ -1,36 +1,68 @@
 <table class="table is-fullwidth">
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th></th>
-      <th></th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Features</th>
+      <th>Options</th>
     </tr>
   </thead>
   <tbody>
     {{#each show.points}}
-      <tr>
-        <td>
-          {{name}}
-        </td>
-        <td>
-          {{latitude}}
-        </td>
-        <td>
-          {{longitude}}
-        </td>
-        <td>
-          <a href="/show/{{../show._id}}/point/{{_id}}" class="ui icon button">
-            <i class="fas fa-edit"></i>
-          </a>
-        </td>
-        <td>
-          <a href="/show/{{../show._id}}/deletepoint/{{_id}}" class="ui icon button">
-            <i class="fas fa-trash"></i>
-          </a>
-        </td>
-      </tr>
+    <tr>
+      <td>
+        <figure class="image">
+          <img src="{{#if images}}{{images.[0]}}{{else}}/img/placeholder-image.jpg{{/if}}" style="width:200px">
+        </figure>
+      </td>
+      <td>
+        {{name}}
+      </td>
+      <td>{{description}}</td>
+      <td>
+        {{toFixed latitude 2}}, {{toFixed longitude 2}}
+      </td>
+      <td>
+        {{#if publicTransport}}<span class="icon"><i class="fas fa-bus"></i></span>{{/if}}
+        {{#if wheelchairAccessible}}<span class="icon"><i class="fas fa-wheelchair"></i></span>{{/if}}
+        {{#if facilitiesAvailable}}<span class="icon"><i class="fas fa-restroom"></i></span>{{/if}}
+      </td>
+      <td>
+        <a href="/show/{{../show._id}}/point/{{_id}}" class="ui icon button">
+          <i class="fas fa-eye"></i>
+        </a>
+        <a href="/show/{{../show._id}}/deletepoint/{{_id}}" class="ui icon button">
+          <i class="fas fa-trash"></i>
+        </a>
+      </td>
+    </tr>
     {{/each}}
   </tbody>
 </table>
+
+{{!-- <section class="section">
+  <div class="container has-text-centered">
+
+    <div class="row columns is-multiline">
+      {{#each show.points}}
+      <div class="tile is-ancestor column is-3">
+        <div class="tile is-parent">
+          <article class="tile is-child box">
+            <figure class="image">
+              <img src="{{#if images}}{{images.[0]}}{{else}}/img/placeholder-image.jpg{{/if}}">
+            </figure>
+            <p class="title">{{name}}</p>
+            <p class="subtitle"><span class="icon"><i class="fas fa-map"></i></span><span>{{latitude}},
+                {{longitude}}</span></p>
+            <a class="button">Edit</a>
+            <a class="button">Delete</a>
+          </article>
+        </div>
+      </div>
+      {{/each}}
+
+    </div>
+  </div>
+</section> --}}

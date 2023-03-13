@@ -17,7 +17,14 @@
 </section>
 
 <section class="section">
-    {{> account-form }}
+    {{> errormsg }}
+<form action="{{ postUrl }}" method="POST">
+    {{> user-details-fields}}
+    {{> user-credentials-fields}}
+    <div class="field is-grouped">
+      <button class="button is-link">{{ submitBtnPhrase }}</button>
+    </div>
+</form>
 </section>
 
 <section class="section">

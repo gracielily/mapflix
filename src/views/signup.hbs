@@ -1,28 +1,28 @@
-<section class="section">
-  <h1 class="title">Sign up</h1>
-  {{> errormsg }}
-  <form action="/register" method="POST">
-    <label class="label">Name</label>
-    <div class="field is-horizontal">
-      <div class="field-body">
-        <div class="field">
-          <input class="input" type="text" placeholder="First Name" name="firstName" />
+<section class="hero is-fullheight is-default is-bold">
+  <div class="hero-head">
+  </div>
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-5">
+          <h1 class="title has-text-centered">Signup to Mapflix</h1>
+          <div class="box">
+            {{> errormsg }}
+            <form action="/register" method="POST">
+              {{> user-details-fields}}
+              {{> user-credentials-fields }}
+              <button class="button is-success is-fullwidth">Create Account</button>
+              <br>
+              <p class="has-text-centered">Already have an account? <a href="/login">Login Here</a></p>
+            </form>
+          </div>
         </div>
-        <div class="field">
-          <input class="input" type="text" placeholder="Last Name" name="lastName" />
+        <div class="column is-6 is-offset-1">
+          <figure class="image is-4by3">
+            <img src="/img/movie-location-alt.jpg" style="object-fit: cover" />
+          </figure>
         </div>
       </div>
     </div>
-    <div class="field">
-      <label class="label">Email</label>
-      <input class="input" type="text" placeholder="Email Address" name="email" />
-    </div>
-    <div class="field">
-      <label class="label">Password</label>
-      <input class="input" type="password" placeholder="Password" name="password" />
-    </div>
-    <div class="field is-grouped">
-      <button class="button is-link">Submit</button>
-    </div>
-  </form>
+  </div>
 </section>

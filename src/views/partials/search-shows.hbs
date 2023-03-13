@@ -1,13 +1,23 @@
-<div class="field has-addons">
-    <div class="control">
-        <input class="input" type="text" placeholder="Find a show" id="searchTerm" onkeydown="if(event.keyCode == 13) searchMovies()">
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input" type="text" placeholder="Find a show" id="searchTerm"
+                        onkeydown="if(event.keyCode == 13) searchMovies()">
+                    <span class="icon is-medium is-left">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    </div>
+                    <div class="control">
+                        <a class="button is-info" onclick="searchMovies()">
+                            Search
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="control">
-        <a class="button is-info" onclick="searchMovies()">
-            Search
-        </a>
-    </div>
-</div>
 
 <script>
     function searchMovies() {

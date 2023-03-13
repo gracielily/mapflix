@@ -11,20 +11,33 @@
    display: flex;
    gap: 6px;
    flex-direction: row;
-   justify-content: flex-start;
+   justify-content: center;
    padding:6px
 }
 </style>
 {{> menu }}
 <section class="section">
-    <h1>Welcome to MapFlix</h1>
+    <section class="hero is-link is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Welcome back, {{user.firstName}}.
+                </h1>
+                <h2 class="subtitle">
+                    Manage your Shows and Points below.
+                </h2>
+            </div>
+        </div>
+    </section>
     <section class="section">
         {{#if shows}}
             <a class="button is-danger" href="/dashboard/deleteallshows">
                 Delete All Shows
             </a>
             {{> search-shows }}
+            <div class="box">
             {{> list-shows }}
+            </div>
         {{else}}
             {{#if noShowsMessage}}
                 <p>{{noShowsMessage}}</p>
