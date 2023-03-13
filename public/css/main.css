@@ -1,0 +1,20 @@
+body {
+    background: #E4E9F2;
+    min-height: 100vh;
+}
+
+.dashboard .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dashboard .card-footer {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 6px
+}

@@ -10,7 +10,8 @@ export const dashboardController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       contextData.user = loggedInUser
-
+      contextData.noShowsMessage = ""
+      
       if(request.query.search){
         const searchTerm = request.query.search
         const filteredShows = await db.showStore.searchByUserAndTitle(loggedInUser._id, searchTerm)
@@ -38,6 +39,10 @@ export const dashboardController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error.details;
+        errorContextData.values = {
+          title: request.payload.title,
+          imdbId: request.payload.imdbId
+        }
         return h.view("dashboard", errorContextData).takeover().code(400);
       },
     },

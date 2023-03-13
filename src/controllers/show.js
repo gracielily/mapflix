@@ -18,6 +18,7 @@ export const showController = {
       contextData.show = show
       contextData.imagePostUrl = `/show/${show._id}/uploadimage`;
       contextData.showJSON = JSON.stringify(show)
+      contextData.user = request.auth.credentials
       const showExtraInfo = await getMovieData(show.imdbId);
       if(!showExtraInfo?.success === false) {
         contextData.errors = [{message: "could not retrieve movie details"}]
