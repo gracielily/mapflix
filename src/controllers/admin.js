@@ -40,7 +40,7 @@ export const adminController = {
             const userStats = await getStats(filteredUsers);
             contextData = {
                 title: "Mapflix Admin",
-                admin: loggedInAdmin,
+                user: loggedInAdmin,
                 users: filteredUsers,
                 shows: allShows,
                 points: allPoints,

@@ -1,51 +1,24 @@
-<style>
-.card {
-   display: flex;
-   flex-direction: column;
-   height: 100%;
-}
-
-.card-footer {
-   margin-top: auto;
-   width:100%;
-   display: flex;
-   gap: 6px;
-   flex-direction: row;
-   justify-content: center;
-   padding:6px
-}
-</style>
-{{> menu }}
-<section class="section">
-    <section class="hero is-link is-small">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Welcome back, {{user.firstName}}.
-                </h1>
-                <h2 class="subtitle">
-                    Manage your Shows and Points below.
-                </h2>
-            </div>
+<section class="hero is-link is-small mt-6">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title has-text-centered">
+                Dashboard
+            </h1>
         </div>
-    </section>
-    <section class="section">
-        {{#if shows}}
-            <a class="button is-danger" href="/dashboard/deleteallshows">
-                Delete All Shows
-            </a>
+    </div>
+</section>
+
+<section class="dashboard mt-6 pb-6">
+    {{#if shows}}
+        {{> search-shows }}
+        {{> list-shows }}
+    {{else}}
+        {{#if noShowsMessage}}
             {{> search-shows }}
-            <div class="box">
-            {{> list-shows }}
-            </div>
+            {{> message title="No Search Results" message=noShowsMessage}}
         {{else}}
-            {{#if noShowsMessage}}
-                <p>{{noShowsMessage}}</p>
-                {{> search-shows }}
-            {{else}}
-                <p>You have no shows. Add one using the form below.</p>
-            {{/if}}
+            {{> message title="No Movies" message="You currently have no movies, you can create one by using the form below."}}
         {{/if}}
-        {{> add-show }}
-    </section>
+    {{/if}}
+    {{> add-show }}
 </section>

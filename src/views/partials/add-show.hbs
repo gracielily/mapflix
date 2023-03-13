@@ -1,12 +1,36 @@
-{{> errormsg }}
-<form action="/dashboard/addshow" method="POST">
-    <div class="field">
-      <label class="label">Show Title</label>
-      <input class="input" type="text" placeholder="Enter show title" name="title">
-    </div>
-    <div class="field">
-      <label class="label">Show IMDB ID</label>
-      <input class="input" type="text" placeholder="Enter imdb id (tt123456)" name="imdbId">
-    </div>
-    <button class="button is-link">Create Show</button>
-  </form>
+<div class="card mt-6" id="createMovie">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="fas fa-plus"></i></span><span>Create Movie</span>
+    </p>
+  </header>
+  <div class="card-content">
+    {{> errormsg }}
+    <form action="/dashboard/addshow" method="POST">
+
+      <div class="field is-horizontal mb-4">
+        <div class="field-body">
+          <div class="field">
+            <label class="label">Title</label>
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Enter movie title" name="title" value="{{values.title}}">
+              <span class="icon is-small is-left">
+                <i class="fa fa-film"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">IMDB ID</label>
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Enter IMBD ID (tt.....)" name="imdbId" value="{{values.imdbID}}">
+              <span class="icon is-small is-left">
+                <i class="fa fa-clapperboard"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="button is-success is-fullwidth">Create Movie</button>
+    </form>
+  </div>
+</div>

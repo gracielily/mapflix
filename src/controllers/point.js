@@ -20,6 +20,8 @@ export const pointController = {
       ]
       contextData.show = show;
       contextData.point = point;
+      contextData.user = request.auth.credentials
+      console.log("USER", contextData.user)
       // pre-populate form data
       contextData.values = point;
       contextData.imagePostUrl = `/show/${show._id}/point/${point._id}/uploadimage`;
