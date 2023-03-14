@@ -28,7 +28,6 @@ export const pointController = {
       contextData.imagePostUrl = `/show/${show._id}/point/${point._id}/uploadimage`;
 
       // get weather data
-      console.log("getting weather...")
       const weatherData = await getWeatherData(point);
       if(!weatherData?.label) {
         contextData.weather = {error: "No weather data available."}
