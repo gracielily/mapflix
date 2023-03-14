@@ -5,10 +5,6 @@ import { getImagePublicId, getMovieData, IMAGE_PAYLOAD } from "./utils.js";
 
 const contextData = {
     pageTitle: "Show Details",
-    navBreadcrumbs: [
-      { title: "Dashboard", link: "/dashboard" },
-      { title: "Show Details" }
-    ]
   };
 
 export const showController = {
@@ -16,6 +12,10 @@ export const showController = {
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
       contextData.show = show
+      contextData.navBreadcrumbs = [
+        { title: "Dashboard", link: "/dashboard" },
+        { title: show.title},
+      ]
       contextData.imagePostUrl = `/show/${show._id}/uploadimage`;
       contextData.showJSON = JSON.stringify(show)
       contextData.user = request.auth.credentials
@@ -23,9 +23,11 @@ export const showController = {
       contextData.showPostUrl = `/show/${show._id}/update`
       contextData.pointPostUrl = `/show/${show._id}/addpoint`
       const showExtraInfo = await getMovieData(show.imdbId);
-      if(!showExtraInfo?.success === false) {
+      if(showExtraInfo?.success === false) {
+        contextData.hideOverview = true;
         contextData.errors = [{message: "could not retrieve movie details"}]
       } else {
+        contextData.hideOverview = false;
         contextData.showExtraInfo = showExtraInfo
       }
       return h.view("show", contextData);

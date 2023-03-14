@@ -15,14 +15,12 @@ export const IMAGE_PAYLOAD = {
 };
 
 export async function getMovieData(imdbId) {
-    let res = {}
     try {
-        res = await axios.get(`https://api.themoviedb.org/3/movie/${imdbId}?api_key=${process.env.TMDB_API_KEY}`);
+        const res = await axios.get(`https://api.themoviedb.org/3/movie/${imdbId}?api_key=${process.env.TMDB_API_KEY}`);
         return res.data;
     } catch (error) {
-        console.log(error)
+        return error.response.data;
     }
-    return res
 };
 
 

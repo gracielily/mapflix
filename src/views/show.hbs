@@ -1,7 +1,12 @@
 
+{{> breadcrumbs}}
+{{>heading heading=show.title}}
+
 <div class="mt-6">
   {{> errormsg }}
 </div>
+
+
 {{> show-overview }}
 {{#if show.points}}
 <div class="card mt-6 mb-6">
@@ -11,7 +16,7 @@
     </p>
   </header>
   <div class="card-content">
-    <div id="map" style="height: 500px"></div>
+    <div id="map"></div>
     {{> list-points }}
   </div>
   <!-- Points Table -->
@@ -19,8 +24,9 @@
 </div>
 {{else}}
 <!-- No Points Message -->
-{{> message title="No Placemarks" message="You can create a Placemark by filling out the Placemark form below."}}
-
+<div class="mt-6">
+  {{> message title="No Placemarks" message="You can create a Placemark by filling out the Placemark form below."}}
+</div>
 {{/if}}
 
 <div class="card mt-6">

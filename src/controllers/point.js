@@ -15,8 +15,8 @@ export const pointController = {
       const point = await db.pointStore.getById(request.params.pointId);
       contextData.navBreadcrumbs = [
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Show Details", link: `/show/${show.id}` },
-        { title: "Point Details" }
+        { title: show.title, link: `/show/${show._id}` },
+        { title: point.name }
       ]
       contextData.show = show;
       contextData.point = point;
@@ -28,7 +28,6 @@ export const pointController = {
       contextData.imagePostUrl = `/show/${show._id}/point/${point._id}/uploadimage`;
 
       // get weather data
-      console.log("getting weather...")
       const weatherData = await getWeatherData(point);
       if(!weatherData?.label) {
         contextData.weather = {error: "No weather data available."}
