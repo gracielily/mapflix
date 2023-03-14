@@ -1,6 +1,7 @@
 {{> heading heading="Dashboard"}}
 
 <section class="dashboard mt-6 pb-6">
+    {{> errormsg}}
     {{#if shows}}
         {{> search-shows }}
         {{> list-shows }}
@@ -13,6 +14,6 @@
         {{/if}}
     {{/if}}
     <div class="mt-6">
-    {{> show-form formTitle="Create Movie" formIcon="plus" postUrl="dashboard/addshow" btnTitle="Create Movie"}}
+    {{> show-form formTitle="Create Movie" formIcon="plus" postUrl="/dashboard/addshow" btnTitle="Create Movie"}}
     </div>
 </section>

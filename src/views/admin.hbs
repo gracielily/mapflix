@@ -1,7 +1,7 @@
-<div class="container">
+
     {{> heading heading="Admin"}}
 
-    <section class="hero is-primary is-small">
+    <section class="hero is-primary is-small mb-4">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
@@ -13,24 +13,27 @@
             </div>
         </div>
     </section>
-    <section class="info-tiles">
+    <section class="info-tiles mb-3">
         <div class="tile is-ancestor has-text-centered">
             <div class="tile is-parent">
                 <article class="tile is-child box">
+                    <p><span class="icon"><i class="fas fa-user"></i></span></p>
                     <p class="title">{{users.length}}</p>
                     <p class="subtitle">Users</p>
                 </article>
             </div>
             <div class="tile is-parent">
                 <article class="tile is-child box">
+                    <p><span class="ic"><i class="fas fa-film"></i></span></p>
                     <p class="title">{{shows.length}}</p>
-                    <p class="subtitle">Shows</p>
+                    <p class="subtitle">Movies</p>
                 </article>
             </div>
             <div class="tile is-parent">
                 <article class="tile is-child box">
+                    <p><span class="icon"><i class="fas fa-map-marker-alt"></i></span></p>
                     <p class="title">{{points.length}}</p>
-                    <p class="subtitle">Points</p>
+                    <p class="subtitle">Placemarks</p>
                 </article>
             </div>
 
@@ -50,6 +53,8 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Date Joined</th>
                                     <th>Is Admin</th>
                                     <th>Shows Created</th>
                                     <th>Points Created</th>
@@ -60,6 +65,8 @@
                                 {{#each users as | user i|}}
                                 <tr>
                                     <td>{{lastName}}, {{firstName}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{dateJoined}}</td>
                                     <td><span class="icon">
                                             {{#if isAdmin}}
                                             <i class="fas fa-check-circle has-text-success"></i>
@@ -81,7 +88,7 @@
                                         </a>
                                         {{else}}
                                         <a href="/admin/users/{{_id}}/toggleadmin">
-                                            <button class="button is-small is-warning">
+                                            <button class="button is-small is-warning mr-3">
                                                 <span class="icon"><i class="fas fa-user"></i></span><span>{{#if
                                                     isAdmin}}Disable Admin{{else}}Enable Admin{{/if}}</span>
                                             </button>
@@ -106,4 +113,3 @@
             </div>
         </div>
     </div>
-</div>

@@ -1,4 +1,7 @@
 
+<div class="mt-6">
+  {{> errormsg }}
+</div>
 {{> show-overview }}
 {{#if show.points}}
 <div class="card mt-6 mb-6">
@@ -33,9 +36,11 @@
         <br>
         {{> image-upload-form heading="Set Show Image"}}
         <br>
-        <button class="button is-danger is-pulled-right">
-          <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
-        </button>
+        <a href="/show/{{show._id}}/delete">
+          <button class="button is-danger is-pulled-right">
+            <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
+          </button>
+        </a>
         {{#if show.points}}
         <button onclick="deleteAllPoints()" class="button is-danger is-pulled-right mr-3">
           <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Placemarks</span>
