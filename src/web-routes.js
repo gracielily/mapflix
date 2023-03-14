@@ -38,6 +38,7 @@ export const webRoutes = [
     { method: "POST", path: "/show/{id}/point/{pointId}/uploadimage", config: pointController.uploadImage },
     { method: "GET", path: "/show/{id}/point/{pointId}/deleteimage/{imageIndex}", config: pointController.deleteImage },
     { method: "GET", path: "/show/{id}/point/{pointId}/deleteallimages", config: pointController.deleteAllImages },
+    { method: "GET", path: "/show/{id}/point/{pointId}/setcoverimage/{imageIndex}", config: pointController.setCoverImage },
 
 
     // home page

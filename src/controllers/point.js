@@ -87,7 +87,7 @@ export const pointController = {
       } catch (error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = [{ message: "The image could not be deleted." }];
-        return h.view("show", errorContextData);
+        return h.view("point", errorContextData);
       }
     },
   },
@@ -110,7 +110,26 @@ export const pointController = {
       } catch (error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = [{ message: "The images could not be deleted." }];
-        return h.view("show", errorContextData);
+        return h.view("point", errorContextData);
+      }
+    },
+  },
+
+  setCoverImage: {
+    handler: async function (request, h) {
+      try {
+        const point = await db.pointStore.getById(request.params.pointId);
+        // re-order images
+        const updatedPoint = { ...point }
+        const {imageIndex} = request.params;
+        updatedPoint.images.unshift(updatedPoint.images.splice(imageIndex, 1)[0])
+        // update point
+        await db.pointStore.update(point, updatedPoint);
+        return h.redirect(`/show/${request.params.id}/point/${point._id}`);
+      } catch (error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = [{ message: "The cover image could not be set." }];
+        return h.view("point", errorContextData);
       }
     },
   }
