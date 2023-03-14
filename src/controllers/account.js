@@ -25,14 +25,15 @@ export const accountController = {
       payload: UserBaseSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("login", { title: "Login Error", errors: error.details }).takeover().code(400);
+
+        return h.view("login", {values: request.payload, errors: error.details}).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
       if (!user || user.password !== password) {
-        return h.view("login", { title: "Login Error", errors: [{ message: "Invalid Credentials" }] }).takeover().code(400);
+        return h.view("login", {values: request.payload, errors: [{ message: "Invalid Credentials" }]}).takeover().code(400);
       }
       request.cookieAuth.set({ id: user._id });
       if (user.isAdmin) {
@@ -66,7 +67,11 @@ export const accountController = {
       payload: UserSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("signup", { title: "Registration Error", errors: error.details }).takeover().code(400);
+        const errorContextData = {
+          values: request.payload,
+          errors: error.details
+        }
+        return h.view("signup", errorContextData).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -81,6 +86,7 @@ export const accountController = {
       editUserContextData.user = loggedInUser;
       editUserContextData.postUrl = "/account/savedetails";
       editUserContextData.submitBtnPhrase = "Save Details";
+      editUserContextData.values = loggedInUser;
       return h.view("account", editUserContextData);
     },
   },
@@ -89,8 +95,9 @@ export const accountController = {
       payload: UserSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        const errorContextData = { ...contextData };
+        const errorContextData = { ...editUserContextData };
         errorContextData.errors = error.details;
+        errorContextData.values = request.payload;
         return h.view("account", errorContextData).takeover().code(400);
       },
     },
