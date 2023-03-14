@@ -1,5 +1,6 @@
 
-<h1>Account Details for {{ user.firstName }} {{ user.lastName }}</h1>
+{{> heading heading="Account Details"}}
+
 {{#if user.avatar}}
 <section>
     <figure class="image is-128x128">
@@ -12,9 +13,9 @@
     </a>
 </section>
 {{/if}}
-<section class="section">
-    {{> image-upload-form }}
-</section>
+
+{{> image-upload-form heading="Set Avatar" }}
+
 
 <section class="section">
     {{> errormsg }}

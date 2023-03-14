@@ -10,6 +10,7 @@ export const UserBaseSpec = Joi.object().keys({
 export const UserSpec = UserBaseSpec.keys({
   firstName: Joi.string().required().example("Jane"),
   lastName: Joi.string().required().example("Doe"),
+  avatar: Joi.string(),
 }).label("User Details");
 
 export const UserSpecExtra = UserSpec.keys({

@@ -1,20 +1,29 @@
-<form action="{{imagePostUrl}}" method="POST" enctype="multipart/form-data">
-        <div id="file-select" class="file has-name is-fullwidth">
-            <label class="file-label"> <input class="file-input" name="imagefile" type="file" name="resume"
-                    accept="image/png, image/jpeg">
-                <span class="file-cta">
-                    <span class="file-icon">
-                        <i class="fas fa-upload"></i>
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-image"></i></span><span>{{heading}}</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <form action="{{imagePostUrl}}" method="POST" enctype="multipart/form-data">
+            <div id="file-select" class="file has-name is-fullwidth">
+                <label class="file-label"> <input class="file-input" name="imagefile" type="file" name="resume"
+                        accept="image/png, image/jpeg">
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                            Choose a file…
+                        </span>
                     </span>
-                    <span class="file-label">
-                        Choose a file…
-                    </span>
-                </span>
-                <span class="file-name"></span>
-            </label>
-            <button type="submit" class="button is-info">Upload</button>
-        </div>
-    </form>
+                    <span class="file-name"></span>
+                </label>
+                <button type="submit" class="button is-success">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <script>
     const fileInput = document.querySelector(".file-input");

@@ -1,12 +1,4 @@
-<section class="hero is-link is-small mt-6">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title has-text-centered">
-                Dashboard
-            </h1>
-        </div>
-    </div>
-</section>
+{{> heading heading="Dashboard"}}
 
 <section class="dashboard mt-6 pb-6">
     {{#if shows}}
@@ -20,5 +12,7 @@
             {{> message title="No Movies" message="You currently have no movies, you can create one by using the form below."}}
         {{/if}}
     {{/if}}
+    <div class="mt-6">
     {{> show-form formTitle="Create Movie" formIcon="plus" postUrl="dashboard/addshow" btnTitle="Create Movie"}}
+    </div>
 </section>
