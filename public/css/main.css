@@ -18,3 +18,27 @@ body {
     justify-content: center;
     padding: 6px
 }
+
+#map {
+    height: 450px;
+}
+
+.object-fit {
+    object-fit: cover;
+}
+
+.search {
+    width: 100%;
+}
+
+.show-card-opts {
+    margin-top: 6px;
+    margin-right: 15px;
+}
+.show-image {
+    height: 220px !important;
+}
+
+.point-image {
+    width: 200px;
+}
