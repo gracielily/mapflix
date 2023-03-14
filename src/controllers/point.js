@@ -20,9 +20,9 @@ export const pointController = {
       ]
       contextData.show = show;
       contextData.point = point;
-      contextData.pointJSON = JSON.stringify(point)
-      contextData.user = request.auth.credentials
-      console.log("USER", contextData.user)
+      contextData.pointJSON = JSON.stringify(point);
+      contextData.postUrl = `/show/${show._id}/point/${point._id}/update`;
+      contextData.user = request.auth.credentials;
       // pre-populate form data
       contextData.values = point;
       contextData.imagePostUrl = `/show/${show._id}/point/${point._id}/uploadimage`;
@@ -54,7 +54,7 @@ export const pointController = {
       const point = await db.pointStore.getById(request.params.pointId);
       const newPoint = request.payload;
       await db.pointStore.update(point, newPoint);
-      return h.redirect(`/show/${request.params.id}`);
+      return h.redirect(`/show/${request.params.id}/point/${request.params.pointId}`);
     },
   },
 

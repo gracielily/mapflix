@@ -27,7 +27,6 @@ export const dashboardController = {
         };
         contextData.shows = userShows;
       }
-
       return h.view("dashboard", contextData);
     },
   },

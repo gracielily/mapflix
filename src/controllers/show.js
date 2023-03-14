@@ -60,7 +60,7 @@ export const showController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error.details;
-        errorContextData.values = request.payload
+        errorContextData.values = {...contextData.values, ...request.payload};
         return h.view("show", errorContextData).takeover().code(400);
       },
     },
