@@ -20,6 +20,7 @@ export const pointController = {
       ]
       contextData.show = show;
       contextData.point = point;
+      contextData.pointJSON = JSON.stringify(point)
       contextData.user = request.auth.credentials
       console.log("USER", contextData.user)
       // pre-populate form data

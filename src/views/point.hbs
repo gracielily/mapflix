@@ -1,5 +1,6 @@
 {{> heading heading="Placemark Details"}}
 
+<!-- Placemark Overview -->
 <div class="card mb-6">
     <header class="card-header">
         <p class="card-header-title">
@@ -48,9 +49,7 @@
                                     class="fas fa-restroom"></i></span>{{/if}}
                         </p>
                     </div>
-
                 </div>
-
                 <div class="columns">
                     <div class="column">
                         <p class="heading">
@@ -58,19 +57,19 @@
                         </p>
                         <p class="subheading">
                             {{#if weather.error}}
-                                {{weather.error}}
+                            {{weather.error}}
                             {{else}}
-                                {{weather.label }}, {{weather.temperature}}ºC
+                            {{weather.label }}, {{weather.temperature}}ºC
                             {{/if}}
                         </p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
+<!-- Placemark Images -->
 {{#if point.images}}
 <div class="card">
     <header class="card-header">
@@ -80,27 +79,39 @@
     </header>
     <div class="card-content">
         <div class="columns is-multiline">
-        {{#each point.images as | image|}}
-        <div class="tile is-parent column is-4">
-            <article class="tile is-child box">
-                <figure class="image">
-                    <img
-                        src="{{image}}">
-                </figure>
-                {{#unless @first}}
-                <a href="/show/{{../show._id}}/point/{{../point._id}}/setcoverimage/{{@index}}" class="button"><span
-                        class="icon"><i class="fas fa-thumbtack"></i> </span><span>Set Cover Image</span></a>
-                {{/unless}}
-                <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button"><span
-                        class="icon"><i class="fas fa-trash"></i> </span><span>Delete</span></a>
-            </article>
-        </div>
-        {{/each}}
+            {{#each point.images as | image|}}
+            <div class="tile is-parent column is-4">
+                <article class="tile is-child box">
+                    <figure class="image">
+                        <img src="{{image}}">
+                    </figure>
+                    {{#unless @first}}
+                    <a href="/show/{{../show._id}}/point/{{../point._id}}/setcoverimage/{{@index}}" class="button"><span
+                            class="icon"><i class="fas fa-thumbtack"></i> </span><span>Set Cover Image</span></a>
+                    {{/unless}}
+                    <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button"><span
+                            class="icon"><i class="fas fa-trash"></i> </span><span>Delete</span></a>
+                </article>
+            </div>
+            {{/each}}
         </div>
     </div>
 </div>
 {{/if}}
 
+<!-- Placemark Map -->
+<div class="card mt-6">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-map"></i></span><span>Map</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <div id="map" style="height:350px"></div>
+    </div>
+</div>
+
+<!-- Configuration Panel -->
 <div class="card mt-6">
     <header class="card-header">
         <p class="card-header-title">
@@ -132,3 +143,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    const point = {{{ pointJSON }}}
+    // set up point map
+    const map = L.map("map", {
+        dragging: false,
+        doubleClickZoom: false,
+        zoomControl: false,
+        scrollWheelZoom: false
+    }).setView([point.latitude, point.longitude], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "© OpenStreetMap"
+    }).addTo(map);
+    const marker = L.marker([point.latitude, point.longitude]).addTo(map);
+</script>
