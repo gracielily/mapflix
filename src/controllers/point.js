@@ -1,7 +1,7 @@
 import { PointSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
-import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
+import { getImagePublicId, getWeatherData, IMAGE_PAYLOAD } from "./utils.js";
 
 const contextData = {
     pageTitle: "Point Details",
@@ -20,11 +20,21 @@ export const pointController = {
       ]
       contextData.show = show;
       contextData.point = point;
+      contextData.pointJSON = JSON.stringify(point)
       contextData.user = request.auth.credentials
       console.log("USER", contextData.user)
       // pre-populate form data
       contextData.values = point;
       contextData.imagePostUrl = `/show/${show._id}/point/${point._id}/uploadimage`;
+
+      // get weather data
+      console.log("getting weather...")
+      const weatherData = await getWeatherData(point);
+      if(!weatherData?.label) {
+        contextData.weather = {error: "No weather data available."}
+      } else {
+        contextData.weather = weatherData
+      }
       return h.view("point", contextData);
     },
   },
@@ -87,7 +97,7 @@ export const pointController = {
       } catch (error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = [{ message: "The image could not be deleted." }];
-        return h.view("show", errorContextData);
+        return h.view("point", errorContextData);
       }
     },
   },
@@ -110,7 +120,26 @@ export const pointController = {
       } catch (error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = [{ message: "The images could not be deleted." }];
-        return h.view("show", errorContextData);
+        return h.view("point", errorContextData);
+      }
+    },
+  },
+
+  setCoverImage: {
+    handler: async function (request, h) {
+      try {
+        const point = await db.pointStore.getById(request.params.pointId);
+        // re-order images
+        const updatedPoint = { ...point }
+        const {imageIndex} = request.params;
+        updatedPoint.images.unshift(updatedPoint.images.splice(imageIndex, 1)[0])
+        // update point
+        await db.pointStore.update(point, updatedPoint);
+        return h.redirect(`/show/${request.params.id}/point/${point._id}`);
+      } catch (error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = [{ message: "The cover image could not be set." }];
+        return h.view("point", errorContextData);
       }
     },
   }

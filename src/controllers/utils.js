@@ -24,3 +24,27 @@ export async function getMovieData(imdbId) {
     }
     return res
 };
+
+
+export async function getWeatherData(point) {
+    let data = {}
+    try {
+        const res = await axios
+            .get("https://api.openweathermap.org/data/2.5/onecall", {
+                params: {
+                    lat: point.latitude,
+                    lon: point.longitude,
+                    units: "metric",
+                    appid: process.env.OPEN_WEATHER_MAP_API_KEY
+                }
+            })
+        const currentWeather = res.data.current;
+        data = {
+            label: currentWeather.weather[0].main,
+            temperature: currentWeather.temp,
+        };
+    } catch (error) {
+        console.log(error)
+    };
+    return data
+}
