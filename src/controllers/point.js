@@ -15,8 +15,8 @@ export const pointController = {
       const point = await db.pointStore.getById(request.params.pointId);
       contextData.navBreadcrumbs = [
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Show Details", link: `/show/${show.id}` },
-        { title: "Point Details" }
+        { title: show.title, link: `/show/${show._id}` },
+        { title: point.name }
       ]
       contextData.show = show;
       contextData.point = point;
