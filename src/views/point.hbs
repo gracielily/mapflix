@@ -57,6 +57,11 @@
                             <strong>Weather</strong>
                         </p>
                         <p class="subheading">
+                            {{#if weather.error}}
+                                {{weather.error}}
+                            {{else}}
+                                {{weather.label }}, {{weather.temperature}}ºC
+                            {{/if}}
                         </p>
                     </div>
                 </div>
@@ -66,7 +71,7 @@
     </div>
 </div>
 
-
+{{#if point.images}}
 <div class="card">
     <header class="card-header">
         <p class="card-header-title">
@@ -94,6 +99,8 @@
         </div>
     </div>
 </div>
+{{/if}}
+
 <div class="card mt-6">
     <header class="card-header">
         <p class="card-header-title">

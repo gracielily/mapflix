@@ -1,7 +1,7 @@
 import { PointSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
-import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
+import { getImagePublicId, getWeatherData, IMAGE_PAYLOAD } from "./utils.js";
 
 const contextData = {
     pageTitle: "Point Details",
@@ -25,6 +25,15 @@ export const pointController = {
       // pre-populate form data
       contextData.values = point;
       contextData.imagePostUrl = `/show/${show._id}/point/${point._id}/uploadimage`;
+
+      // get weather data
+      console.log("getting weather...")
+      const weatherData = await getWeatherData(point);
+      if(!weatherData?.label) {
+        contextData.weather = {error: "No weather data available."}
+      } else {
+        contextData.weather = weatherData
+      }
       return h.view("point", contextData);
     },
   },
