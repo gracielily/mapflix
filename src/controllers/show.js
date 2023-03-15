@@ -4,7 +4,7 @@ import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, getMovieData, IMAGE_PAYLOAD } from "./utils.js";
 
 const contextData = {
-    pageTitle: "Show Details",
+    title: "Movie Details",
   };
 
 export const showController = {

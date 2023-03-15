@@ -2,7 +2,7 @@ import { ShowSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 let contextData = {
-    pageTitle: "Admin Dashboard"
+    title: "Admin Dashboard"
 };
 
 async function getStats(users) {

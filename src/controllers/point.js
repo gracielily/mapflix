@@ -4,7 +4,7 @@ import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, getWeatherData, IMAGE_PAYLOAD } from "./utils.js";
 
 const contextData = {
-    pageTitle: "Point Details",
+    title: "Placemark Details",
   };
 
 
