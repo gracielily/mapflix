@@ -16,23 +16,23 @@ export const UserSpec = UserBaseSpec.keys({
 }).label("User Details");
 
 export const UserSpecExtra = UserSpec.keys({
-    _id: IdSpec,
-    __v: Joi.number().example(0),
+  _id: IdSpec,
+  __v: Joi.number().example(0),
 }).label("UserDetailsExtra");
 
 export const UserArray = Joi.array().items(UserSpecExtra).label("UserArray");
 
 export const PointSpec = Joi.object().keys({
-    name: Joi.string().required().example("Raven Point"),
-    description: Joi.string().required().example("Where the iconic scene was filmed"),
-    latitude: Joi.number().greater(-85).less(85).messages({ "latitude": "Invalid latitude!" }).required().example(84.22),
-    longitude: Joi.number().greater(-180).less(180).messages({ "longitude": "Invalid longitude!" }).required().required().example(22.84),
-    dateAdded: Joi.date().example("2023-03-14T14:19:27.941Z"),
-    images: Joi.array().items(Joi.string()).example(["image1.png", "image2.jpg"]),
-    publicTransport: Joi.boolean().example("false"),
-    wheelchairAccessible: Joi.boolean().example("true"),
-    facilitiesAvailable: Joi.boolean().example("true"),
-  }).label("Point Details");
+  name: Joi.string().required().example("Raven Point"),
+  description: Joi.string().required().example("Where the iconic scene was filmed"),
+  latitude: Joi.number().greater(-85).less(85).messages({ "latitude": "Invalid latitude!" }).required().example(84.22),
+  longitude: Joi.number().greater(-180).less(180).messages({ "longitude": "Invalid longitude!" }).required().required().example(22.84),
+  dateAdded: Joi.date().example("2023-03-14T14:19:27.941Z"),
+  images: Joi.array().items(Joi.string()).example(["image1.png", "image2.jpg"]),
+  publicTransport: Joi.boolean().example("false"),
+  wheelchairAccessible: Joi.boolean().example("true"),
+  facilitiesAvailable: Joi.boolean().example("true"),
+}).label("Point Details");
 
 export const PointSpecExtra = PointSpec.keys({
   _id: IdSpec,
@@ -65,4 +65,4 @@ export const JwtAuth = Joi.object()
   })
   .label("JwtAuth");
 
-export const ShowSearchTermSpec = Joi.object({search: Joi.string().optional().allow("").example("Braveheart")});
+export const ShowSearchTermSpec = Joi.object({ search: Joi.string().optional().allow("").example("Braveheart") });

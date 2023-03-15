@@ -1,0 +1,70 @@
+<div class="card mb-6">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-info-circle"></i></span><span>Overview</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <!-- Point Information -->
+        <div class="columns is-multiline">
+            <div class="column is-6 left-image">
+                <img class="is-rounded"
+                    src="{{#if point.images }}{{point.images.[0]}}{{else}}/img/placeholder-image.jpg{{/if}}"
+                    alt="Show image" />
+            </div>
+            <div class="column is-6 has-vertically-aligned-content">
+                <p class="is-larger mb-5 title">
+                    <strong>{{point.name}}</strong>
+                </p>
+                <p>{{point.description}}</p>
+                <br />
+                <div class="columns">
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Movie Filmed Here</strong>
+                        </p>
+                        <p class="subheading">
+                            {{show.title}}
+                        </p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Location</strong>
+                        </p>
+                        <p class="subheading">
+                            {{toFixed point.latitude 2}}, {{toFixed point.longitude 2}}
+                        </p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Facilities</strong>
+                        </p>
+                        <!-- Features -->
+                        <p class="subheading">
+                            {{#if point.publicTransport}}<span class="icon"><i class="fas fa-bus"></i></span>{{/if}}
+                            {{#if point.wheelchairAccessible}}<span class="icon"><i
+                                    class="fas fa-wheelchair"></i></span>{{/if}}
+                            {{#if point.facilitiesAvailable}}<span class="icon"><i
+                                    class="fas fa-restroom"></i></span>{{/if}}
+                        </p>
+                    </div>
+                </div>
+                <!-- Weather -->
+                <div class="columns">
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Weather</strong>
+                        </p>
+                        <p class="subheading">
+                            {{#if weather.error}}
+                            {{weather.error}}
+                            {{else}}
+                            {{weather.label }}, {{weather.temperature}}ºC
+                            {{/if}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

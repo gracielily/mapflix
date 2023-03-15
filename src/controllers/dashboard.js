@@ -12,6 +12,7 @@ export const dashboardController = {
       contextData.user = loggedInUser
       contextData.noShowsMessage = ""
       
+      // if search term provided, search for show belonging to user by title
       if(request.query.search){
         const searchTerm = request.query.search
         const filteredShows = await db.showStore.searchByUserAndTitle(loggedInUser._id, searchTerm)
@@ -75,6 +76,7 @@ export const dashboardController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       try {
+      // delete all shows belonging to user
       const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
       for (let i = 0; i < userShows.length; i += 1) {
         // eslint-disable-next-line no-await-in-loop

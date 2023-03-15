@@ -6,6 +6,7 @@ let contextData = {
 };
 
 async function getStats(users) {
+    // gets stats per user to be displayed on admin page
     const userStats = []
     for (let i = 0; i < users.length; i+=1) {
         // eslint-disable-next-line no-await-in-loop
@@ -54,6 +55,7 @@ export const adminController = {
     toggleUserAdmin: {
         handler: async function (request, h) {
             try {
+                // toggles the admin status of the user
                 await db.userStore.toggleAdmin(request.params.id);
             } catch (error) {
                 const errorContextData = { ...contextData };

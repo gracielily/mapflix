@@ -24,8 +24,8 @@ export const userApi = {
         tags: ["api"],
         description: "Authenticate",
         notes: "Creates JWT token if user has valid credentials",
-        validate: { payload: UserBaseSpec, failAction: "log"},
-        response: { schema: JwtAuth, failAction: "log" }    
+        validate: { payload: UserBaseSpec, failAction: "log" },
+        response: { schema: JwtAuth, failAction: "log" }
     },
     find: {
         auth: { strategy: "jwt" },

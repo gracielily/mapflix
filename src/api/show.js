@@ -5,12 +5,14 @@ import { db } from "../models/db.js";
 export const showApi = {
   find: {
     auth: {
-        strategy: "jwt",
-      },
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         let shows = [];
-        if(request.query.search){
+        // if search query string present, do a search
+        // otherwise, get all shows
+        if (request.query.search) {
           shows = await db.showStore.searchByTitle(request.query.search)
         } else {
           shows = await db.showStore.getAll();
@@ -48,14 +50,14 @@ export const showApi = {
     tags: ["api"],
     description: "Find a Show",
     notes: "Returns a Show",
-    validate: { params: { id: IdSpec }},
+    validate: { params: { id: IdSpec } },
     response: { schema: ShowSpecExtra },
   },
 
   create: {
     auth: {
-        strategy: "jwt",
-      },
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const show = request.payload;
@@ -77,8 +79,8 @@ export const showApi = {
 
   deleteOne: {
     auth: {
-        strategy: "jwt",
-      },
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const show = await db.showStore.getById(request.params.id);

@@ -7,10 +7,11 @@
         <div class="column is-5">
           <h1 class="title has-text-centered">Signup to MAPFLIX</h1>
           <div class="box">
-            {{> errormsg }}
+            {{> common/errormsg }}
+            <!-- Signup Form -->
             <form action="/register" method="POST">
-              {{> user-details-fields}}
-              {{> user-credentials-fields }}
+              {{> forms/user-details-fields}}
+              {{> forms/user-credentials-fields }}
               <button class="button is-success is-fullwidth">Create Account</button>
               <br>
               <p class="has-text-centered">Already have an account? <a href="/login">Login Here</a></p>

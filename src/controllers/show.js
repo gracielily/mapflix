@@ -22,6 +22,7 @@ export const showController = {
       contextData.values = show
       contextData.showPostUrl = `/show/${show._id}/update`
       contextData.pointPostUrl = `/show/${show._id}/addpoint`
+      // get movie extra details
       const showExtraInfo = await getMovieData(show.imdbId);
       if(showExtraInfo?.success === false) {
         contextData.hideOverview = true;
