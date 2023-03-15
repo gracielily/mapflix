@@ -4,19 +4,17 @@
       <div class="column is-4 is-offset-4 ">
         <h3 class="title has-text-black has-text-centered">Login to MAPFLIX</h3>
         <div class="box">
-          {{> errormsg }}
-
+          {{> common/errormsg }}
+          <!-- Login Form -->
           <form action="/authenticate" method="POST">
-            {{> user-credentials-fields}}
-
+            {{> forms/user-credentials-fields}}
             <button class="button is-block is-link is-fullwidth"><span class="icon"><i
                   class="fa fa-sign-in"></i></span><span>Login</span></button>
-                  <br>
-                  <p class="has-text-centered">Don't have an account? <a href="/signup">Register Here</a></p>
+            <br>
+            <p class="has-text-centered">Don't have an account? <a href="/signup">Register Here</a></p>
         </div>
         </form>
       </div>
-
     </div>
   </div>
   </div>

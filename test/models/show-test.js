@@ -16,6 +16,11 @@ suite("Show Model tests", () => {
     }
   });
 
+  test("get all shows", async () => {
+    const shows = await db.showStore.getAll();
+    assertSubset(testShows, shows)
+  })
+
   test("get a show - success", async () => {
     const show = await db.showStore.create(testShow);
     const newShow = await db.showStore.getById(show._id);
@@ -28,7 +33,7 @@ suite("Show Model tests", () => {
   });
 
   test("get shows belonging to user", async () => {
-    await db.showStore.create({title: "test", userId: user._id})
+    await db.showStore.create({ title: "test", userId: user._id })
     const userShows = await db.showStore.getCreatedByUser(user._id)
     assert.equal(userShows.length, 1)
     assert.equal(userShows[0].userId.str, user._id.str)
@@ -39,16 +44,15 @@ suite("Show Model tests", () => {
     assert.isNull(await db.showStore.getCreatedByUser(""));
   })
 
-
-  test("search by user and title", async () => {
-    await db.showStore.create({title: "test", userId: user._id})
+  test("search by user and title -success", async () => {
+    await db.showStore.create({ title: "test", userId: user._id })
     const userShows = await db.showStore.searchByUserAndTitle(user._id, "tes")
     assert.equal(userShows.length, 1)
     assert.equal(userShows[0].userId.str, user._id.str)
   })
 
   test("search by user and title - none found", async () => {
-    await db.showStore.create({title: "test", userId: user._id})
+    await db.showStore.create({ title: "test", userId: user._id })
     const userShows = await db.showStore.searchByUserAndTitle(user._id, "does not exist")
     assert.equal(userShows.length, 0)
   })
@@ -90,7 +94,7 @@ suite("Show Model tests", () => {
 
   test("update show - success", async () => {
     const show = await db.showStore.create(testShow)
-    const updatedShow = {...testShow}
+    const updatedShow = { ...testShow }
     updatedShow.title = "Updated"
     await db.showStore.update(show, updatedShow);
     const returnedShow = await db.showStore.getById(show._id)
@@ -99,7 +103,7 @@ suite("Show Model tests", () => {
 
   test("update show - fail", async () => {
     await db.showStore.create(testShow)
-    const updatedShow = {...testShow}
+    const updatedShow = { ...testShow }
     updatedShow.title = "Updated"
     await db.showStore.update("invalid", updatedShow);
     const shows = await db.showStore.getAll();

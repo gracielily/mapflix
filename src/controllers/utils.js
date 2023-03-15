@@ -15,6 +15,7 @@ export const IMAGE_PAYLOAD = {
 };
 
 export async function getMovieData(imdbId) {
+    // makes API call to The Movie DB
     try {
         const res = await axios.get(`https://api.themoviedb.org/3/movie/${imdbId}?api_key=${process.env.TMDB_API_KEY}`);
         return res.data;
@@ -25,6 +26,7 @@ export async function getMovieData(imdbId) {
 
 
 export async function getWeatherData(point) {
+    // makes API call to Open Weather Map
     let data = {}
     try {
         const res = await axios

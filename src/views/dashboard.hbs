@@ -1,18 +1,21 @@
-{{> heading heading="Dashboard"}}
+{{> common/heading heading="Dashboard"}}
 
 <section class="dashboard mt-6 pb-6">
-    {{> errormsg}}
+    {{> common/errormsg }}
     {{#if shows}}
-        {{> search-shows }}
-        {{> list-shows }}
+        <!-- List Shows -->
+        {{> dashboard/search-shows }}
+        {{> dashboard/list-shows }}
     {{else}}
+        <!-- No Results Found -->
         {{#if noShowsMessage}}
-            {{> search-shows }}
-            {{> message title="No Search Results" message=noShowsMessage}}
+            {{> dashboard/search-shows }}
+            {{> common/message title="No Search Results" message=noShowsMessage}}
         {{else}}
-            {{> message title="No Movies" message="You currently have no movies, you can create one by using the form below."}}
+            {{> common/message title="No Movies" message="You currently have no movies, you can create one by using the form below."}}
         {{/if}}
     {{/if}}
+    <!-- Create Movie Form -->
     <div class="mt-6">
     {{> show-form formTitle="Create Movie" formIcon="plus" postUrl="/dashboard/addshow" btnTitle="Create Movie"}}
     </div>

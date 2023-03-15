@@ -1,9 +1,9 @@
-{{> breadcrumbs}}
-{{> heading heading="Account Details"}}
+{{> common/breadcrumbs}}
+{{> common/heading heading="Account Details"}}
 
 <!-- Error Message -->
 <div class="mt-6">
-    {{> errormsg }}
+    {{> common/errormsg }}
 </div>
 
 <!-- Account Details -->
@@ -22,8 +22,8 @@
                             </header>
                             <div class="card-content">
                                 <form action="{{ postUrl }}" method="POST">
-                                    {{> user-details-fields}}
-                                    {{> user-credentials-fields}}
+                                    {{> forms/user-details-fields}}
+                                    {{> forms/user-credentials-fields}}
                                     <div class="field is-grouped">
                                         <button class="button is-success is-fullwidth">{{ submitBtnPhrase }}</button>
                                     </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <!-- Avatar Upload -->
-                {{> image-upload-form heading="Set Avatar" }}
+                {{> forms/image-upload-form heading="Set Avatar" }}
                 <!-- Delete Account Button -->
                 <a href="/account/deleteaccount">
                     <button class="button is-link is-danger is-pulled-right mt-3">

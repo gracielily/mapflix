@@ -1,115 +1,43 @@
+{{> common/heading heading="Admin"}}
 
-    {{> heading heading="Admin"}}
-
-    <section class="hero is-primary is-small mb-4">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Welcome back, {{user.firstName}}.
-                </h1>
-                <h2 class="subtitle">
-                    See analytics and manage Mapflix's users below
-                </h2>
-            </div>
-        </div>
-    </section>
-    <section class="info-tiles mb-3">
-        <div class="tile is-ancestor has-text-centered">
-            <div class="tile is-parent">
-                <article class="tile is-child box">
-                    <p><span class="icon"><i class="fas fa-user"></i></span></p>
-                    <p class="title">{{users.length}}</p>
-                    <p class="subtitle">Users</p>
-                </article>
-            </div>
-            <div class="tile is-parent">
-                <article class="tile is-child box">
-                    <p><span class="ic"><i class="fas fa-film"></i></span></p>
-                    <p class="title">{{shows.length}}</p>
-                    <p class="subtitle">Movies</p>
-                </article>
-            </div>
-            <div class="tile is-parent">
-                <article class="tile is-child box">
-                    <p><span class="icon"><i class="fas fa-map-marker-alt"></i></span></p>
-                    <p class="title">{{points.length}}</p>
-                    <p class="subtitle">Placemarks</p>
-                </article>
-            </div>
-
-        </div>
-    </section>
-    <div class="columns">
-        <div class="column is-12">
-            <div class="card events-card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        <span class="icon"><i class="fas fa-user"></i></span><span>Users</span>
-                    </p>
-                </header>
-                <div class="card-table">
-                    <div class="content">
-                        <table class="table is-fullwidth is-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Date Joined</th>
-                                    <th>Is Admin</th>
-                                    <th>Shows Created</th>
-                                    <th>Points Created</th>
-                                    <th class="level-right">Options</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each users as | user i|}}
-                                <tr>
-                                    <td>{{lastName}}, {{firstName}}</td>
-                                    <td>{{email}}</td>
-                                    <td>{{dateJoined}}</td>
-                                    <td><span class="icon">
-                                            {{#if isAdmin}}
-                                            <i class="fas fa-check-circle has-text-success"></i>
-                                            {{else}}
-                                            <i class="fas fa-circle-xmark has-text-danger"></i>
-                                            {{/if}}
-                                        </span></td>
-                                    {{#with (lookup ../userStats @index)}}
-                                    <td>{{this.showCount}}</td>
-                                    <td>{{this.pointCount}}</td>
-                                    {{/with}}
-                                    <td class="level-right">
-                                        {{#ifSameObj user._id ../user._id }}
-                                        <a href="/account" class="button is-small is-primary">
-                                            <span class="icon">
-                                                <i class="fas fa-eye"></i>
-                                            </span>
-                                            <span>View</span>
-                                        </a>
-                                        {{else}}
-                                        <a href="/admin/users/{{_id}}/toggleadmin">
-                                            <button class="button is-small is-warning mr-3">
-                                                <span class="icon"><i class="fas fa-user"></i></span><span>{{#if
-                                                    isAdmin}}Disable Admin{{else}}Enable Admin{{/if}}</span>
-                                            </button>
-                                        </a>
-                                        {{/ifSameObj}}
-                                        {{#unless isAdmin}}
-                                        <a href="/admin/users/{{_id}}/delete">
-                                            <button class="button is-small is-danger">
-                                                <span class="icon"><i class="fas fa-trash"></i></span><span>Delete
-                                                    User</span>
-                                            </button>
-                                        </a>
-                                        {{/unless}}
-                                    </td>
-                                </tr>
-                                {{/each}}
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+<!-- Welcome Message -->
+<section class="hero is-primary is-small mb-4">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Welcome back, {{user.firstName}}.
+            </h1>
+            <h2 class="subtitle">
+                See analytics and manage Mapflix's users below
+            </h2>
         </div>
     </div>
+</section>
+<!-- App Analytics -->
+<section class="info-tiles mb-3">
+    <div class="tile is-ancestor has-text-centered">
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p><span class="icon"><i class="fas fa-user"></i></span></p>
+                <p class="title">{{users.length}}</p>
+                <p class="subtitle">Users</p>
+            </article>
+        </div>
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p><span class="ic"><i class="fas fa-film"></i></span></p>
+                <p class="title">{{shows.length}}</p>
+                <p class="subtitle">Movies</p>
+            </article>
+        </div>
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p><span class="icon"><i class="fas fa-map-marker-alt"></i></span></p>
+                <p class="title">{{points.length}}</p>
+                <p class="subtitle">Points</p>
+            </article>
+        </div>
+    </div>
+</section>
+<!-- Users Table -->
+{{> admin/users-table }}

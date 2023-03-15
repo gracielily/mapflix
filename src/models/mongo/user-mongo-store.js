@@ -32,7 +32,7 @@ export const userMongoStore = {
     try {
       // delete associated shows and points
       const shows = await showMongoStore.getCreatedByUser(id)
-      shows.map(async(show) => {
+      shows.map(async (show) => {
         await showMongoStore.delete(show._id)
       })
       await User.deleteOne({ _id: id });
@@ -47,11 +47,11 @@ export const userMongoStore = {
     await User.deleteMany({});
   },
 
-  async update(currentUser, updatedUser){
+  async update(currentUser, updatedUser) {
     const user = await this.getUserById(currentUser._id);
-    if(user){
+    if (user) {
       await User.updateOne(
-        {_id: currentUser._id}, 
+        { _id: currentUser._id },
         {
           firstName: updatedUser.firstName,
           lastName: updatedUser.lastName,
@@ -64,9 +64,9 @@ export const userMongoStore = {
 
   async toggleAdmin(currentUserId) {
     const user = await this.getUserById(currentUserId);
-    if(user){
+    if (user) {
       await User.updateOne(
-        {_id: currentUserId},
+        { _id: currentUserId },
         {
           isAdmin: !user.isAdmin
         }

@@ -25,16 +25,6 @@ suite("Point API tests", () => {
     assertSubset(testPoint, returnedPoint);
   });
 
-  test("create point - fail - bad data", async () => {
-    try {
-      await mapflixService.createPoint(show._id, {});
-      assert.fail("Should return a 400");
-    } catch (error) {
-      assert.equal(error.response.data.message, "Invalid request payload input");
-    }
-  });
-
-
   test("create multiple points", async () => {
     for (let i = 0; i < testPoints.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -46,6 +36,15 @@ suite("Point API tests", () => {
       // eslint-disable-next-line no-await-in-loop
       const point = await mapflixService.getPoint(returnedPoints[i]._id);
       assertSubset(point, returnedPoints[i]);
+    }
+  });
+
+  test("create point - fail - bad data", async () => {
+    try {
+      await mapflixService.createPoint(show._id, {});
+      assert.fail("Should return a 400");
+    } catch (error) {
+      assert.equal(error.response.data.message, "Invalid request payload input");
     }
   });
 
@@ -62,6 +61,19 @@ suite("Point API tests", () => {
     }
     returnedPoints = await mapflixService.getAllPoints();
     assert.equal(returnedPoints.length, 0);
+  });
+
+
+  test("Delete a point - fail", async () => {
+    const pointsBeforeDelete = await mapflixService.getAllPoints();
+    try {
+      await mapflixService.deletePoint("invalid");
+      assert.fail("this should fail")
+    } catch {
+      const pointsAfterDelete = await mapflixService.getAllPoints();
+      // point not deleted
+      assert.equal(pointsBeforeDelete.length, pointsAfterDelete.length);
+    }
   });
 
   test("denormalised show", async () => {
@@ -104,8 +116,9 @@ suite("Point API tests", () => {
     }
   });
 
-  test("Gets a Point - Point Deleted", async () => {
+  test("Deletes all points and returns not found when getting point", async () => {
     const point = await mapflixService.createPoint(show._id, testPoint);
+    // delete all points
     await mapflixService.deleteAllPoints();
     try {
       await mapflixService.getPoint(point._id);

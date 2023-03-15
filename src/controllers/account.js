@@ -4,7 +4,7 @@ import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
 
 const editUserContextData = {
-  pageTitle: "Edit User Details",
+  title: "Account Details",
   navBreadcrumbs: [
     { title: "Dashboard", link: "/dashboard" },
     { title: "Account Details" }

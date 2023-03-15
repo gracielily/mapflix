@@ -1,0 +1,26 @@
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-image"></i></span><span>Images</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <div class="columns is-multiline">
+            {{#each point.images as | image|}}
+            <div class="tile is-parent column is-4">
+                <article class="tile is-child box">
+                    <figure class="image">
+                        <img src="{{image}}">
+                    </figure>
+                    {{#unless @first}}
+                    <a href="/show/{{../show._id}}/point/{{../point._id}}/setcoverimage/{{@index}}" class="button"><span
+                            class="icon"><i class="fas fa-thumbtack"></i> </span><span>Set Cover Image</span></a>
+                    {{/unless}}
+                    <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button"><span
+                            class="icon"><i class="fas fa-trash"></i> </span><span>Delete</span></a>
+                </article>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

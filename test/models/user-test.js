@@ -27,12 +27,23 @@ suite("User Model tests", () => {
     assert.equal(returnedUsers.length, 0);
   });
 
+  test("get all users", async () => {
+    const users = await db.userStore.getAllUsers();
+    assertSubset(testUsers, users)
+  });
+
   test("get a user - success", async () => {
     const user = await db.userStore.addUser(testUser);
     const returnedUser1 = await db.userStore.getUserById(user._id);
     assert.deepEqual(user, returnedUser1);
     const returnedUser2 = await db.userStore.getUserByEmail(user.email);
     assert.deepEqual(user, returnedUser2);
+  });
+
+  test("get a user - bad params", async () => {
+    assert.isNull(await db.userStore.getUserByEmail(""));
+    assert.isNull(await db.userStore.getUserById(""));
+    assert.isNull(await db.userStore.getUserById());
   });
 
   test("delete One User - success", async () => {
@@ -45,13 +56,6 @@ suite("User Model tests", () => {
     assert.equal(shows.length, 0)
   });
 
-
-  test("get a user - bad params", async () => {
-    assert.isNull(await db.userStore.getUserByEmail(""));
-    assert.isNull(await db.userStore.getUserById(""));
-    assert.isNull(await db.userStore.getUserById());
-  });
-
   test("delete One User - fail", async () => {
     await db.userStore.deleteUserById("bad-id");
     const allUsers = await db.userStore.getAllUsers();
@@ -60,7 +64,7 @@ suite("User Model tests", () => {
 
   test("update user - success", async () => {
     const user = await db.userStore.addUser(testUser)
-    const updatedUser = {...testUser}
+    const updatedUser = { ...testUser }
     updatedUser.firstName = "Updated"
     await db.userStore.update(user, updatedUser);
     const returnedUser = await db.userStore.getUserById(user._id)
@@ -69,7 +73,7 @@ suite("User Model tests", () => {
 
   test("update user - fail", async () => {
     await db.userStore.addUser(testUser)
-    const updatedUser = {...testUser}
+    const updatedUser = { ...testUser }
     updatedUser.firstName = "Updated"
     await db.userStore.update("invalid", updatedUser);
     const users = await db.userStore.getAllUsers();
@@ -88,7 +92,7 @@ suite("User Model tests", () => {
   });
 
   test("toggle admin - disable success", async () => {
-    const adminUser = {...testUser}
+    const adminUser = { ...testUser }
     adminUser.isAdmin = true
     const user = await db.userStore.addUser(adminUser)
     assert.equal(user.isAdmin, true)

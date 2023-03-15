@@ -4,7 +4,7 @@ import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, getMovieData, IMAGE_PAYLOAD } from "./utils.js";
 
 const contextData = {
-    pageTitle: "Show Details",
+    title: "Movie Details",
   };
 
 export const showController = {
@@ -22,6 +22,7 @@ export const showController = {
       contextData.values = show
       contextData.showPostUrl = `/show/${show._id}/update`
       contextData.pointPostUrl = `/show/${show._id}/addpoint`
+      // get movie extra details
       const showExtraInfo = await getMovieData(show.imdbId);
       if(showExtraInfo?.success === false) {
         contextData.hideOverview = true;

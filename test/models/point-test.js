@@ -17,7 +17,11 @@ suite("Point Model tests", () => {
     }
   });
 
-  
+  test("get all points", async () => {
+    const points = await db.pointStore.getAll();
+    assertSubset(testPoints, points)
+  })
+
   test("get point - success", async () => {
     const newShow = await db.showStore.create(testShow);
     const point = await db.pointStore.create(newShow._id, testPoint)
@@ -48,9 +52,19 @@ suite("Point Model tests", () => {
     const newShow = await db.showStore.create(testShow);
     const point = await db.pointStore.create(newShow._id, testPoint)
     assert.isNotNull(point._id);
-    assertSubset (testPoint, point);
+    assertSubset(testPoint, point);
   });
 
+
+  test("create point - fail", async () => {
+    let point = null;
+    try {
+      point = await db.pointStore.create("invalid", testPoint)
+      assert.fail("should not create")
+    } catch {
+      assert.isNull(point);
+    }
+  });
 
   test("delete all points", async () => {
     const points = await db.pointStore.getAll();
@@ -68,14 +82,14 @@ suite("Point Model tests", () => {
     assert.isNull(deletedPoint);
   });
 
-  test("delete show also deletes points", async() => {
+  test("delete show also deletes points", async () => {
     const newShow = await db.showStore.create(testShow);
     const point = await db.pointStore.create(newShow._id, testPoint)
     await db.showStore.delete(newShow._id)
     assert.isNull(await db.pointStore.getById(point._id))
   })
 
-  test("delete all shows also deletes points", async() => {
+  test("delete all shows also deletes points", async () => {
     const newShow = await db.showStore.create(testShow);
     const otherNewShow = await db.showStore.create(testShow);
     await db.pointStore.create(newShow._id, testPoint)
@@ -97,19 +111,19 @@ suite("Point Model tests", () => {
   test("update one point - success", async () => {
     const newShow = await db.showStore.create(testShow);
     const newPoint = await db.pointStore.create(newShow._id, testPoint)
-    await db.pointStore.update(newPoint._id, {name: "Updated"});
+    await db.pointStore.update(newPoint._id, { name: "Updated" });
     const point = await db.pointStore.getById(newPoint._id);
     assert.equal(point.name, "Updated");
   });
 
   test("update one point - fail", async () => {
-    await db.pointStore.update("invalid", {name: "Updated"});
+    await db.pointStore.update("invalid", { name: "Updated" });
     const points = await db.pointStore.getAll();
     // point not updated
     points.forEach((point) => {
       assert.notEqual(point.name, "Updated");
     })
-    
+
   });
 
 

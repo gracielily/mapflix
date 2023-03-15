@@ -20,27 +20,27 @@ suite("Show API tests", () => {
     testShow.userId = user._id;
   });
 
-  teardown(async () => {});
+  teardown(async () => { });
 
   test("create show - success", async () => {
-    const createdShow = await mapflixService.createShow({title: "test movie", imdbId: "tt839038"});
+    const createdShow = await mapflixService.createShow({ title: "test movie", imdbId: "tt839038" });
     assert.isNotNull(createdShow);
     assertSubset(createdShow, testShow);
   });
 
   test("create show - bad payload", async () => {
     try {
-        // invalid imdbId
-        await mapflixService.createShow({title: "test movie", imdbId: "t839038"});
-        assert.fail("Should return a 400");
-      } catch (error) {
-        assert.equal(error.response.status, 400);
-        assert.equal(error.response.data.message, "Invalid request payload input");
-      }
+      // invalid imdbId
+      await mapflixService.createShow({ title: "test movie", imdbId: "t839038" });
+      assert.fail("Should return a 400");
+    } catch (error) {
+      assert.equal(error.response.status, 400);
+      assert.equal(error.response.data.message, "Invalid request payload input");
+    }
   });
 
   test("delete a show - success", async () => {
-    const show = await mapflixService.createShow({title: "test movie", imdbId: "tt839038"});
+    const show = await mapflixService.createShow({ title: "test movie", imdbId: "tt839038" });
     const response = await mapflixService.deleteShow(show._id);
     assert.equal(response.status, 204);
     try {
@@ -51,9 +51,8 @@ suite("Show API tests", () => {
     }
   });
 
-
   test("delete a show - invalid id", async () => {
-    await mapflixService.createShow({title: "test movie", imdbId: "tt839038"});
+    await mapflixService.createShow({ title: "test movie", imdbId: "tt839038" });
     try {
       await mapflixService.deleteShow("");
       assert.fail("Should get a 404");
@@ -71,17 +70,23 @@ suite("Show API tests", () => {
     }
   });
 
+  test("delete all shows", async () => {
+    await mapflixService.createShow(testShow);
+    const shows = await mapflixService.getAllShows();
+    assert.equal(shows.length, 1);
+    await mapflixService.deleteAllShows();
+    const showsAfterDelete = await mapflixService.getAllShows();
+    assert.equal(showsAfterDelete.length, 0);
+  })
+
   test("create multiple shows", async () => {
     for (let i = 0; i < testShows.length; i += 1) {
       testShows[i].userId = user._id;
       // eslint-disable-next-line no-await-in-loop
       await mapflixService.createShow(testShows[i]);
     }
-    let shows = await mapflixService.getAllShows();
+    const shows = await mapflixService.getAllShows();
     assert.equal(shows.length, testShows.length);
-    await mapflixService.deleteAllShows();
-    shows = await mapflixService.getAllShows();
-    assert.equal(shows.length, 0);
   });
 
 
@@ -97,10 +102,9 @@ suite("Show API tests", () => {
     assert.equal(shows.length, 0);
   });
 
-
   test("Search show - Success", async () => {
     await mapflixService.createShow(testShow);
-    const shows = await mapflixService.searchForShow("search", testShow.title.slice(0,3));
+    const shows = await mapflixService.searchForShow("search", testShow.title.slice(0, 3));
     assert.equal(shows.length, 1);
     assert.equal(shows[0].title, testShow.title);
   });
@@ -116,7 +120,7 @@ suite("Show API tests", () => {
     try {
       await mapflixService.searchForShow("invalid", "hjkhkjhkjhk");
       assert.fail("raise a 400")
-    } catch(error){
+    } catch (error) {
       assert.equal(error.response.data.statusCode, 400)
       assert.equal(error.response.data.message, "Invalid request query input")
     }
@@ -138,7 +142,7 @@ suite("Show API tests", () => {
     }
   });
 
-  test("Gets a Show - Show Deleted", async () => {
+  test("Get Show - show deleted", async () => {
     const show = await mapflixService.createShow(testShow);
     await mapflixService.deleteAllShows();
     try {

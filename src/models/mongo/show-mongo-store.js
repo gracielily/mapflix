@@ -22,15 +22,15 @@ export const showMongoStore = {
   async searchByUserAndTitle(userId, searchTerm) {
     if (userId && searchTerm) {
       // do a case insensitive search
-      const shows = await Show.find({userId: userId, title: {$regex: new RegExp(searchTerm, "i")}}).lean()
+      const shows = await Show.find({ userId: userId, title: { $regex: new RegExp(searchTerm, "i") } }).lean()
       return shows;
     }
     return null;
   },
 
-  async searchByTitle(searchTerm){
-    if(searchTerm){
-      const shows = await Show.find({title: {$regex: new RegExp(searchTerm, "i")}}).lean()
+  async searchByTitle(searchTerm) {
+    if (searchTerm) {
+      const shows = await Show.find({ title: { $regex: new RegExp(searchTerm, "i") } }).lean()
       return shows;
     }
     return null;
