@@ -1,58 +1,60 @@
 {{> common/breadcrumbs}}
 {{> common/heading heading="Point Details"}}
 
-<!-- Point Overview -->
-{{> point/point-overview }}
+<section class="pb-6">
+    <!-- Point Overview -->
+    {{> point/point-overview }}
 
-<!-- Point Images -->
-{{#if point.images}}
-    {{> point/point-images}}
-{{/if}}
+    <!-- Point Images -->
+    {{#if point.images}}
+        {{> point/point-images}}
+    {{/if}}
 
-<!-- Point Map -->
-<div class="card mt-6">
-    <header class="card-header">
-        <p class="card-header-title">
-            <span class="icon"><i class="fas fa-map"></i></span><span>Map</span>
-        </p>
-    </header>
-    <div class="card-content">
-        <div id="map"></div>
+    <!-- Point Map -->
+    <div class="card mt-6">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="fas fa-map"></i></span><span>Map</span>
+            </p>
+        </header>
+        <div class="card-content">
+            <div id="map"></div>
+        </div>
     </div>
-</div>
 
-<!-- Configuration Panel -->
-<div class="card mt-6">
-    <header class="card-header">
-        <p class="card-header-title">
-            <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
-        </p>
-    </header>
-    <div class="card-content">
-        <div class="columns is-multiline">
-            <div class="column is-12">
-                {{> forms/point-form formTitle="Edit Point" formIcon="pencil" postUrl=postUrl btnTitle="Edit
-                Point"}}
-                {{> forms/image-upload-form heading="Upload Image"}}
-            </div>
-            <div class="column is-12 pb-6">
-                <a href="/show/{{show._id}}/deletepoint/{{point._id}}">
-                    <button class="button is-link is-danger is-pulled-right mr-3">
-                        <span class="icon"><i class="fas fa-trash"></i> </span><span>Delete Point</span>
-                    </button>
-                </a>
-                {{#if point.images}}
-                <a href="/show/{{show._id}}/point/{{point._id}}/deleteallimages">
-                    <button class="button is-link is-danger is-pulled-right mr-3">
-                        <span class="icon"><i class="fas fa-fire"></i> </span><span>Clear Images</span>
-                    </button>
-                </a>
-                {{/if}}
-                <br>
+    <!-- Configuration Panel -->
+    <div class="card mt-6">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="columns is-multiline">
+                <div class="column is-12">
+                    {{> forms/point-form formTitle="Edit Point" formIcon="pencil" postUrl=postUrl btnTitle="Edit
+                    Point"}}
+                    {{> forms/image-upload-form heading="Upload Image"}}
+                </div>
+                <div class="column is-12 pb-6">
+                    <a href="/show/{{show._id}}/deletepoint/{{point._id}}">
+                        <button class="button is-link is-danger is-pulled-right mr-3">
+                            <span class="icon"><i class="fas fa-trash"></i> </span><span>Delete Point</span>
+                        </button>
+                    </a>
+                    {{#if point.images}}
+                    <a href="/show/{{show._id}}/point/{{point._id}}/deleteallimages">
+                        <button class="button is-link is-danger is-pulled-right mr-3">
+                            <span class="icon"><i class="fas fa-fire"></i> </span><span>Clear Images</span>
+                        </button>
+                    </a>
+                    {{/if}}
+                    <br>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <script>
     const point = {{{ pointJSON }}}

@@ -1,43 +1,45 @@
 {{> common/heading heading="Admin"}}
 
-<!-- Welcome Message -->
-<section class="hero is-primary is-small mb-4">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Welcome back, {{user.firstName}}.
-            </h1>
-            <h2 class="subtitle">
-                See analytics and manage Mapflix's users below
-            </h2>
+<section class="pb-6">
+    <!-- Welcome Message -->
+    <section class="hero is-primary is-small mb-4">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Welcome back, {{user.firstName}}.
+                </h1>
+                <h2 class="subtitle">
+                    See analytics and manage Mapflix's users below
+                </h2>
+            </div>
         </div>
-    </div>
+    </section>
+    <!-- App Analytics -->
+    <section class="info-tiles mb-3">
+        <div class="tile is-ancestor has-text-centered">
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p><span class="icon"><i class="fas fa-user"></i></span></p>
+                    <p class="title">{{users.length}}</p>
+                    <p class="subtitle">Users</p>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p><span class="ic"><i class="fas fa-film"></i></span></p>
+                    <p class="title">{{shows.length}}</p>
+                    <p class="subtitle">Movies</p>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <p><span class="icon"><i class="fas fa-map-marker-alt"></i></span></p>
+                    <p class="title">{{points.length}}</p>
+                    <p class="subtitle">Points</p>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!-- Users Table -->
+    {{> admin/users-table }}
 </section>
-<!-- App Analytics -->
-<section class="info-tiles mb-3">
-    <div class="tile is-ancestor has-text-centered">
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                <p><span class="icon"><i class="fas fa-user"></i></span></p>
-                <p class="title">{{users.length}}</p>
-                <p class="subtitle">Users</p>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                <p><span class="ic"><i class="fas fa-film"></i></span></p>
-                <p class="title">{{shows.length}}</p>
-                <p class="subtitle">Movies</p>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                <p><span class="icon"><i class="fas fa-map-marker-alt"></i></span></p>
-                <p class="title">{{points.length}}</p>
-                <p class="subtitle">Points</p>
-            </article>
-        </div>
-    </div>
-</section>
-<!-- Users Table -->
-{{> admin/users-table }}
