@@ -42,3 +42,7 @@ body {
 .point-image {
     width: 200px;
 }
+
+#point-list-image {
+    height: 250px;
+}

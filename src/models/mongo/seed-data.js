@@ -6,13 +6,14 @@ export const seedData = {
       lastName: "Doe",
       email: "jane@doe.com",
       password: "password123",
-      isAdmin: true,
+      avatar: "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/xmj8lidyulylcyhbl90o.jpg"
     },
     user2: {
       firstName: "John",
       lastName: "Doe",
       email: "john@doe.com",
-      password: "somesecret"
+      password: "somesecret",
+      isAdmin: true,
     },
   },
   shows: {
@@ -47,13 +48,35 @@ export const seedData = {
     point1: {
       name: "Curracloe Beach",
       description: "This beach was famously used in the filming of the D-Day landng scenes of the 1997 film.",
-      latitude: 52,
-      longitude: 6,
+      latitude: 52.38877,
+      longitude: -6.361969,
       publicTransport: true,
       wheelchairAccessible: false,
       facilitiesAvailable: true,
-      images: ["http://res.cloudinary.com/dcjnywjjk/image/upload/v1678641097/firbrrfz4d7dcp814tln.jpg"],
+      images: ["http://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/zwj4nxt6y40ma4kxsm0t.jpg","https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/hinc0qy4u2zxmawztx5i.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/EUCYkYZXkAMhahj_bncia2.jpg"],
       showId: "->shows.show1"
-    }
+    },
+    point2: {
+      name: "Curracloe Beach",
+      description: "This is the beach where Ellis meets with Jim and her friends",
+      latitude: 52.38877,
+      longitude: -6.361969,
+      publicTransport: true,
+      wheelchairAccessible: false,
+      facilitiesAvailable: true,
+      images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/ouja2py42wbeldjvfbfn.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/2015-BROOKLYN-009_k3ap1e.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/04BROOKLYNJP-jumbo_m7p86z.jpg"],
+      showId: "->shows.show2"
+    },
+    point3: {
+      name: "St Fintan's Church",
+      description: "This where is Ellis attends mass with Miss Kelly.",
+      latitude: 52.349356,
+      longitude: -6.660543,
+      publicTransport: false,
+      wheelchairAccessible: true,
+      facilitiesAvailable: false,
+      images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/15615002_20.jpg_hcc2py.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/1-1-dsc_0607_u67qin.jpg"],
+      showId: "->shows.show2"
+    },
   }
 };

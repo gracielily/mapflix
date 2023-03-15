@@ -9,15 +9,16 @@
             {{#each point.images as | image|}}
             <div class="tile is-parent column is-4">
                 <article class="tile is-child box">
-                    <figure class="image">
-                        <img src="{{image}}">
+                    <figure class="image mb-4">
+                        <img class="object-fit" id="point-list-image" src="{{image}}">
                     </figure>
+                    <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button is-pulled-right"><span
+                            class="icon"><i class="fas fa-trash"></i> </span><span>Delete</span></a>
+                    <!-- Set Cover Image Button -->
                     {{#unless @first}}
-                    <a href="/show/{{../show._id}}/point/{{../point._id}}/setcoverimage/{{@index}}" class="button"><span
+                    <a href="/show/{{../show._id}}/point/{{../point._id}}/setcoverimage/{{@index}}" class="button is-pulled-right mr-2"><span
                             class="icon"><i class="fas fa-thumbtack"></i> </span><span>Set Cover Image</span></a>
                     {{/unless}}
-                    <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button"><span
-                            class="icon"><i class="fas fa-trash"></i> </span><span>Delete</span></a>
                 </article>
             </div>
             {{/each}}

@@ -6,57 +6,59 @@
     {{> common/errormsg }}
 </div>
 
-<!-- Account Details -->
-<div class="card mt-6">
-    <div class="card-content">
-        <div class="columns is-multiline">
-            <div class="column is-8 has-vertically-aligned-content">
-                <div class="columns">
-                    <div class="column">
-                        <!-- Edit Account Form -->
-                        <div class="card">
-                            <header class="card-header">
-                                <p class="card-header-title">
-                                    <span class="icon"><i class="fas fa-pencil"></i></span><span>Edit Details</span>
-                                </p>
-                            </header>
-                            <div class="card-content">
-                                <form action="{{ postUrl }}" method="POST">
-                                    {{> forms/user-details-fields}}
-                                    {{> forms/user-credentials-fields}}
-                                    <div class="field is-grouped">
-                                        <button class="button is-success is-fullwidth">{{ submitBtnPhrase }}</button>
-                                    </div>
-                                </form>
+<section class="pb-6">
+    <!-- Account Details -->
+    <div class="card mt-6">
+        <div class="card-content">
+            <div class="columns is-multiline">
+                <div class="column is-8 has-vertically-aligned-content">
+                    <div class="columns">
+                        <div class="column">
+                            <!-- Edit Account Form -->
+                            <div class="card">
+                                <header class="card-header">
+                                    <p class="card-header-title">
+                                        <span class="icon"><i class="fas fa-pencil"></i></span><span>Edit Details</span>
+                                    </p>
+                                </header>
+                                <div class="card-content">
+                                    <form action="{{ postUrl }}" method="POST">
+                                        {{> forms/user-details-fields}}
+                                        {{> forms/user-credentials-fields}}
+                                        <div class="field is-grouped">
+                                            <button class="button is-success is-fullwidth">{{ submitBtnPhrase }}</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Avatar Upload -->
+                    {{> forms/image-upload-form heading="Set Avatar" }}
+                    <!-- Delete Account Button -->
+                    <a href="/account/deleteaccount">
+                        <button class="button is-link is-danger is-pulled-right mt-3">
+                            <span class="icon"><i class="fas fa-fire"></i> </span><span>Delete Account</span>
+                        </button>
+                    </a>
                 </div>
-                <!-- Avatar Upload -->
-                {{> forms/image-upload-form heading="Set Avatar" }}
-                <!-- Delete Account Button -->
-                <a href="/account/deleteaccount">
-                    <button class="button is-link is-danger is-pulled-right mt-3">
-                        <span class="icon"><i class="fas fa-fire"></i> </span><span>Delete Account</span>
-                    </button>
-                </a>
-            </div>
-            <div class="column is-4 right-image">
-                <!-- Avatar Image -->
-                <figure class="image">
-                <img class="object-fit"
-                    src="{{#if user.avatar }}{{user.avatar}}{{else}}/img/placeholder-image.jpg{{/if}}"
-                    alt="User Avatar" />
-                </figure>
-                <!-- Delete Avatar Button -->
-                {{#if user.avatar}}
-                <a href="/account/deleteavatar">
-                    <button class="button is-link is-danger is-pulled-right mt-4">
-                        <span class="icon"><i class="fas fa-trash"></i></span><span>Remove Avatar</span>
-                    </button>
-                </a>
-                {{/if}}
+                <div class="column is-4 right-image">
+                    <!-- Avatar Image -->
+                    <figure class="image">
+                    <img class="object-fit"
+                        src="{{#if user.avatar }}{{user.avatar}}{{else}}/img/placeholder-image.jpg{{/if}}"
+                        alt="User Avatar" />
+                    </figure>
+                    <!-- Delete Avatar Button -->
+                    {{#if user.avatar}}
+                    <a href="/account/deleteavatar">
+                        <button class="button is-link is-danger is-pulled-right mt-4">
+                            <span class="icon"><i class="fas fa-trash"></i></span><span>Remove Avatar</span>
+                        </button>
+                    </a>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
