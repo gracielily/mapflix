@@ -6,10 +6,10 @@ import { testUser, testUsers } from "../fixtures.js";
 const users = new Array(testUsers.length);
 
 suite("User API Tests", () => {
-    const _createUserAndToken = async() => {
-        await mapflixService.createUser(testUser);
-        await mapflixService.authenticate(testUser);
-    }
+  const _createUserAndToken = async () => {
+    await mapflixService.createUser(testUser);
+    await mapflixService.authenticate(testUser);
+  }
   setup(async () => {
     mapflixService.clearAuth();
     await _createUserAndToken();
@@ -48,13 +48,13 @@ suite("User API Tests", () => {
     try {
       await mapflixService.deleteUser("invalid");
       assert.fail("does not delete user")
-    } catch(error){
+    } catch (error) {
       const usersAfterDelete = await mapflixService.getAllUsers();
       assert.equal(usersAfterDelete.length, 4);
     }
   });
 
-  test("Deletes every User", async () => {
+  test("Deletes all Users", async () => {
     let returnedUsers = await mapflixService.getAllUsers();
     assert.equal(returnedUsers.length, 4);
     await mapflixService.deleteAllUsers();
