@@ -38,7 +38,7 @@ export const testUsers = [
   }
 ];
 
-export const url = "http://localhost:3000";
+export const url = process.env.SERVICE_URL;
 
 export const testPoints = [{
   name: "The Raven", 
