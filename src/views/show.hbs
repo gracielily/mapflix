@@ -6,65 +6,66 @@
   {{> common/errormsg }}
 </div>
 
-<!-- Show Overview -->
-{{> show/show-overview }}
+<section class="pb-6">
+  <!-- Show Overview -->
+  {{> show/show-overview }}
 
-<!-- Points Info -->
-{{#if show.points}}
-<div class="card mt-6 mb-6">
-  <header class="card-header">
-    <p class="card-header-title">
-      <span class="icon"><i class="fas fa-map-marker-alt"></i></span><span>Points</span>
-    </p>
-  </header>
-  <div class="card-content">
-    <!-- Points Map -->
-    <div id="map"></div>
-    <!-- Points Table -->
-    {{> show/list-points }}
-  </div>
-</div>
-{{else}}
-<!-- No Points Message -->
-<div class="mt-6">
-  {{> common/message title="No Points" message="You can create a point by filling out the Add Point form below."}}
-</div>
-{{/if}}
-
-<!-- Configuration Panel -->
-<div class="card mt-6">
-  <header class="card-header">
-    <p class="card-header-title">
-      <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
-    </p>
-  </header>
-  <div class="card-content">
-    <div class="columns is-multiline">
-      <div class="column is-5">
-        {{> forms/show-form formTitle="Edit Movie" formIcon="pencil" postUrl=showPostUrl btnTitle="Edit Movie"}}
-        <br>
-        {{> forms/image-upload-form heading="Set Show Image"}}
-        <br>
-        <a href="/show/{{show._id}}/delete">
-          <button class="button is-danger is-pulled-right">
-            <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
-          </button>
-        </a>
-        {{#if show.points}}
-        <button onclick="deleteAllPoints()" class="button is-danger is-pulled-right mr-3">
-          <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Points</span>
-        </button>
-        {{/if}}
-      </div>
-      <div class="column is-1"></div>
-      <div class="column is-6">
-        {{> forms/point-form formTitle="Add Point" formIcon="plus" postUrl=pointPostUrl btnTitle="Add Point"}}
-      </div>
-      <div class="column is-1"></div>
+  <!-- Points Info -->
+  {{#if show.points}}
+  <div class="card mt-6 mb-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="fas fa-map-marker-alt"></i></span><span>Points</span>
+      </p>
+    </header>
+    <div class="card-content">
+      <!-- Points Map -->
+      <div id="map"></div>
+      <!-- Points Table -->
+      {{> show/list-points }}
     </div>
   </div>
-</div>
+  {{else}}
+  <!-- No Points Message -->
+  <div class="mt-6">
+    {{> common/message title="No Points" message="You can create a point by filling out the Add Point form below."}}
+  </div>
+  {{/if}}
 
+  <!-- Configuration Panel -->
+  <div class="card mt-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
+      </p>
+    </header>
+    <div class="card-content">
+      <div class="columns is-multiline">
+        <div class="column is-5">
+          {{> forms/show-form formTitle="Edit Movie" formIcon="pencil" postUrl=showPostUrl btnTitle="Edit Movie"}}
+          <br>
+          {{> forms/image-upload-form heading="Set Show Image"}}
+          <br>
+          <a href="/show/{{show._id}}/delete">
+            <button class="button is-danger is-pulled-right">
+              <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
+            </button>
+          </a>
+          {{#if show.points}}
+          <button onclick="deleteAllPoints()" class="button is-danger is-pulled-right mr-3">
+            <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Points</span>
+          </button>
+          {{/if}}
+        </div>
+        <div class="column is-1"></div>
+        <div class="column is-6">
+          {{> forms/point-form formTitle="Add Point" formIcon="plus" postUrl=pointPostUrl btnTitle="Add Point"}}
+        </div>
+        <div class="column is-1"></div>
+      </div>
+    </div>
+  </div>
+</section>
 <script>
   const show = {{{ showJSON }}}
   const points = show.points;

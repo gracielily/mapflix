@@ -11,7 +11,8 @@
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
     "dev": "node --watch src/server.js",
-    "test": "mocha --ui tdd test/**/*.js -exit"
+    "test": "mocha --ui tdd test/models/**/*.js -exit --exclude test/api/**/*.js",
+    "testapi": "mocha --ui tdd test/api/**/*.js -exit --timeout 10000"
   },
   "repository": {
     "type": "git",
