@@ -24,13 +24,7 @@ export const showController = {
       contextData.pointPostUrl = `/show/${show._id}/addpoint`
       // get movie extra details
       const showExtraInfo = await getMovieData(show.imdbId);
-      if(showExtraInfo?.success === false) {
-        contextData.hideOverview = true;
-        contextData.errors = [{message: "could not retrieve movie details"}]
-      } else {
-        contextData.hideOverview = false;
-        contextData.showExtraInfo = showExtraInfo
-      }
+      contextData.showExtraInfo = showExtraInfo;
       return h.view("show", contextData);
     },
   },
@@ -86,7 +80,10 @@ export const showController = {
   deleteAllPoints: {
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
-      await db.pointStore.deleteAll(request.params.pointId);
+      for(let i = 0; i < show.points.length; i += 1){
+        // eslint-disable-next-line no-await-in-loop
+        await db.pointStore.delete(show.points[i]._id)
+      }
       return h.redirect(`/show/${show._id}`);
     },
   },
