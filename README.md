@@ -3,6 +3,8 @@
 A Movie Locations Management Platform and API built
 using the Hapi and Handlebars Frameworks.
 
+![Capture](https://user-images.githubusercontent.com/97189399/225677795-f2c30a65-3a79-4202-8f95-49b445170650.JPG)
+
 [Mapflix Demo Site](https://mapflix-prod.onrender.com/)\
 [Mapflix API Docs](https://mapflix-prod.onrender.com/documentation) 
 
