@@ -1,4 +1,4 @@
-{{#unless hideOverview}}
+{{#if showExtraInfo.overview}}
 <div class="card mt-6 mb-6">
     <header class="card-header">
     <p class="card-header-title">
@@ -6,7 +6,6 @@
     </p>
   </header>
     <div class="card-content">
-        {{#if showExtraInfo}}
         <div class="columns is-multiline">
             <div class="column is-6 has-vertically-aligned-content">
                 <p class="is-larger mb-5">
@@ -84,7 +83,8 @@
                 <img class="is-rounded" src="{{#if show.image }}{{show.image}}{{else}}/img/placeholder-image.jpg{{/if}}" alt="Show image" />
             </div>
         </div>
-        {{/if}}
     </div>
 </div>
-{{/unless}}
+{{else}}
+{{> common/message title="No Movie Overview" message="Could not retrieve movie details. Please ensure IMDB ID is valid."}}
+{{/if}}
