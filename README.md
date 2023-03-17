@@ -45,3 +45,24 @@ interact with the API locally you can do so at the `/documentation` endpoint.
 - `npm run lint` - runs lint checks
 - `npm run test` - runs Application tests
 - `npm run testapi` - runs API tests
+
+
+## Technologies Used
+
+Below are some examples of the technologies used in this project: 
+
+- NodeJS
+- hapi
+- MongoDB, Mongoose & Cloud Atlas
+- Handlebars
+- Joi
+- Swagger
+- JWT
+- Axios
+- Mocha & Chai
+- Cloudinary
+- Leaflet.js
+- Open Weather Map API
+- The Movie Database API
+- Render
+- Glitch
