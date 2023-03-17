@@ -78,5 +78,38 @@ export const seedData = {
       images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/15615002_20.jpg_hcc2py.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/1-1-dsc_0607_u67qin.jpg"],
       showId: "->shows.show2"
     },
+    point4: {
+      name: "The Athenaeum Enniscorthy",
+      description: "The scenes where Eilis and her best friend Nancy (Eileen O'Higgins) go to the dance in Enniscorthy were filmed at the Athenaeum",
+      latitude: 52.501613,
+      longitude: -6.568052597,
+      publicTransport: true,
+      wheelchairAccessible: true,
+      facilitiesAvailable: true,
+      images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/2423_apdpx2.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/68720-To-the-party-_swigki.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/b_155_b_05242_2k3a8246_u7zzbz.jpg"],
+      showId: "->shows.show2"
+    },
+    point5: {
+      name: "Cloughmore",
+      description: "Cloughmore, on the south-eastern corner of Achill Island, was the setting for JJ Devines pub. The building was constructed by the film crew and later removed. It is where Colin Farrell and Brendan Gleeson's characters talk at a wooden table outside the pub.",
+      latitude: 53.878074,
+      longitude: -9.966217,
+      publicTransport: false,
+      wheelchairAccessible: true,
+      facilitiesAvailable: false,
+      images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/4300506114_ebdc5f3b8c_c_qlkqqi.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/33333_vsmxdx.jpg"],
+      showId: "->shows.show3"
+    },
+    point6: {
+      name: "Keem Bay",
+      description: "Keem Bay, home to one of Ireland's most popular beaches, is the location for the home of Brendan Gleeson's character Colm Doherty.",
+      latitude: 53.96931758,
+      longitude: -10.1941277,
+      publicTransport: true,
+      wheelchairAccessible: false,
+      facilitiesAvailable: false,
+      images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/jjdevines_construction_800_a2zl2j.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/keem_bay_waw_sign_cottage_zg71dr.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/keem_bay_fiddle_1-1_p823kc.jpg"],
+      showId: "->shows.show3"
+    },
   }
 };
