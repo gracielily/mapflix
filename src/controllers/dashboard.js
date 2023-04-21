@@ -89,5 +89,5 @@ export const dashboardController = {
         return h.view("dashboard", errorContextData).takeover().code(400);
     }
     },
-  }
+  },
 };

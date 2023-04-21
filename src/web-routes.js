@@ -40,6 +40,7 @@ export const webRoutes = [
     { method: "GET", path: "/show/{id}/point/{pointId}/deleteimage/{imageIndex}", config: pointController.deleteImage },
     { method: "GET", path: "/show/{id}/point/{pointId}/deleteallimages", config: pointController.deleteAllImages },
     { method: "GET", path: "/show/{id}/point/{pointId}/setcoverimage/{imageIndex}", config: pointController.setCoverImage },
+    { method: "GET", path: "/test-error-logging", config: homeController.testErrorLogging },
 
 
     // home page

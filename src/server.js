@@ -10,6 +10,7 @@ import * as dotenv from "dotenv";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
 import jwt from "hapi-auth-jwt2";
+import * as winston from "winston";
 import { validate } from "./api/jwt-utils.js";
 import { apiRoutes } from "./api-routes.js";
 import { webRoutes } from "./web-routes.js";
@@ -19,6 +20,13 @@ import { accountController } from "./controllers/account.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({filename: "logging.log"})
+  ]
+})
 dotenv.config()
 
 const swaggerOptions = {
@@ -97,6 +105,16 @@ async function init() {
   server.route(apiRoutes);
   server.ext("onPreResponse", (request, reply) => {
     if (request.response.isBoom) {
+      const timeElapsed = Date.now();
+      const today = new Date(timeElapsed);
+      logger.info({
+        message: "Request Info",
+        date: today.toUTCString(),
+        url: request.headers.referer,
+        method: request.method,
+        responseTime: timeElapsed - request.info.received,
+        statusCode: request.response.output? request.response.output.statusCode : request.response.statusCode
+      })
       if (request.response.output.statusCode === 404) {
         const {accept} = request.headers
         if (accept && accept.match(/json/)) {
