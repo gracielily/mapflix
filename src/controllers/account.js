@@ -2,6 +2,9 @@ import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
+import bcrypt from "bcrypt"; 
+
+const saltRounds = 10;
 
 const editUserContextData = {
   title: "Account Details",
@@ -32,7 +35,8 @@ export const accountController = {
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
-      if (!user || user.password !== password) {
+      const passwordsMatch = await bcrypt.compare(password, user.password);
+      if (!user || !passwordsMatch) {
         return h.view("login", {values: request.payload, errors: [{ message: "Invalid Credentials" }]}).takeover().code(400);
       }
       request.cookieAuth.set({ id: user._id });
@@ -76,6 +80,7 @@ export const accountController = {
     },
     handler: async function (request, h) {
       const user = request.payload;
+      user.password = await bcrypt.hash(request.payload.password, saltRounds);
       await db.userStore.addUser(user);
       return h.redirect("/login");
     },
@@ -103,11 +108,12 @@ export const accountController = {
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
+      updatedPassword = await bcrypt.hash(request.payload.password, saltRounds);
       const updatedUser = {
         firstName: request.payload.firstName,
         lastName: request.payload.lastName,
         email: request.payload.email,
-        password: request.payload.password,
+        password: updatedPassword,
         avatar: loggedInUser.avatar,
       };
       try {
