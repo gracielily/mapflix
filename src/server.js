@@ -10,6 +10,7 @@ import * as dotenv from "dotenv";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
 import jwt from "hapi-auth-jwt2";
+import fs from "fs";
 import { validate } from "./api/jwt-utils.js";
 import { apiRoutes } from "./api-routes.js";
 import { webRoutes } from "./web-routes.js";
@@ -38,7 +39,11 @@ const swaggerOptions = {
 
 async function init() {
   const server = Hapi.server({
-    port: process.env.PORT || 3000,
+    port: 3000,
+    tls: {
+      key: fs.readFileSync("keys/private/webserver.key"),
+      cert: fs.readFileSync("keys/webserver.crt")
+}
   })  
   await server.register(Inert);
   await server.register(Vision);
@@ -115,5 +120,6 @@ process.on("unhandledRejection", (err) => {
   console.log(err);
   process.exit(1);
 });
+
 
 init();
