@@ -1,8 +1,9 @@
+import bcrypt from "bcrypt"; 
+import DOMPurify from 'isomorphic-dompurify';
 import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
-import bcrypt from "bcrypt"; 
 
 const saltRounds = 10;
 
@@ -67,6 +68,7 @@ export const accountController = {
   },
   signup: {
     auth: false,
+    // validate user input
     validate: {
       payload: UserSpec,
       options: { abortEarly: false },
@@ -81,7 +83,13 @@ export const accountController = {
     handler: async function (request, h) {
       const user = request.payload;
       user.password = await bcrypt.hash(request.payload.password, saltRounds);
-      await db.userStore.addUser(user);
+      // sanitize user input before adding to database
+      const sanitizedData = {}
+      sanitizedData.firstName = DOMPurify.sanitize(user.firstName)
+      sanitizedData.lastName = DOMPurify.sanitize(user.lastName)
+      sanitizedData.email = DOMPurify.sanitize(user.email)
+      sanitizedData.password = DOMPurify.sanitize(user.password)
+      await db.userStore.addUser(sanitizedData);
       return h.redirect("/login");
     },
   },
