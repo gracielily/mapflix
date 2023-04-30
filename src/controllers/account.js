@@ -69,18 +69,22 @@ export const accountController = {
   signup: {
     auth: false,
     // validate user input
-    validate: {
-      payload: UserSpec,
-      options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        const errorContextData = {
-          values: request.payload,
-          errors: error.details
-        }
-        return h.view("signup", errorContextData).takeover().code(400);
-      },
-    },
+    // validate: {
+    //   payload: UserSpec,
+    //   options: { abortEarly: false },
+    //   failAction: function (request, h, error) {
+    //     const errorContextData = {
+    //       values: request.payload,
+    //       errors: error.details
+    //     }
+    //     return h.view("signup", errorContextData).takeover().code(400);
+    //   },
+    // },
     handler: async function (request, h) {
+      if(request.payload.honeypot){
+        console.log("BOT ALERT!!")
+        return h.view("signup", {values: request.payload, errors: [{ message: "Something went wrong" }]}).takeover().code(400)
+      }
       const user = request.payload;
       user.password = await bcrypt.hash(request.payload.password, saltRounds);
       // sanitize user input before adding to database
