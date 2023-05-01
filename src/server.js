@@ -70,6 +70,7 @@ async function init() {
     redirectTo: "/",
   });
 
+
   server.auth.strategy("jwt", "jwt", {
     key: process.env.COOKIE_PASSWORD,
     validate: validate,

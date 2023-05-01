@@ -43,6 +43,7 @@
     "boom": "^7.3.0",
     "chai": "^4.3.7",
     "cloudinary": "^1.35.0",
+    "crypto-js": "^4.1.1",
     "dompurify": "^3.0.2",
     "dotenv": "^16.0.3",
     "handlebars": "^4.7.7",

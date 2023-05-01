@@ -4,6 +4,7 @@ import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
+import { encryptData, decryptData } from "../models/encryption.js";
 
 const saltRounds = 10;
 
@@ -99,7 +100,13 @@ export const accountController = {
       sanitizedData.lastName = DOMPurify.sanitize(user.lastName)
       sanitizedData.email = DOMPurify.sanitize(user.email)
       sanitizedData.password = DOMPurify.sanitize(user.password)
-      await db.userStore.addUser(sanitizedData);
+      const encryptedUser = {}
+      encryptedUser.firstName = await encryptData(user.firstName)
+      encryptedUser.lastName = await encryptData(user.lastName)
+      encryptedUser.email = await encryptData(user.email);
+      encryptedUser.password = user.password;
+      const newUser = await db.userStore.addUser(encryptedUser);
+      console.log("new user", newUser)
       return h.redirect("/login");
     },
   },
@@ -109,7 +116,12 @@ export const accountController = {
       editUserContextData.user = loggedInUser;
       editUserContextData.postUrl = "/account/savedetails";
       editUserContextData.submitBtnPhrase = "Save Details";
-      editUserContextData.values = loggedInUser;
+      const user = await db.userStore.getUserById(loggedInUser.id)
+      editUserContextData.values = {
+        firstName: decryptData(user.firstName),
+        lastName: decryptData(user.lastName),
+        email: decryptData(user.email),
+      };
       return h.view("account", editUserContextData);
     },
   },

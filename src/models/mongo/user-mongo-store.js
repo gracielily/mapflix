@@ -1,5 +1,6 @@
 import { showMongoStore } from "./show-mongo-store.js";
 import { User } from "./user.js";
+import { encryptData, decryptData } from "../encryption.js";
 
 export const userMongoStore = {
   async getAllUsers() {
@@ -23,8 +24,8 @@ export const userMongoStore = {
   },
 
   async getUserByEmail(email) {
-    const user = await User.findOne({ email: email }).lean();
-    console.log("found ", user)
+    const users =  await User.find().lean()
+    const user = users.find((u) => decryptData(u.email) === email)
     return user;
   },
 
