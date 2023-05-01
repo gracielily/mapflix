@@ -21,7 +21,8 @@ export const dashboardController = {
           contextData.noShowsMessage = `No Shows found for search term ${searchTerm}. Please try again`
         }
       } else {
-        const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
+        // return all shows instead of user only
+        const userShows = await db.showStore.getAll();
         for(let i = 0; i < userShows.length; i += 1) {
           // eslint-disable-next-line no-await-in-loop
           userShows[i].points = await db.pointStore.getByShowId(userShows[i]._id)

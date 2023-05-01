@@ -8,6 +8,11 @@ export const showMongoStore = {
     return shows;
   },
 
+  async getOne() {
+    const show = await Show.findOne().lean();
+    return show;
+  },
+
   async getById(id) {
     if (id) {
       const show = await Show.findOne({ _id: id }).lean();

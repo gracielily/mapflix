@@ -10,7 +10,9 @@ const contextData = {
 export const showController = {
   index: {
     handler: async function (request, h) {
-      const show = await db.showStore.getById(request.params.id);
+      const movieId = request.params.id
+      // get first movie for xss demo purposes
+      const show = await db.showStore.getOne();
       contextData.show = show
       contextData.navBreadcrumbs = [
         { title: "Dashboard", link: "/dashboard" },
@@ -25,6 +27,7 @@ export const showController = {
       // get movie extra details
       const showExtraInfo = await getMovieData(show.imdbId);
       contextData.showExtraInfo = showExtraInfo;
+      contextData.movieId = movieId;
       return h.view("show", contextData);
     },
   },
