@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"; 
+import bcrypt from "bcrypt";
 import DOMPurify from 'isomorphic-dompurify';
 import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
@@ -17,6 +17,16 @@ const editUserContextData = {
 };
 
 export const accountController = {
+  oAuthDemo: {
+    auth: "github-oauth",
+    handler: function (request, h) {
+      if (request.auth.isAuthenticated) {
+        request.cookieAuth.set(request.auth.credentials);
+        return h.view("welcome", { title: "Welcome", displayName: request.auth.credentials.profile.displayName, imgUrl: request.auth.credentials.profile.raw.avatar_url });
+      }
+      return h.redirect("/");
+    }
+  },
   displayLogin: {
     auth: false,
     handler: function (request, h) {
@@ -30,7 +40,7 @@ export const accountController = {
       options: { abortEarly: false },
       failAction: function (request, h, error) {
 
-        return h.view("login", {values: request.payload, errors: error.details}).takeover().code(400);
+        return h.view("login", { values: request.payload, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -38,7 +48,7 @@ export const accountController = {
       const user = await db.userStore.getUserByEmail(email);
       const passwordsMatch = await bcrypt.compare(password, user.password);
       if (!user || !passwordsMatch) {
-        return h.view("login", {values: request.payload, errors: [{ message: "Invalid Credentials" }]}).takeover().code(400);
+        return h.view("login", { values: request.payload, errors: [{ message: "Invalid Credentials" }] }).takeover().code(400);
       }
       request.cookieAuth.set({ id: user._id });
       if (user.isAdmin) {
@@ -186,10 +196,11 @@ export const accountController = {
         return h.redirect("/").unstate(process.env.COOKIE_NAME);
       } catch (error) {
         const errorContextData = { ...editUserContextData };
-        errorContextData.errors = [{message: "Could not delete account."}];
+        errorContextData.errors = [{ message: "Could not delete account." }];
         return h.view("account", errorContextData).takeover().code(400);
       }
     },
   },
+
 
 };
