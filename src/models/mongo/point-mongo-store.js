@@ -6,10 +6,23 @@ export const pointMongoStore = {
         return points;
     },
 
+    async getAllPublic(){
+        const points = await Point.find({ isPublic: true}).lean();
+        return points;
+    },
+
     async create(showId, point) {
         point.showId = showId;
         const createdPoint = await new Point(point).save();
         return this.getById(createdPoint._id);
+    },
+
+    async getPublicByShowId(showId) {
+        if (showId) {
+            const points = await Point.find({ showId: showId, isPublic: true }).lean();
+            return points;
+        }
+        return null;
     },
 
     async getByShowId(showId) {
@@ -54,6 +67,7 @@ export const pointMongoStore = {
                     wheelchairAccesible: updatedPoint.wheelchairAccesible,
                     facilitiesAvailable: updatedPoint.facilitiesAvailable,
                     images: updatedPoint.images,
+                    isPublic: updatedPoint.isPublic,
                 });
         }
     },

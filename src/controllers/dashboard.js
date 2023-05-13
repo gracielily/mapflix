@@ -15,18 +15,19 @@ export const dashboardController = {
       // if search term provided, search for show belonging to user by title
       if(request.query.search){
         const searchTerm = request.query.search
-        const filteredShows = await db.showStore.searchByUserAndTitle(loggedInUser._id, searchTerm)
+        const filteredShows = await db.showStore.searchByTitle(searchTerm)
         contextData.shows = filteredShows;
         if(!filteredShows.length) {
           contextData.noShowsMessage = `No Shows found for search term ${searchTerm}. Please try again`
         }
       } else {
-        const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
-        for(let i = 0; i < userShows.length; i += 1) {
+        // get all shows by all users - main dashboard
+        const allShows = await db.showStore.getAll();
+        for(let i = 0; i < allShows.length; i += 1) {
           // eslint-disable-next-line no-await-in-loop
-          userShows[i].points = await db.pointStore.getByShowId(userShows[i]._id)
+          allShows[i].points = await db.pointStore.getPublicByShowId(allShows[i]._id)
         };
-        contextData.shows = userShows;
+        contextData.shows = allShows;
       }
       return h.view("dashboard", contextData);
     },

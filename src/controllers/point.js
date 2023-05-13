@@ -141,5 +141,23 @@ export const pointController = {
         return h.view("point", errorContextData);
       }
     },
+  },
+
+  toggleVisibility: {
+    handler: async function (request, h) {
+      try {
+        const point = await db.pointStore.getById(request.params.pointId);
+        console.log("point here", point)
+        const updatedPoint = { ...point }
+        updatedPoint.isPublic = !point.isPublic
+        await db.pointStore.update(point, updatedPoint)
+        return h.redirect(`/show/${request.params.id}/point/${point._id}`);
+      }
+      catch (error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = [{ message: "The cover image could not be set." }];
+        return h.view("point", errorContextData);
+      }
+    }
   }
 };

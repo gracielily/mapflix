@@ -31,6 +31,7 @@ export const webRoutes = [
     { method: "POST", path: "/show/{id}/addpoint", config: showController.addPoint },
     { method: "GET", path: "/show/{id}/delete", config: dashboardController.deleteShow },
     { method: "GET", path: "/show/{id}/deletepoint/{pointId}", config: showController.deletePoint },
+    { method: "GET", path: "/show/{id}/togglevisibility/{pointId}", config: pointController.toggleVisibility },
     { method: "GET", path: "/show/{id}/deleteallpoints", config: showController.deleteAllPoints },
     { method: "GET", path: "/show/{id}/point/{pointId}", config: pointController.index },
     { method: "POST", path: "/show/{id}/point/{pointId}/update", config: pointController.update },
