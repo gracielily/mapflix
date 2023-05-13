@@ -147,7 +147,6 @@ export const pointController = {
     handler: async function (request, h) {
       try {
         const point = await db.pointStore.getById(request.params.pointId);
-        console.log("point here", point)
         const updatedPoint = { ...point }
         updatedPoint.isPublic = !point.isPublic
         await db.pointStore.update(point, updatedPoint)

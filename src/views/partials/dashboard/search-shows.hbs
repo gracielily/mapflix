@@ -1,42 +1,16 @@
-<div class="card mb-5">
-    <header class="card-header">
-        <p class="card-header-title">
-            <span class="icon"><i class="fas fa-cog"></i></span><span>Quick Panel</span>
-        </p>
-    </header>
-    <div class="card-content">
-        <div class="content">
-            <div class="columns">
-                <div class="column is-8">
-                    <div class="field has-addons">
-                        <div class="control has-icons-left search">
-                            <input class="input" type="text" placeholder="Search for a movie by title" id="searchTerm"
-                                onkeydown="if(event.keyCode == 13) searchMovies()">
-                            <span class="icon is-medium is-left">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
-                        <div class="control">
-                            <a class="button is-info" onclick="searchMovies()">
-                                <span class="icon"><i class="fas fa-search"></i></span><span>Search</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-4">
-                <a class="button is-success mr-1" href="#movieForm">
-                    <span class="icon"><i class="fas fa-plus"></i></span><span>Create Movie</span>
-                </a>
-                {{#if shows}}
-                 <a class="button is-danger" onclick="deleteAllShows()">
-                    <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Shows</span>
-                </a>
-                {{/if}}
-                </div>
-                <div class="column is-3">
-                
-                </div>
-            </div>
+<div class="column is-8">
+    <div class="field has-addons">
+        <div class="control has-icons-left search">
+            <input class="input" type="text" placeholder="Search for a movie by title" id="searchTerm"
+                onkeydown="if(event.keyCode == 13) searchMovies()">
+            <span class="icon is-medium is-left">
+                <i class="fa fa-search"></i>
+            </span>
+        </div>
+        <div class="control">
+            <a class="button is-info" onclick="searchMovies()">
+                <span class="icon"><i class="fas fa-search"></i></span><span>Search</span>
+            </a>
         </div>
     </div>
 </div>

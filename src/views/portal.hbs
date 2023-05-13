@@ -1,0 +1,16 @@
+{{> common/heading heading="My Movies"}}
+
+<section class="dashboard mt-6 pb-6">
+    {{> common/errormsg }}
+    {{#if shows}}
+        <!-- List Shows -->
+        {{> dashboard/quick-panel }}
+        {{> dashboard/list-shows }}
+    {{else}}
+        {{> common/message title="No Movies" message="You currently have no movies, you can create one by using the form below."}}
+    {{/if}}
+    <!-- Create Movie Form -->
+    <div class="mt-6">
+    {{> forms/show-form formTitle="Create Movie" formIcon="plus" postUrl="/portal/addshow" btnTitle="Create Movie"}}
+    </div>
+</section>

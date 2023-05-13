@@ -1,10 +1,37 @@
 {{> common/heading heading="Dashboard"}}
 
+<div class="card mb-5">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-search"></i></span><span>Filter Movies</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <div class="columns">
+                {{> dashboard/search-shows }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Point Map -->
+    <div class="card mt-6">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="fas fa-map"></i></span><span>All Locations</span>
+            </p>
+        </header>
+        <div class="card-content">
+            <div id="map"></div>
+        </div>
+    </div>
+
 <section class="dashboard mt-6 pb-6">
     {{> common/errormsg }}
     {{#if shows}}
         <!-- List Shows -->
-        {{> dashboard/search-shows }}
         {{> dashboard/list-shows }}
     {{else}}
         <!-- No Results Found -->
@@ -15,8 +42,30 @@
             {{> common/message title="No Movies" message="You currently have no movies, you can create one by using the form below."}}
         {{/if}}
     {{/if}}
-    <!-- Create Movie Form -->
-    <div class="mt-6">
-    {{> forms/show-form formTitle="Create Movie" formIcon="plus" postUrl="/dashboard/addshow" btnTitle="Create Movie"}}
-    </div>
 </section>
+
+<script>
+    const showsJSON = {{{ showsJSON }}}
+    let latLngs = [];
+    // set up point map
+    const map = L.map("map", {
+        dragging: true,
+        doubleClickZoom: true,
+        zoomControl: true,
+        scrollWheelZoom: false
+    }).setView([53, -8], 6.4);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "© OpenStreetMap"
+    }).addTo(map);
+
+    showsJSON.forEach((show) => {
+        show.points?.forEach((point) => {
+            let marker = L.marker([point.latitude, point.longitude]).addTo(map);
+            const markerUrl = `/show/${show._id}/point/${point._id}`
+            marker.bindPopup(
+                "<p><strong>" + point.name + "</strong></p><p><i class='fas fa-film'></i>  " + show.title + "</p><a href='" + markerUrl + "'>View</a>");
+        })
+    })
+
+</script>

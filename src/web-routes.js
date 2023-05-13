@@ -4,12 +4,16 @@ import { dashboardController } from "./controllers/dashboard.js";
 import { pointController } from "./controllers/point.js";
 import { showController } from "./controllers/show.js";
 import { homeController } from "./controllers/home.js";
+import { portalController } from "./controllers/portal.js";
 
 export const webRoutes = [
     { method: "GET", path: "/dashboard", config: dashboardController.index },
-    { method: "POST", path: "/dashboard/addshow", config: dashboardController.createShow },
-    { method: "GET", path: "/dashboard/deleteshow/{id}", config: dashboardController.deleteShow },
-    { method: "GET", path: "/dashboard/deleteallshows", config: dashboardController.deleteAllShows },
+
+    { method: "GET", path: "/my-movies", config: portalController.index },
+    { method: "POST", path: "/my-movies/addshow", config: portalController.createShow },
+    { method: "GET", path: "/my-movies/deleteshow/{id}", config: portalController.deleteShow },
+    { method: "GET", path: "/my-movies/deleteallshows", config: portalController.deleteAllShows },
+    { method: "GET", path: "/show/{id}/delete", config: portalController.deleteShow },
 
     { method: "GET", path: "/admin", config: adminController.index },
     { method: "GET", path: "/admin/users/{id}/toggleadmin", config: adminController.toggleUserAdmin },
@@ -29,7 +33,6 @@ export const webRoutes = [
     { method: "GET", path: "/show/{id}", config: showController.index },
     { method: "POST", path: "/show/{id}/update", config: showController.update },
     { method: "POST", path: "/show/{id}/addpoint", config: showController.addPoint },
-    { method: "GET", path: "/show/{id}/delete", config: dashboardController.deleteShow },
     { method: "GET", path: "/show/{id}/deletepoint/{pointId}", config: showController.deletePoint },
     { method: "GET", path: "/show/{id}/togglevisibility/{pointId}", config: pointController.toggleVisibility },
     { method: "GET", path: "/show/{id}/deleteallpoints", config: showController.deleteAllPoints },
