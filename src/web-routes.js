@@ -5,6 +5,7 @@ import { pointController } from "./controllers/point.js";
 import { showController } from "./controllers/show.js";
 import { homeController } from "./controllers/home.js";
 import { portalController } from "./controllers/portal.js";
+import { favoritesController } from "./controllers/favorites.js";
 
 export const webRoutes = [
     { method: "GET", path: "/dashboard", config: dashboardController.index },
@@ -14,6 +15,8 @@ export const webRoutes = [
     { method: "GET", path: "/my-movies/deleteshow/{id}", config: portalController.deleteShow },
     { method: "GET", path: "/my-movies/deleteallshows", config: portalController.deleteAllShows },
     { method: "GET", path: "/show/{id}/delete", config: portalController.deleteShow },
+
+    { method: "GET", path: "/my-favorites", config: favoritesController.index },
 
     { method: "GET", path: "/admin", config: adminController.index },
     { method: "GET", path: "/admin/users/{id}/toggleadmin", config: adminController.toggleUserAdmin },
@@ -44,6 +47,8 @@ export const webRoutes = [
     { method: "GET", path: "/show/{id}/point/{pointId}/deleteimage/{imageIndex}", config: pointController.deleteImage },
     { method: "GET", path: "/show/{id}/point/{pointId}/deleteallimages", config: pointController.deleteAllImages },
     { method: "GET", path: "/show/{id}/point/{pointId}/setcoverimage/{imageIndex}", config: pointController.setCoverImage },
+    { method: "GET", path: "/show/{id}/point/{pointId}/add-to-favorites", config: pointController.addToFavorites },
+    { method: "GET", path: "/show/{id}/point/{pointId}/remove-from-favorites", config: pointController.removeFromFavorites },
 
 
     // home page
