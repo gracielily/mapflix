@@ -1,0 +1,27 @@
+<div class="card mb-5">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-cog"></i></span><span>Quick Panel</span>
+        </p>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <div class="columns">
+                {{> dashboard/search-shows }}
+                <div class="column is-4">
+                <a class="button is-success mr-1" href="#movieForm">
+                    <span class="icon"><i class="fas fa-plus"></i></span><span>Create Movie</span>
+                </a>
+                {{#if shows}}
+                 <a class="button is-danger" onclick="deleteAllShows()">
+                    <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Shows</span>
+                </a>
+                {{/if}}
+                </div>
+                <div class="column is-3">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

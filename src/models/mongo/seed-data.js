@@ -54,7 +54,8 @@ export const seedData = {
       wheelchairAccessible: false,
       facilitiesAvailable: true,
       images: ["http://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/zwj4nxt6y40ma4kxsm0t.jpg","https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/hinc0qy4u2zxmawztx5i.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/EUCYkYZXkAMhahj_bncia2.jpg"],
-      showId: "->shows.show1"
+      showId: "->shows.show1",
+      isPublic: true,
     },
     point2: {
       name: "Curracloe Beach",
@@ -65,7 +66,8 @@ export const seedData = {
       wheelchairAccessible: false,
       facilitiesAvailable: true,
       images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/ouja2py42wbeldjvfbfn.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/2015-BROOKLYN-009_k3ap1e.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/04BROOKLYNJP-jumbo_m7p86z.jpg"],
-      showId: "->shows.show2"
+      showId: "->shows.show2",
+      isPublic: true,
     },
     point3: {
       name: "St Fintan's Church",
@@ -76,7 +78,8 @@ export const seedData = {
       wheelchairAccessible: true,
       facilitiesAvailable: false,
       images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/15615002_20.jpg_hcc2py.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/1-1-dsc_0607_u67qin.jpg"],
-      showId: "->shows.show2"
+      showId: "->shows.show2",
+      isPublic: true,
     },
     point4: {
       name: "The Athenaeum Enniscorthy",
@@ -87,7 +90,8 @@ export const seedData = {
       wheelchairAccessible: true,
       facilitiesAvailable: true,
       images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/2423_apdpx2.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/68720-To-the-party-_swigki.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/b_155_b_05242_2k3a8246_u7zzbz.jpg"],
-      showId: "->shows.show2"
+      showId: "->shows.show2",
+      isPublic: false,
     },
     point5: {
       name: "Cloughmore",
@@ -98,7 +102,8 @@ export const seedData = {
       wheelchairAccessible: true,
       facilitiesAvailable: false,
       images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/4300506114_ebdc5f3b8c_c_qlkqqi.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/33333_vsmxdx.jpg"],
-      showId: "->shows.show3"
+      showId: "->shows.show3",
+      isPublic: false,
     },
     point6: {
       name: "Keem Bay",
@@ -109,7 +114,8 @@ export const seedData = {
       wheelchairAccessible: false,
       facilitiesAvailable: false,
       images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/jjdevines_construction_800_a2zl2j.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/keem_bay_waw_sign_cottage_zg71dr.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/keem_bay_fiddle_1-1_p823kc.jpg"],
-      showId: "->shows.show3"
+      showId: "->shows.show3",
+      isPublic: true,
     },
   }
 };

@@ -28,6 +28,7 @@ const pointSchema = new Schema({
     ref: "Show",
   },
   images: [String],
+  isPublic: Boolean,
 });
 
 export const Point = Mongoose.model("Point", pointSchema);

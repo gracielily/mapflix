@@ -32,6 +32,7 @@ export const PointSpec = Joi.object().keys({
   publicTransport: Joi.boolean().example("false"),
   wheelchairAccessible: Joi.boolean().example("true"),
   facilitiesAvailable: Joi.boolean().example("true"),
+  isPublic: Joi.boolean().example("true"),
 }).label("Point Details");
 
 export const PointSpecExtra = PointSpec.keys({
