@@ -36,7 +36,8 @@
         </div>
     </div>
 
-    
+        <!-- List Reviews -->
+    {{> point/list-reviews }}
     {{#if isUserPoint}}
     <!-- Configuration Panel -->
     <div class="card mt-6">
@@ -65,17 +66,17 @@
                         </button>
                     </a>
                     {{/if}}
-                    <a href="/show/{{show._id}}/togglevisibility/{{point._id}}"><button class="button is-link is-warning is-pulled-right mr-3"><i class="fas fa-lock"></i> </span><span> Toggle Visibility</span></button></a>
+                    <a href="/show/{{show._id}}/togglevisibility/{{point._id}}">
+                        <button class="button is-link is-warning is-pulled-right mr-3">
+                            <span class="icon"><i class="fas fa-{{#if point.isPublic}}lock{{else}}lock-open{{/if}}"></i></span><span>Make {{#if point.isPublic}}Private{{else}}Public{{/if}}</span>
+                        </button>
+                    </a>
                     <br>
                 </div>
             </div>
         </div>
     </div>
     {{/if}}
-
-    <!-- List Reviews -->
-    {{> point/list-reviews }}
-    <div class="ss-box" data-ss-social="email, facebook, twitter, share" data-ss-email = "subject:Check out this Filming Location on Mapflix!"></div>
 </section>
 
 

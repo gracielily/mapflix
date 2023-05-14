@@ -46,6 +46,8 @@ export const pointController = {
         contextData.reviews[i].user = await db.userStore.getUserById(contextData.reviews[i].userId);
         contextData.reviews[i].stars = Array(contextData.reviews[i].rating).fill("star")
       }
+      // check if point belongs to user
+      contextData.isUserPoint = show.userId.toString() === request.auth.credentials._id.toString()
       return h.view("point", contextData);
     },
   },
