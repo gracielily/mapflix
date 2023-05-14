@@ -1,6 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { IdSpec, PointSpec, PointSpecExtra, PointArraySpec } from "../models/joi-schemas.js";
+import { sanitizeData } from "../controllers/utils.js";
 
 export const pointApi = {
   find: {
@@ -49,7 +50,7 @@ export const pointApi = {
     },
     handler: async function (request, h) {
       try {
-        const point = await db.pointStore.create(request.params.id, request.payload);
+        const point = await db.pointStore.create(request.params.id, sanitizeData(request.payload));
         if (point) {
           return h.response(point).code(201);
         }
