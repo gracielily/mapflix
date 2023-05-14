@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv";
 import axios from "axios";
+import DOMPurify from 'isomorphic-dompurify'; 
 
 dotenv.config();
 
@@ -46,5 +47,13 @@ export async function getWeatherData(point) {
     } catch (error) {
         console.log(error)
     };
+    return data
+}
+
+export function sanitizeData(data){
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
+    for(const prop in data) {
+        data[prop] = DOMPurify.sanitize(data[prop])
+    }
     return data
 }

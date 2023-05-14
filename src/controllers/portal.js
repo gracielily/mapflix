@@ -1,5 +1,6 @@
 import { ShowSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { sanitizeData } from "./utils.js";
 
 const contextData = {
   title: "Mapflix Dashboard",
@@ -40,6 +41,7 @@ export const portalController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error.details;
+        request.payload = sanitizeData(request.payload);
         errorContextData.values = {
           title: request.payload.title,
           imdbId: request.payload.imdbId
@@ -49,6 +51,7 @@ export const portalController = {
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
+      request.payload = sanitizeData(request.payload);
       const showPayload = {
         userId: loggedInUser._id,
         title: request.payload.title,

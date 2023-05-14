@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 import { PostSpec, CommentSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { sanitizeData } from "./utils.js";
 
 const contextData = {
     title: "Forum",
@@ -33,7 +34,7 @@ export const forumController = {
       },
     },
     handler: async function (request, h) {
-      const postPayload = request.payload;
+      const postPayload = sanitizeData(request.payload);
       postPayload.userId = request.auth.credentials._id;
       await db.postStore.create(postPayload);
       return h.redirect("/forum");
@@ -67,7 +68,7 @@ export const postController = {
       },
     },
     handler: async function (request, h) {
-      const commentPayload = request.payload;
+      const commentPayload = sanitizeData(request.payload);
       commentPayload.userId = request.auth.credentials._id;
       commentPayload.postId = request.params.id;
       await db.commentStore.create(commentPayload);
