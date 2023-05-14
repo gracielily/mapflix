@@ -60,7 +60,7 @@ export const showApi = {
     },
     handler: async function (request, h) {
       try {
-        const show = request.payload;
+        const show = sanitizeData(request.payload);
         const newShow = await db.showStore.create(show);
         if (newShow) {
           return h.response(newShow).code(201);

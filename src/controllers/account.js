@@ -2,7 +2,8 @@ import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
-import bcrypt from "bcrypt"; 
+import bcrypt from "bcrypt";
+import { sanitizeData } from "./utils.js";
 
 const saltRounds = 10;
 
@@ -32,7 +33,7 @@ export const accountController = {
       },
     },
     handler: async function (request, h) {
-      const { email, password } = request.payload;
+      const { email, password } = sanitizeData(request.payload);
       const user = await db.userStore.getUserByEmail(email);
       const passwordsMatch = await bcrypt.compare(password, user.password);
       if (!user || !passwordsMatch) {
@@ -78,8 +79,8 @@ export const accountController = {
       },
     },
     handler: async function (request, h) {
-      const user = request.payload;
-      user.password = await bcrypt.hash(request.payload.password, saltRounds);
+      const user = sanitizeData(request.payload);
+      user.password = await bcrypt.hash(user.password, saltRounds);
       await db.userStore.addUser(user);
       return h.redirect("/login");
     },
@@ -101,17 +102,18 @@ export const accountController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...editUserContextData };
         errorContextData.errors = error.details;
-        errorContextData.values = request.payload;
+        errorContextData.values = sanitizeData(request.payload);
         return h.view("account", errorContextData).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      updatedPassword = await bcrypt.hash(request.payload.password, saltRounds);
+      const updatedPayload = sanitizeData(request.payload)
+      updatedPassword = await bcrypt.hash(updatedPayload.password, saltRounds);
       const updatedUser = {
-        firstName: request.payload.firstName,
-        lastName: request.payload.lastName,
-        email: request.payload.email,
+        firstName: updatedPayload.firstName,
+        lastName: updatedPayload.lastName,
+        email: updatedPayload.email,
         password: updatedPassword,
         avatar: loggedInUser.avatar,
       };
@@ -132,7 +134,7 @@ export const accountController = {
         const loggedInUser = request.auth.credentials
         const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
-          const imgUrl = await imageStore.uploadImage(request.payload.imagefile);
+          const imgUrl = await imageStore.uploadImage(file);
           const updatedUser = { ...loggedInUser }
           updatedUser.avatar = imgUrl;
           await db.userStore.update(loggedInUser, updatedUser);

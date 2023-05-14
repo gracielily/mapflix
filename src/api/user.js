@@ -2,17 +2,21 @@ import Boom from "@hapi/boom";
 import { createToken } from "./jwt-utils.js";
 import { db } from "../models/db.js";
 import { IdSpec, UserArray, UserSpec, UserSpecExtra, UserBaseSpec, JwtAuth } from "../models/joi-schemas.js";
+import { sanitizeData } from "../controllers/utils.js";
+import DOMPurify from 'isomorphic-dompurify';
+import bcrypt from "bcrypt";
 
 export const userApi = {
     authenticate: {
         auth: false,
         handler: async function (request, h) {
             try {
-                const user = await db.userStore.getUserByEmail(request.payload.email);
+                const user = await db.userStore.getUserByEmail(DOMPurify.sanitize(request.payload.email));
                 if (!user) {
                     return Boom.unauthorized("Invalid Credentials");
                 }
-                if (user.password !== request.payload.password) {
+                const passwordsMatch = await bcrypt.compare(DOMPurify.sanitize(request.payload.password), user.password);
+                if (!passwordsMatch) {
                     return Boom.unauthorized("Invalid password");
                 }
                 const token = createToken(user);
@@ -67,7 +71,7 @@ export const userApi = {
         auth: false,
         handler: async function (request, h) {
             try {
-                const user = await db.userStore.addUser(request.payload);
+                const user = await db.userStore.addUser(sanitizeData(request.payload));
                 if (user) {
                     return h.response(user).code(201);
                 }

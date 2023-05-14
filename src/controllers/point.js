@@ -2,6 +2,7 @@ import { PointSpec, ReviewSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, getWeatherData, IMAGE_PAYLOAD } from "./utils.js";
+import { sanitizeData } from "./utils.js";
 
 const contextData = {
     title: "Point Details",
@@ -59,13 +60,13 @@ export const pointController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error.details;
-        errorContextData.values = request.payload
+        errorContextData.values = sanitizeData(request.payload)
         return h.view("point", errorContextData).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const point = await db.pointStore.getById(request.params.pointId);
-      const newPoint = request.payload;
+      const newPoint = sanitizeData(request.payload);
       await db.pointStore.update(point, newPoint);
       return h.redirect(`/show/${request.params.id}/point/${request.params.pointId}`);
     },
@@ -225,6 +226,7 @@ export const pointController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error.details;
+        request.payload = sanitizeData(request.payload);
         errorContextData.values = {
           rating: request.payload.rating,
           commentTitle: request.payload.commentTitle,
@@ -236,6 +238,7 @@ export const pointController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const point = await db.pointStore.getById(request.params.pointId);
+      request.payload = sanitizeData(request.payload)
       const reviewPayload = {
         userId: loggedInUser._id,
         pointId: point._id,

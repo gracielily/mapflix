@@ -1,7 +1,7 @@
 import { PointSpec, ShowSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
-import { getImagePublicId, getMovieData, IMAGE_PAYLOAD } from "./utils.js";
+import { getImagePublicId, getMovieData, IMAGE_PAYLOAD, sanitizeData } from "./utils.js";
 
 const contextData = {
     title: "Movie Details",
@@ -36,13 +36,14 @@ export const showController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error.details;
-        errorContextData.values = request.payload
+        errorContextData.values = sanitizeData(request.payload);
         return h.view("show", errorContextData).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
       const updatedShow = {...show};
+      request.payload = sanitizeData(request.payload);
       updatedShow.title = request.payload.title;
       updatedShow.imdbId = request.payload.imdbId;
       await db.showStore.update(show, updatedShow);
@@ -63,7 +64,7 @@ export const showController = {
     },
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
-      const pointPayload = request.payload;
+      const pointPayload = sanitizeData(request.payload);
       await db.pointStore.create(show._id, pointPayload);
       return h.redirect(`/show/${show._id}`);
     },
