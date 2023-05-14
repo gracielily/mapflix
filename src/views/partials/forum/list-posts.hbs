@@ -1,0 +1,32 @@
+<table class="table is-fullwidth mt-6">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Date Added</th>
+      <th>Posted By</th>
+      <th>Number of Comments</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each posts}}
+    <tr>
+      <td>
+        {{title}}
+      </td>
+      <td>{{dateAdded}}</td>
+      <td>
+        {{user.firstName}} {{user.lastName}}
+      </td>
+      <td>
+        {{commentCount}}
+      </td>
+      <td>
+        <a href="/forum/{{_id}}" class="ui icon button">
+          <i class="fas fa-eye"></i>
+        </a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -1,0 +1,30 @@
+<div class="card" id="movieForm">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="fas fa-{{formIcon}}"></i></span><span>{{formTitle}}</span>
+    </p>
+  </header>
+  <div class="card-content">
+    <form action="{{postUrl}}" method="POST">
+          <div class="field">
+            <label class="label">Post Title</label>
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Enter post title" name="title" value="{{values.title}}">
+              <span class="icon is-small is-left">
+                <i class="fa fa-heading"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Post Body</label>
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Enter post body" name="body" value="{{values.body}}">
+              <span class="icon is-small is-left">
+                <i class="fa fa-comment"></i>
+              </span>
+        </div>
+      </div>
+      <button class="button is-success is-fullwidth">{{btnTitle}}</button>
+    </form>
+  </div>
+</div>

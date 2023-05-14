@@ -20,7 +20,6 @@ export const favoritesMongoStore = {
   },
 
   async removePointFromFavorites(favorites, locationToDeleteId) {
-    console.log(favorites, locationToDeleteId)
     await Favorites.updateOne(
         { _id: favorites._id },
         { $pull: { "points": locationToDeleteId }}

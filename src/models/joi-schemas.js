@@ -80,3 +80,15 @@ export const ReviewSpecExtra = ReviewSpec.keys({
   __v: Joi.number().example(0),
   showId: IdSpec,
 }).label("ReviewDetailsExtra");
+
+
+export const PostSpec = Joi.object().keys({
+  title: Joi.string().required().example("What did people think of Saving Private Ryan"),
+  body: Joi.string().optional().allow("").example("Let's start a discussion about the iconic movie filmed in Wexford"),
+}).label("Post Details");
+
+export const PostSpecExtra = PostSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number().example(0),
+  showId: IdSpec,
+}).label("PostwDetailsExtra");
