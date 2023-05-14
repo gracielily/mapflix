@@ -49,6 +49,7 @@ export const webRoutes = [
     { method: "GET", path: "/show/{id}/point/{pointId}/setcoverimage/{imageIndex}", config: pointController.setCoverImage },
     { method: "GET", path: "/show/{id}/point/{pointId}/add-to-favorites", config: pointController.addToFavorites },
     { method: "GET", path: "/show/{id}/point/{pointId}/remove-from-favorites", config: pointController.removeFromFavorites },
+    { method: "POST", path: "/show/{id}/point/{pointId}/add-review", config: pointController.addReview },
 
 
     // home page

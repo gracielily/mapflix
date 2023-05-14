@@ -1,4 +1,4 @@
-import { PointSpec } from "../models/joi-schemas.js";
+import { PointSpec, ReviewSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, getWeatherData, IMAGE_PAYLOAD } from "./utils.js";
@@ -22,6 +22,7 @@ export const pointController = {
       contextData.point = point;
       contextData.pointJSON = JSON.stringify(point);
       contextData.postUrl = `/show/${show._id}/point/${point._id}/update`;
+      contextData.addReviewUrl = `/show/${show._id}/point/${point._id}/add-review`;
       contextData.user = request.auth.credentials;
       // pre-populate form data
       contextData.values = point;
@@ -36,6 +37,17 @@ export const pointController = {
       } else {
         contextData.weather = weatherData
       }
+      // get point reviews
+      contextData.reviews = await db.reviewStore.getByPointId(point._id)
+      contextData.hasLeftReview = contextData.reviews.find((review) => review.userId.toString() === request.auth.credentials._id.toString())
+      for(let i = 0; i < contextData.reviews.length; i+= 1){
+        // get user info
+        // eslint-disable-next-line no-await-in-loop
+        contextData.reviews[i].user = await db.userStore.getUserById(contextData.reviews[i].userId);
+        contextData.reviews[i].stars = Array(contextData.reviews[i].rating).fill("star")
+      }
+      // check if point belongs to user
+      contextData.isUserPoint = show.userId.toString() === request.auth.credentials._id.toString()
       return h.view("point", contextData);
     },
   },
@@ -203,6 +215,36 @@ export const pointController = {
         }
         return h.view("point", errorContextData);
       }
+    },
+  },
+
+  addReview: {
+    validate: {
+      payload: ReviewSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = error.details;
+        errorContextData.values = {
+          rating: request.payload.rating,
+          commentTitle: request.payload.commentTitle,
+          commentBody: request.payload.commentBody
+        }
+        return h.view("point", errorContextData).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const point = await db.pointStore.getById(request.params.pointId);
+      const reviewPayload = {
+        userId: loggedInUser._id,
+        pointId: point._id,
+        rating: request.payload.rating,
+        commentTitle: request.payload.commentTitle,
+        commentBody: request.payload.commentBody,
+      };
+      await db.reviewStore.create(reviewPayload);
+      return h.redirect(`/show/${request.params.id}/point/${point._id}`);
     },
   },
 };

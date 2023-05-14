@@ -67,3 +67,16 @@ export const JwtAuth = Joi.object()
   .label("JwtAuth");
 
 export const ShowSearchTermSpec = Joi.object({ search: Joi.string().optional().allow("").example("Braveheart") });
+
+
+export const ReviewSpec = Joi.object().keys({
+  rating: Joi.number().required().min(1).max(5).example("5"),
+  commentTitle: Joi.string().optional().allow("").example("Loved visiting here"),
+  commentBody: Joi.string().optional().allow("").example("Highly recommend visiting this spot, it had a lot of information about how the movie was filmed here."),
+}).label("Review Details");
+
+export const ReviewSpecExtra = ReviewSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number().example(0),
+  showId: IdSpec,
+}).label("ReviewDetailsExtra");

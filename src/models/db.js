@@ -3,6 +3,7 @@ import { connectMongo } from "./mongo/connect.js";
 import { pointMongoStore } from "./mongo/point-mongo-store.js";
 import { showMongoStore } from "./mongo/show-mongo-store.js";
 import { userMongoStore } from "./mongo/user-mongo-store.js";
+import { reviewMongoStore } from "./mongo/review-mongo-store.js";
 
 export const db = {
     userStore: null,
@@ -10,8 +11,9 @@ export const db = {
     init() {
         this.userStore = userMongoStore;
         this.pointStore = pointMongoStore;
-        this.showStore = showMongoStore
-        this.favoritesStore = favoritesMongoStore
+        this.showStore = showMongoStore;
+        this.favoritesStore = favoritesMongoStore;
+        this.reviewStore = reviewMongoStore;
         connectMongo();
     },
 };
