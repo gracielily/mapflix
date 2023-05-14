@@ -4,7 +4,7 @@ export const IdSpec = Joi.alternatives().try(Joi.string().example("5410812dacf1b
 
 export const UserBaseSpec = Joi.object().keys({
   email: Joi.string().email().required().example("janedoe@example.com"),
-  password: Joi.string().required().example("somepassword123"),
+  password:  password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/).required().example("Som3Pas$w0rd?"),
 }).label("Credentials")
 
 export const UserSpec = UserBaseSpec.keys({
