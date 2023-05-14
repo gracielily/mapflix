@@ -1,0 +1,32 @@
+<div class="card" id="commentForm">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="fas fa-{{formIcon}}"></i></span><span>{{formTitle}}</span>
+    </p>
+  </header>
+  <div class="card-content">
+    <form action="{{postUrl}}" method="POST">
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-128x128">
+      <img src="{{loggedInUser.avatar}}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="field">
+      <p class="control">
+        <textarea class="textarea" placeholder="Add a comment..." name="body" value="{{values.body}}"></textarea>
+      </p>
+    </div>
+    <nav class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <button class="button is-success">Submit</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</article>
+    </form>
+  </div>
+</div>

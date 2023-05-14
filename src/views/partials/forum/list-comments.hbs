@@ -1,0 +1,27 @@
+  <div class="card mt-6 mb-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="fas fa-comments"></i></span><span>Comments</span>
+      </p>
+    </header>
+    <div class="card-content">
+{{#each comments}}
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img class="object-fit" src="{{user.avatar}}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>{{user.firstName}} {{user.lastName}}</strong><small>{{dateAdded}}</small>
+        <br>
+        {{body}}
+      </p>
+    </div>
+  </div>
+</article>
+{{/each}}
+</div>
+</div>

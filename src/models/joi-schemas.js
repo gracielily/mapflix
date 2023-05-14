@@ -73,6 +73,8 @@ export const ReviewSpec = Joi.object().keys({
   rating: Joi.number().required().min(1).max(5).example("5"),
   commentTitle: Joi.string().optional().allow("").example("Loved visiting here"),
   commentBody: Joi.string().optional().allow("").example("Highly recommend visiting this spot, it had a lot of information about how the movie was filmed here."),
+  userId: IdSpec,
+  pointId: IdSpec,
 }).label("Review Details");
 
 export const ReviewSpecExtra = ReviewSpec.keys({
@@ -85,10 +87,24 @@ export const ReviewSpecExtra = ReviewSpec.keys({
 export const PostSpec = Joi.object().keys({
   title: Joi.string().required().example("What did people think of Saving Private Ryan"),
   body: Joi.string().optional().allow("").example("Let's start a discussion about the iconic movie filmed in Wexford"),
+  userId: IdSpec,
 }).label("Post Details");
 
 export const PostSpecExtra = PostSpec.keys({
   _id: IdSpec,
   __v: Joi.number().example(0),
   showId: IdSpec,
-}).label("PostwDetailsExtra");
+}).label("Post DetailsExtra");
+
+
+export const CommentSpec = Joi.object().keys({
+  body: Joi.string().required().example("I really enjoyed watching the movie, I would give it 5 stars!!"),
+  userId: IdSpec,
+  postId: IdSpec,
+}).label("Comment Details");
+
+export const CommentSpecExtra = PostSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number().example(0),
+  showId: IdSpec,
+}).label("Comment DetailsExtra");
