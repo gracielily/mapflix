@@ -5,14 +5,14 @@ export const seedData = {
       firstName: "Jane",
       lastName: "Doe",
       email: "jane@doe.com",
-      password: "password123",
+      password: "$2a$10$XrOtzz0ftaoCraUkm.qCguqVuXjZewp8suJEEDQXIroOYAybypm5e", //Passw0rd?123,
       avatar: "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/xmj8lidyulylcyhbl90o.jpg"
     },
     user2: {
       firstName: "John",
       lastName: "Doe",
       email: "john@doe.com",
-      password: "somesecret",
+      password: "$2a$10$zKvpwdlBM/VFQQf8cfgg3u4ENKbS1jEIxKl.jH/b.gCXWshgIX5mO", //S0m3secrEt!,
       isAdmin: true,
     },
   },
