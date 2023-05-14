@@ -1,0 +1,13 @@
+{{> common/heading heading="Favorite Locations"}}
+
+
+<section class="dashboard mt-6 pb-6">
+    {{> common/errormsg }}
+    {{#if favoritePoints}}
+        <!-- List Favorites -->
+        {{> dashboard/list-favorites }}
+    {{else}}
+        <!-- No Favorites Found -->
+        {{> common/message title="No Favorites" message="You currently have no favorite locations."}}
+    {{/if}}
+</section>

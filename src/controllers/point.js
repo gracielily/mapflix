@@ -26,7 +26,9 @@ export const pointController = {
       // pre-populate form data
       contextData.values = point;
       contextData.imagePostUrl = `/show/${show._id}/point/${point._id}/uploadimage`;
-
+      const favorites = await db.favoritesStore.getOrCreateByUser(request.auth.credentials._id)
+      // check if point in user's favorites
+      contextData.inFavorites = favorites.points.find(el => el.toString() === point._id.toString())
       // get weather data
       const weatherData = await getWeatherData(point);
       if(!weatherData?.label) {
@@ -158,5 +160,49 @@ export const pointController = {
         return h.view("point", errorContextData);
       }
     }
-  }
+  },
+
+  addToFavorites: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      try {
+        const point = await db.pointStore.getById(request.params.pointId);
+        // add point to favorites
+        const favorites = await db.favoritesStore.getOrCreateByUser(loggedInUser._id)
+        await db.favoritesStore.addPointToFavorites(favorites, point._id)
+        return h.redirect(`/show/${request.params.id}/point/${point._id}`);
+      }
+      catch (error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = [{ message: "The location could not be added to your favorites." }];
+        return h.view("point", errorContextData);
+      }
+    },
+  },
+
+  removeFromFavorites: {
+    handler: async function (request, h) {
+      const {referrer} = request.info
+      try {
+        const point = await db.pointStore.getById(request.params.pointId);
+        const favorites = await db.favoritesStore.getOrCreateByUser(request.auth.credentials._id);
+        // remove point from favorites
+        await db.favoritesStore.removePointFromFavorites(favorites, point._id)
+        // redirect to the page referred from
+        if(referrer.includes("my-favorites")){
+          return h.redirect("/my-favorites");
+        }
+        return h.redirect(`/show/${request.params.id}/point/${point._id}`);
+      }
+      catch (error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = [{ message: "The location could not be removed from your favorites." }];
+        // render page referred from
+        if(referrer.includes("my-favorites")){
+          return h.view("favorites", errorContextData);
+        }
+        return h.view("point", errorContextData);
+      }
+    },
+  },
 };

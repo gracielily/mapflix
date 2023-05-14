@@ -1,3 +1,4 @@
+import { favoritesMongoStore } from "./favorites-mongo-store.js";
 import { connectMongo } from "./mongo/connect.js";
 import { pointMongoStore } from "./mongo/point-mongo-store.js";
 import { showMongoStore } from "./mongo/show-mongo-store.js";
@@ -10,6 +11,7 @@ export const db = {
         this.userStore = userMongoStore;
         this.pointStore = pointMongoStore;
         this.showStore = showMongoStore
+        this.favoritesStore = favoritesMongoStore
         connectMongo();
     },
 };
