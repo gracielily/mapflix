@@ -1,0 +1,15 @@
+{{> common/heading heading="Forum"}}
+
+<section class="dashboard mt-6 pb-6">
+    {{> common/errormsg }}
+    {{#if posts}}
+        <!-- List Posts -->
+        {{> forum/list-posts }}
+    {{else}}
+        {{> common/message title="No Posts" message="No posts yet, you can create one by using the form below."}}
+    {{/if}}
+    <!-- Create Post Form -->
+    <div class="mt-6">
+    {{> forms/post-form formTitle="Create Post" formIcon="plus" postUrl="/forum/add-post" btnTitle="Create Post"}}
+    </div>
+</section>

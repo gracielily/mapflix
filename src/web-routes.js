@@ -6,6 +6,7 @@ import { showController } from "./controllers/show.js";
 import { homeController } from "./controllers/home.js";
 import { portalController } from "./controllers/portal.js";
 import { favoritesController } from "./controllers/favorites.js";
+import { forumController, postController } from "./controllers/forum.js";
 
 export const webRoutes = [
     { method: "GET", path: "/dashboard", config: dashboardController.index },
@@ -50,6 +51,11 @@ export const webRoutes = [
     { method: "GET", path: "/show/{id}/point/{pointId}/add-to-favorites", config: pointController.addToFavorites },
     { method: "GET", path: "/show/{id}/point/{pointId}/remove-from-favorites", config: pointController.removeFromFavorites },
     { method: "POST", path: "/show/{id}/point/{pointId}/add-review", config: pointController.addReview },
+
+    { method: "GET", path: "/forum", config: forumController.index },
+    { method: "POST", path: "/forum/add-post", config: forumController.addPost },
+    { method: "GET", path: "/forum/{id}", config: postController.index },
+    { method: "POST", path: "/forum/{id}/add-comment", config: postController.addComment },
 
 
     // home page

@@ -1,0 +1,32 @@
+  <div class="card mt-6 mb-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="fas fa-list"></i></span><span>Posts</span>
+      </p>
+    </header>
+    <div class="card-content">
+    {{#each posts}}
+    <article class="media">
+        <div class="media-content">
+            <div class="content list-forum">
+                <p class="text-content">
+                    <a href="/forum/{{_id}}">{{title}}
+                    </a>
+                </p>
+                <p class="info-content">
+                    <span>
+                        <i class="fas fa-user"></i>
+                        <small>{{user.firstName}} {{user.lastName}}</small>
+                    </span>
+                    <span>
+                        <i class="fas fa-comments"></i>
+                        <small>{{commentCount}}</small>
+                    </span>
+
+                </p>
+            </div>
+        </div>
+    </article>
+    {{/each}}
+</div>
+</div>

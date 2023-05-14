@@ -1,0 +1,16 @@
+{{> common/heading heading="Discussion"}}
+
+<section class="dashboard mt-6 pb-6">
+    {{> common/errormsg }}
+    {{> forum/post-details }}
+    {{#if comments}}
+        <!-- List Comments -->
+        {{> forum/list-comments }}
+    {{else}}
+        {{> common/message title="No Comments" message="No comments yet, you can add one by using the form below."}}
+    {{/if}}
+    <!-- Create Post Form -->
+    <div class="mt-6">
+    {{> forms/comment-form formTitle="Add Comment" formIcon="comment" btnTitle="Create Post"}}
+    </div>
+</section>
