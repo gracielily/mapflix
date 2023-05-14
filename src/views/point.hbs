@@ -36,6 +36,8 @@
         </div>
     </div>
 
+    
+    {{#if isUserPoint}}
     <!-- Configuration Panel -->
     <div class="card mt-6">
         <header class="card-header">
@@ -69,8 +71,13 @@
             </div>
         </div>
     </div>
+    {{/if}}
+
+    <!-- List Reviews -->
+    {{> point/list-reviews }}
+    <div class="ss-box" data-ss-social="email, facebook, twitter, share" data-ss-email = "subject:Check out this Filming Location on Mapflix!"></div>
 </section>
-<div class="ss-box" data-ss-social="email, facebook, twitter, share" data-ss-email = "subject:Check out this Filming Location on Mapflix!"></div>
+
 
 <script>
     const point = {{{ pointJSON }}}

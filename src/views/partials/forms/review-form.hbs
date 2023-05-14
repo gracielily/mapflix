@@ -1,0 +1,70 @@
+<div class="card" id="reviewForm">
+    <header class="card-header">
+        <p class="card-header-title">
+            <span class="icon"><i class="fas fa-circle-plus"></i></span><span>Leave a Rating</span>
+        </p>
+    </header>
+    <div class="card-content">
+        {{#if hasLeftReview}}
+        <article class="message is-info">
+            <div class="message-body">
+                You have already left a rating, thanks!
+            </div>
+        </article>
+        {{else}}
+        <form action="{{addReviewUrl}}" method="POST">
+            <div class="field">
+                <label class="label">Rating</label>
+                <div id="star-rating"></div>
+                <div class="control has-icons-left">
+                    <input id="rating" class="input" type="hidden" name="rating" value="{{values.rating}}" />
+                </div>
+            </div>
+            <label class="label">Review (optional)</label>
+            <div class="field is-horizontal mb-4">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" placeholder="Enter review title" name="commentTitle"
+                                value="{{values.commentTitle}}">
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-heading"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Body</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" placeholder="Enter review Body" name="commentBody"
+                                value="{{values.commentBody}}">
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-comment"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="button is-success is-fullwidth">Submit</button>
+        </form>
+        {{/if}}
+    </div>
+</div>
+
+<script>
+    $(document).ready(() => {
+    const initialRating = $('#rating').val();
+    $("#star-rating").starRating({
+        starSize: 25,
+        forceRoundUp: true,
+        useFullStars: true,
+        disableAfterRate: false,
+        minRating: 1,
+        initialRating: initialRating ? initialRating : 0,
+        callback: function (currentRating, $el) {
+            $('#rating').val(currentRating);
+        }
+    });
+    })
+   
+</script>
