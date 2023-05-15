@@ -23,6 +23,28 @@ export const postMongoStore = {
     return this.getById(createdPost._id);
   },
 
+  async delete(id) {
+    try {
+      // delete associated comments 
+      await Comment.deleteMany({ postId: id });
+      await Post.deleteOne({ _id: id });
+    } catch (error) {
+      console.log("Invalid Post ID");
+    }
+  },
+
+  async update(currentPost, updatedPost) {
+    const post = await this.getById(currentPost._id);
+    if (post) {
+      await Post.updateOne(
+        { _id: currentPost._id },
+        {
+          title: updatedPost.title,
+          body: updatedPost.body,
+        });
+    }
+  }
+
   
 };
 

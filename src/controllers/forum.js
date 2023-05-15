@@ -10,6 +10,7 @@ const contextData = {
 export const forumController = {
   index: {
     handler: async function (request, h) {
+      contextData.values = [];
       contextData.user = request.auth.credentials;
       contextData.postUrl = "/forum/add-post";
       contextData.posts =  await db.postStore.getAll();
@@ -50,12 +51,53 @@ export const forumController = {
 export const postController = {
   index: {
     handler: async function (request, h) {
-      contextData.postUrl = `/forum/${request.params.id}/add-comment`;
+      contextData.postUrl = `/forum/${request.params.id}/update`
+      contextData.commentPostUrl = `/forum/${request.params.id}/add-comment`;
       contextData.post =  await db.postStore.getById(request.params.id);
+      contextData.values = contextData.post;
       contextData.post.user = await db.userStore.getUserById(contextData.post.userId);
       contextData.comments = await db.commentStore.getAllForPost(contextData.post._id)
       contextData.loggedInUser = await db.userStore.getUserById(request.auth.credentials._id)
+      // check if post belongs to user
+      contextData.isUserPost = contextData.loggedInUser._id.toString() === contextData.post.userId.toString();
       return h.view("post", contextData);
+    },
+  },
+
+  update: {
+    validate: {
+      payload: PostSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        const errorContextData = { ...contextData };
+        errorContextData.errors = error.details;
+        errorContextData.values = sanitizeData(request.payload);
+        return h.view("post", errorContextData).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const post = await db.postStore.getById(request.params.id);
+      const updatedPost = {...post};
+      request.payload = sanitizeData(request.payload);
+      updatedPost.title = request.payload.title;
+      updatedPost.body = request.payload.body;
+      await db.postStore.update(post, updatedPost);
+      return h.redirect(`/forum/${request.params.id}`);
+    },
+  },
+
+  delete: {
+    handler: async function (request, h) {
+      const post = await db.postStore.getById(request.params.id);
+      try {
+        await db.postStore.delete(post._id);
+        contextData.values = [];
+      } catch(err){
+        const errorContextData = { ...contextData };
+        errorContextData.errors = [{ message: "The post could not be deleted." }];
+        return h.view("post", errorContextData).takeover().code(400);
+      }
+      return h.redirect("/forum");
     },
   },
 
