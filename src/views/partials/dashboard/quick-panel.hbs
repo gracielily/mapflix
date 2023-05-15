@@ -7,14 +7,13 @@
     <div class="card-content">
         <div class="content">
             <div class="columns">
-                {{> dashboard/search-shows }}
                 <div class="column is-4">
                 <a class="button is-success mr-1" href="#movieForm">
                     <span class="icon"><i class="fas fa-plus"></i></span><span>Create Movie</span>
                 </a>
                 {{#if shows}}
-                 <a class="button is-danger" onclick="deleteAllShows()">
-                    <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Movies</span>
+                 <a class="button is-danger" onclick="deleteAllShows()" data-cy="delete-all-shows">
+                    <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Shows</span>
                 </a>
                 {{/if}}
                 </div>
@@ -25,3 +24,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    function searchMovies() {
+        const searchTerm = document.getElementById("searchTerm").value;
+        location.href = `/dashboard?search=${searchTerm}`;
+    }
+
+    function deleteAllShows() {
+        const proceed = confirm(
+            "This will delete ALL of your movies and their associated points. Are you sure you wish to proceed?");
+        // if user clicks confirm direct to delete all shows endpoint
+        if (proceed) {
+            // remove prepending #moviForm and search term if present
+            location.href = location.href.split("#")[0].split('?')[0] += "/deleteallshows";
+        }
+    }
+</script>
