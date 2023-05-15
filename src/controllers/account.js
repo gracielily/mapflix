@@ -46,6 +46,41 @@ export const accountController = {
       return h.redirect("/dashboard");
     },
   },
+  loginOAuth: {
+    auth: "github-oauth",
+    handler: async function (request, h) {
+      if (request.auth.isAuthenticated) {
+        const githubProfile = request.auth.credentials.profile
+        // check if user exists in database
+        const user = await db.userStore.getUserByEmail(githubProfile.email)
+        if (user) {
+          request.cookieAuth.set({ id: user._id });
+        } else {
+          // create new user with github credentails
+          try {
+            // user may not have display name so use username instead
+            let name = githubProfile.username
+            if(githubProfile.displayName){
+              name = githubProfile.displayName.split(" ")
+            }
+            const newUser = await db.userStore.addUser({
+              firstName: Array.isArray(name) ? name[0] : name,
+              lastName: (Array.isArray(name) && name.length > 1) ? name[1] : "",
+              email: githubProfile.email,
+              avatar: githubProfile.raw.avatar_url,
+            })
+            request.cookieAuth.set({ id: newUser._id });
+          }
+          catch (err) {
+            console.log("there was an error with authenticating via ouath: ", err)
+            return h.redirect("/");
+          }
+        }
+      }
+      return h.redirect("/dashboard");
+    }
+  },
+
   async validate(request, session) {
     const user = await db.userStore.getUserById(session.id);
     if (!user) {

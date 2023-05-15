@@ -10,6 +10,7 @@ import * as dotenv from "dotenv";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
 import jwt from "hapi-auth-jwt2";
+import Bell from "@hapi/bell";
 import { validate } from "./api/jwt-utils.js";
 import { apiRoutes } from "./api-routes.js";
 import { webRoutes } from "./web-routes.js";
@@ -43,6 +44,7 @@ async function init() {
   await server.register(Inert);
   await server.register(Vision);
   await server.register(Cookie);
+  await server.register(Bell);
   await server.register(jwt);
   server.validator(Joi);
   await server.register([
@@ -68,6 +70,18 @@ async function init() {
     verifyOptions: { algorithms: ["HS256"] }
   });
 
+  const bellConfig = {
+    provider: "github",
+    password: process.env.GITHUB_ENCRYPTION,
+    clientId: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    isSecure: false
+  };
+
+  server.auth.strategy("github-oauth", "bell", bellConfig);
+
+  server.auth.default("session");
+
   Handlebars.registerHelper("ifSameObj", function(a, b, options) {
     if(a.equals(b)){
       return options.fn(this);
@@ -80,7 +94,6 @@ async function init() {
     return val?.toFixed(places)
   });
 
-  server.auth.default("session");
   server.views({
     engines: {
       hbs: Handlebars,

@@ -29,7 +29,9 @@ export const forumController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error.details;
-        errorContextData.values = {...contextData.values, ...request.payload};
+        let val = {...request.payload }
+        val = sanitizeData(val);
+        errorContextData.values = {...contextData.values, val};
         return h.view("forum", errorContextData).takeover().code(400);
       },
     },
@@ -63,7 +65,9 @@ export const postController = {
       failAction: function (request, h, error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error.details;
-        errorContextData.values = {...contextData.values, ...request.payload};
+        let val = {...request.payload }
+        val = sanitizeData(val);
+        errorContextData.values = {...contextData.values, val};
         return h.view("post", errorContextData).takeover().code(400);
       },
     },

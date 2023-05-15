@@ -24,6 +24,7 @@ export const webRoutes = [
     { method: "GET", path: "/admin/users/{id}/delete", config: adminController.deleteUser },
 
     { method: "GET", path: "/login", config: accountController.displayLogin },
+    { method: "GET", path: "/login-github", config: accountController.loginOAuth },
     { method: "POST", path: "/authenticate", config: accountController.login },
     { method: "GET", path: "/signup", config: accountController.displaySignup },
     { method: "POST", path: "/register", config: accountController.signup },
