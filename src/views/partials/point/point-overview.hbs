@@ -63,8 +63,18 @@
                             {{/if}}
                         </p>
                     </div>
+                    {{#if avgStars}}
+                    <div class="column">
+                        <p class="heading">
+                            <strong>Rating</strong>
+                        </p>
+                        <p class="subheading">
+                            <span>{{#each avgStars}}<i class="fas fa-star"></i>{{/each}}</span>
+                        </p>
+                    </div>
+                    
+                    {{/if}}
                     {{#if isUserPoint}}
-                    <div class="column"></div>
                     <div class="column">
                         <p class="heading">
                             <strong>Visibility</strong>
@@ -74,6 +84,8 @@
                                     class="fas fa-{{#if point.isPublic}}lock-open{{else}}lock{{/if}}"></i></span>
                         </p>
                     </div>
+                    {{else}}
+                    <div class="column"></div>
                     {{/if}}
                 </div>
                 <!-- Share Location -->

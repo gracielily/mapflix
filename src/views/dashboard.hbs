@@ -1,5 +1,7 @@
 {{> common/heading heading="Dashboard"}}
 
+<!-- Search Movies -->
+{{#if shows}}
 <div class="card mb-5">
     <header class="card-header">
         <p class="card-header-title">
@@ -27,6 +29,7 @@
             <div id="map"></div>
         </div>
     </div>
+{{/if}}
 
 <section class="dashboard mt-6 pb-6">
     {{> common/errormsg }}
@@ -39,7 +42,7 @@
             {{> dashboard/search-shows }}
             {{> common/message title="No Search Results" message=noShowsMessage}}
         {{else}}
-            {{> common/message title="No Movies" message="You currently have no movies, you can create one by using the form below."}}
+            {{> common/message title="No Movies" message="No movies in the database."}}
         {{/if}}
     {{/if}}
 </section>

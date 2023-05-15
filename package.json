@@ -11,8 +11,9 @@
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
     "dev": "node --watch src/server.js",
-    "test": "mocha --ui tdd test/models/**/*.js -exit --exclude test/api/**/*.js",
-    "testapi": "mocha --ui tdd test/api/**/*.js -exit --timeout 10000"
+    "test": "nyc --reporter=text mocha --ui tdd test/models/**/*.js -exit --exclude test/api/**/*.js",
+    "testapi": "mocha --ui tdd test/api/**/*.js -exit --timeout 10000",
+    "cypress:open": "nyc --reporter=text cypress run"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
+    "nyc": "^15.1.0",
     "prettier": "^2.8.4"
   },
   "dependencies": {

@@ -10,6 +10,7 @@ const contextData = {
 export const forumController = {
   index: {
     handler: async function (request, h) {
+      contextData.user = request.auth.credentials;
       contextData.postUrl = "/forum/add-post";
       contextData.posts =  await db.postStore.getAll();
       // get comment count for each post

@@ -47,6 +47,12 @@ export const pointController = {
         contextData.reviews[i].user = await db.userStore.getUserById(contextData.reviews[i].userId);
         contextData.reviews[i].stars = Array(contextData.reviews[i].rating).fill("star")
       }
+      // get avg rating
+      if(contextData.reviews.length){
+        const sum = contextData.reviews.reduce((acc, review) => acc + review.rating, 0)
+        const average = Math.floor(sum / contextData.reviews.length);
+        contextData.avgStars = Array(average).fill("star")
+      }
       // check if point belongs to user
       contextData.isUserPoint = show.userId.toString() === request.auth.credentials._id.toString()
       return h.view("point", contextData);

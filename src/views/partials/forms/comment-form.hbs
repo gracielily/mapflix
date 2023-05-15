@@ -9,7 +9,7 @@
 <article class="media">
   <figure class="media-left">
     <p class="image is-128x128">
-      <img src="{{loggedInUser.avatar}}">
+      <img src="{{#if loggedInUser.avatar }}{{loggedInUser.avatar}}{{else}}/img/placeholder-image.jpg{{/if}}">
     </p>
   </figure>
   <div class="media-content">
