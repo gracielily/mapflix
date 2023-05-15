@@ -1,0 +1,10 @@
+
+{
+    "include": ["src/**/*.js"],
+    "exclude": ["node_modules", "src/api/**", "src/server.js", "test/**/*.js"],
+    "reporter": [
+        "html"
+      ],
+    "sourceMap": false,
+    "all": true
+}
