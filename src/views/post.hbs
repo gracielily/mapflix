@@ -10,7 +10,17 @@
         {{> common/message title="No Comments" message="No comments yet, you can add one by using the form below."}}
     {{/if}}
     <!-- Create Post Form -->
-    <div class="mt-6">
-    {{> forms/comment-form formTitle="Add Comment" formIcon="comment" btnTitle="Create Post"}}
+    <div class="mt-6 mb-6">
+    {{> forms/comment-form formTitle="Add Comment" formIcon="comment"}}
     </div>
+    {{#if isUserPost}}
+    {{> forms/post-form formTitle="Edit Post" formIcon="pencil" btnTitle="Update"}}
+    <div class="card">
+        <div class="card-content">
+            <a class="button is-danger" href="/forum/{{post._id}}/delete" data-cy="delete-post">
+                    <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Post</span>
+                </a>
+        </div>
+    </div>
+    {{/if}}
 </section>

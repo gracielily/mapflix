@@ -57,6 +57,8 @@ export const webRoutes = [
     { method: "POST", path: "/forum/add-post", config: forumController.addPost },
     { method: "GET", path: "/forum/{id}", config: postController.index },
     { method: "POST", path: "/forum/{id}/add-comment", config: postController.addComment },
+    { method: "POST", path: "/forum/{id}/update", config: postController.update },
+    { method: "GET", path: "/forum/{id}/delete", config: postController.delete },
 
 
     // home page
