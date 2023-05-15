@@ -9,7 +9,7 @@
 <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
-      <img class="object-fit" src="{{user.avatar}}">
+      <img class="object-fit" src="{{#if user.avatar }}{{user.avatar}}{{else}}/img/placeholder-image.jpg{{/if}}">
     </p>
   </figure>
   <div class="media-content">
