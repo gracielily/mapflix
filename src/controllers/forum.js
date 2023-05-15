@@ -57,6 +57,10 @@ export const postController = {
       contextData.values = contextData.post;
       contextData.post.user = await db.userStore.getUserById(contextData.post.userId);
       contextData.comments = await db.commentStore.getAllForPost(contextData.post._id)
+      // check if comments belong to user
+      await contextData.comments?.forEach((comment) => {
+        comment.isUserComment = comment.userId.toString() === contextData.loggedInUser._id.toString()
+      });
       contextData.loggedInUser = await db.userStore.getUserById(request.auth.credentials._id)
       // check if post belongs to user
       contextData.isUserPost = contextData.loggedInUser._id.toString() === contextData.post.userId.toString();
@@ -119,6 +123,20 @@ export const postController = {
       commentPayload.userId = request.auth.credentials._id;
       commentPayload.postId = request.params.id;
       await db.commentStore.create(commentPayload);
+      return h.redirect(`/forum/${request.params.id}`);
+    },
+  },
+
+  deleteComment: {
+    handler: async function (request, h) {
+      const comment = await db.commentStore.getById(request.params.commentId);
+      try {
+        await db.commentStore.delete(comment._id);
+      } catch(err){
+        const errorContextData = { ...contextData };
+        errorContextData.errors = [{ message: "The comment could not be deleted." }];
+        return h.view("post", errorContextData).takeover().code(400);
+      }
       return h.redirect(`/forum/${request.params.id}`);
     },
   },

@@ -21,6 +21,11 @@
       </p>
     </div>
   </div>
+  {{#if isUserComment}}
+  <div class="media-right">
+    <a href="/forum/{{../post._id}}/comment/{{_id}}/delete"><button class="delete"></button></a>
+  </div>
+  {{/if}}
 </article>
 {{/each}}
 </div>

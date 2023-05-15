@@ -16,8 +16,9 @@ export const favoritesController = {
         if (favorites) {
         for(let i = 0; i < favorites.points.length; i += 1) {
           const point = await db.pointStore.getById(favorites.points[i]._id)
-          if(point){
-          contextData.favoritePoints[i] = await db.pointStore.getById(favorites.points[i]._id)
+          // filter out private points
+          if(point && point.isPublic){
+          contextData.favoritePoints[i] = point
           contextData.favoritePoints[i].show = await db.showStore.getById(contextData.favoritePoints[i].showId);
           }
         };
