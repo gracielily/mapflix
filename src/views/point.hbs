@@ -5,17 +5,7 @@
   {{> common/errormsg }}
 </div>
 
-<section class="pb-6">
-    
-    <div class="card mt-6">
-        <div class="card-content">
-            {{#if inFavorites }}
-                <a href="/show/{{show._id}}/point/{{point._id}}/remove-from-favorites"><button class="button is-link is-warning is-pulled-right mr-3"><i class="fas fa-heart-circle-xmark"></i> </span><span> Remove From Favorites</span></button></a>
-            {{else}}
-                <a href="/show/{{show._id}}/point/{{point._id}}/add-to-favorites"><button class="button is-link is-warning is-pulled-right mr-3"><i class="fas fa-heart"></i> </span><span> Add To Favorites</span></button></a>
-            {{/if}}
-    </div> 
-    </div>         
+<section class="pb-6">       
     <!-- Point Overview -->
     {{> point/point-overview }}
 

@@ -15,8 +15,11 @@ export const favoritesController = {
         const favorites = await db.favoritesStore.getOrCreateByUser(loggedInUser._id);
         if (favorites) {
         for(let i = 0; i < favorites.points.length; i += 1) {
+          const point = await db.pointStore.getById(favorites.points[i]._id)
+          if(point){
           contextData.favoritePoints[i] = await db.pointStore.getById(favorites.points[i]._id)
           contextData.favoritePoints[i].show = await db.showStore.getById(contextData.favoritePoints[i].showId);
+          }
         };
     }
       return h.view("favorites", contextData);

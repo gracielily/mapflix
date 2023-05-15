@@ -12,7 +12,7 @@ export const portalController = {
       const loggedInUser = request.auth.credentials;
       contextData.user = loggedInUser
       contextData.noShowsMessage = ""
-      
+      contextData.isMyMovies = true;
       // if search term provided, search for show belonging to user by title
       if(request.query.search){
         const searchTerm = request.query.search
@@ -46,7 +46,7 @@ export const portalController = {
           title: request.payload.title,
           imdbId: request.payload.imdbId
         }
-        return h.view("dashboard", errorContextData).takeover().code(400);
+        return h.view("portal", errorContextData).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -58,7 +58,7 @@ export const portalController = {
         imdbId: request.payload.imdbId,
       };
       await db.showStore.create(showPayload);
-      return h.redirect("/dashboard");
+      return h.redirect("/my-movies");
     },
   },
 
@@ -67,11 +67,11 @@ export const portalController = {
       const showToDelete = await db.showStore.getById(request.params.id);
       try {
       await db.showStore.delete(showToDelete._id);
-      return h.redirect("/dashboard");
+      return h.redirect("/my-movies");
       } catch(error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error;
-        return h.view("dashboard", errorContextData).takeover().code(400);
+        return h.view("portal", errorContextData).takeover().code(400);
       }
     },
   },
@@ -86,11 +86,11 @@ export const portalController = {
         // eslint-disable-next-line no-await-in-loop
         await db.showStore.delete(userShows[i]._id);
       }
-      return h.redirect("/dashboard");
+      return h.redirect("/my-movies");
     } catch(error){
       const errorContextData = { ...contextData };
         errorContextData.errors = error;
-        return h.view("dashboard", errorContextData).takeover().code(400);
+        return h.view("portal", errorContextData).takeover().code(400);
     }
     },
   }

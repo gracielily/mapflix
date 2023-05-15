@@ -16,6 +16,12 @@ export const showController = {
         { title: "Dashboard", link: "/dashboard" },
         { title: show.title},
       ]
+      // check if movie belongs to user
+      contextData.isUserMovie = show.userId.toString() === request.auth.credentials._id.toString()
+      // if the movie does not belong to the user, filter out private points
+      if(!contextData.isUserMovie){
+        contextData.show.points = contextData.show.points.filter((point) => point.isPublic)
+      }
       contextData.imagePostUrl = `/show/${show._id}/uploadimage`;
       contextData.showJSON = JSON.stringify(show)
       contextData.user = request.auth.credentials

@@ -5,12 +5,12 @@
     {{#if shows}}
         <!-- List Shows -->
         {{> dashboard/quick-panel }}
-        {{> dashboard/list-shows }}
+        {{> dashboard/list-shows  heading="My Movies"}}
     {{else}}
         {{> common/message title="No Movies" message="You currently have no movies, you can create one by using the form below."}}
     {{/if}}
     <!-- Create Movie Form -->
     <div class="mt-6">
-    {{> forms/show-form formTitle="Create Movie" formIcon="plus" postUrl="/portal/addshow" btnTitle="Create Movie"}}
+    {{> forms/show-form formTitle="Create Movie" formIcon="plus" postUrl="/my-movies/addshow" btnTitle="Create Movie"}}
     </div>
 </section>

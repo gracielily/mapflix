@@ -32,6 +32,7 @@
   </div>
   {{/if}}
 
+  {{#if isUserMovie}}
   <!-- Configuration Panel -->
   <div class="card mt-6">
     <header class="card-header">
@@ -65,6 +66,7 @@
       </div>
     </div>
   </div>
+  {{/if}}
 </section>
 <script>
   const show = {{{ showJSON }}}
