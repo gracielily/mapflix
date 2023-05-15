@@ -7,7 +7,7 @@
   <div class="card-content">
     <div class="row columns is-multiline">
       {{#each shows}}
-      <div class="column is-3">
+      <div class="column is-3" data-cy="movie-card">
         <div class="card">
           <a href="/show/{{_id}}">
             <div class="card-image ">
@@ -22,13 +22,13 @@
           <div class="card-footer">
             <p class="is-6 show-card-opts"><span class="icon"><i
                   class="fas fa-map-marker-alt"></i></span><span>{{points.length}}</span></p>
-            <a href="/show/{{_id}}" class="button">
+            <a href="/show/{{_id}}" class="button" data-cy="view-movie">
               <span class="icon">
                 <i class="fas fa-eye"></i>
               </span><span>View</span>
             </a>
             {{#if ../isMyMovies}}
-            <a href="/my-movies/deleteshow/{{_id}}" class="button">
+            <a href="/my-movies/deleteshow/{{_id}}" class="button" data-cy="delete-movie">
               <span class="icon"><i class="fas fa-trash"></i></span>
               <span>Delete</span>
             </a>
