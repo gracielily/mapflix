@@ -78,6 +78,14 @@ export const commentMongoStore = {
       const createdPost = await new Comment(comment).save();
       return this.getById(comment._id);
     },
+
+    async delete(id) {
+      try {
+        await Comment.deleteOne({ _id: id });
+      } catch (error) {
+        console.log("Invalid Comment ID");
+      }
+    },
   
     
   };
