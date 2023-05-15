@@ -12,6 +12,7 @@
                     <figure class="image mb-4">
                         <img class="object-fit" id="point-list-image" src="{{image}}">
                     </figure>
+                    {{#if isUserPoint}}
                     <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button is-pulled-right"><span
                             class="icon"><i class="fas fa-trash"></i> </span><span>Delete</span></a>
                     <!-- Set Cover Image Button -->
@@ -19,6 +20,7 @@
                     <a href="/show/{{../show._id}}/point/{{../point._id}}/setcoverimage/{{@index}}" class="button is-pulled-right mr-2"><span
                             class="icon"><i class="fas fa-thumbtack"></i> </span><span>Set Cover Image</span></a>
                     {{/unless}}
+                    {{/if}}
                 </article>
             </div>
             {{/each}}

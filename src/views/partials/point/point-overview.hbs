@@ -63,18 +63,34 @@
                             {{/if}}
                         </p>
                     </div>
+                    {{#if isUserPoint}}
                     <div class="column"></div>
                     <div class="column">
                         <p class="heading">
                             <strong>Visibility</strong>
                         </p>
                         <p class="subheading">
-                           <span class="icon"><i class="fas fa-{{#if point.isPublic}}lock-open{{else}}lock{{/if}}"></i></span>
+                            <span class="icon"><i
+                                    class="fas fa-{{#if point.isPublic}}lock-open{{else}}lock{{/if}}"></i></span>
                         </p>
                     </div>
+                    {{/if}}
                 </div>
                 <!-- Share Location -->
-                <div class="ss-box" data-ss-social="email, facebook, twitter, share" data-ss-email = "subject:Check out this Filming Location on Mapflix!"></div>
+                <div class="ss-box" data-ss-social="email, facebook, twitter, share"
+                    data-ss-email="subject:Check out this Filming Location on Mapflix!"></div><br>
+                <!-- Add to Favorites -->
+                {{#if inFavorites }}
+                <a href="/show/{{show._id}}/point/{{point._id}}/remove-from-favorites">
+                    <button class="button is-link is-primary"><span class="icon"><i class="fas fa-heart-circle-xmark"></i> </span><span>
+                            Remove From Favorites</span>
+                    </button></a>
+                {{else}}
+                <a href="/show/{{show._id}}/point/{{point._id}}/add-to-favorites">
+                    <button class="button is-link is-primary"><span class="icon"><i class="fas fa-heart"></i> </span><span> Add To
+                            Favorites</span>
+                    </button></a>
+                {{/if}}
             </div>
         </div>
     </div>
