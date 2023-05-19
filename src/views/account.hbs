@@ -24,9 +24,9 @@
                                 <div class="card-content">
                                     <form action="{{ postUrl }}" method="POST">
                                         {{> forms/user-details-fields}}
-                                        {{> forms/user-credentials-fields}}
+                                        {{> forms/user-credentials-fields hidePassword="true"}}
                                         <div class="field is-grouped">
-                                            <button class="button is-success is-fullwidth">{{ submitBtnPhrase }}</button>
+                                            <button class="button is-success is-fullwidth" data-cy="save-details-btn">{{ submitBtnPhrase }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -37,7 +37,7 @@
                     {{> forms/image-upload-form heading="Set Avatar" }}
                     <!-- Delete Account Button -->
                     <a href="/account/deleteaccount">
-                        <button class="button is-link is-danger is-pulled-right mt-3">
+                        <button class="button is-link is-danger is-pulled-right mt-3" data-cy="delete-account">
                             <span class="icon"><i class="fas fa-fire"></i> </span><span>Delete Account</span>
                         </button>
                     </a>

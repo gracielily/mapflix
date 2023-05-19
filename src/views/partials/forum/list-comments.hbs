@@ -6,7 +6,7 @@
     </header>
     <div class="card-content">
 {{#each comments}}
-<article class="media">
+<article class="media" data-cy="comment-row">
   <figure class="media-left">
     <p class="image is-64x64">
       <img class="object-fit" src="{{#if user.avatar }}{{user.avatar}}{{else}}/img/placeholder-image.jpg{{/if}}">
@@ -14,7 +14,7 @@
   </figure>
   <div class="media-content">
     <div class="content">
-      <p>
+      <p data-cy="comment-body">
         <strong>{{user.firstName}} {{user.lastName}}</strong><small>{{dateAdded}}</small>
         <br>
         {{body}}
@@ -23,7 +23,7 @@
   </div>
   {{#if isUserComment}}
   <div class="media-right">
-    <a href="/forum/{{../post._id}}/comment/{{_id}}/delete"><button class="delete"></button></a>
+    <a href="/forum/{{../post._id}}/comment/{{_id}}/delete" data-cy="delete-comment"><button class="delete"></button></a>
   </div>
   {{/if}}
 </article>

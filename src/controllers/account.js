@@ -144,12 +144,10 @@ export const accountController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const updatedPayload = sanitizeData(request.payload)
-      updatedPassword = await bcrypt.hash(updatedPayload.password, saltRounds);
       const updatedUser = {
         firstName: updatedPayload.firstName,
         lastName: updatedPayload.lastName,
         email: updatedPayload.email,
-        password: updatedPassword,
         avatar: loggedInUser.avatar,
       };
       try {

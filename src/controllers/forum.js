@@ -58,10 +58,11 @@ export const postController = {
       contextData.post.user = await db.userStore.getUserById(contextData.post.userId);
       contextData.comments = await db.commentStore.getAllForPost(contextData.post._id)
       // check if comments belong to user
+      contextData.loggedInUser = await db.userStore.getUserById(request.auth.credentials._id)
       await contextData.comments?.forEach((comment) => {
         comment.isUserComment = comment.userId.toString() === contextData.loggedInUser._id.toString()
       });
-      contextData.loggedInUser = await db.userStore.getUserById(request.auth.credentials._id)
+      
       // check if post belongs to user
       contextData.isUserPost = contextData.loggedInUser._id.toString() === contextData.post.userId.toString();
       return h.view("post", contextData);

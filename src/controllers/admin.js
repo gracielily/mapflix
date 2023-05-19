@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import { ShowSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
@@ -9,18 +10,18 @@ async function getStats(users) {
     // gets stats per user to be displayed on admin page
     const userStats = []
     for (let i = 0; i < users.length; i+=1) {
-        // eslint-disable-next-line no-await-in-loop
         const userShows = await db.showStore.getCreatedByUser(users[i]._id);
         let pointsCount = 0;
         for (let j = 0; j < userShows.length; j+=1) {
-            // eslint-disable-next-line no-await-in-loop
             const userPoints = await db.pointStore.getByShowId(userShows[j]._id)
             pointsCount += userPoints.length;
         }
+        const userPosts = await db.postStore.getByUserId(users[i]._id);
         userStats.push({
             showCount: userShows.length,
             pointCount: pointsCount,
             shows: userShows,
+            postsCount: userPosts.length
         });
     };
     return userStats;
@@ -38,6 +39,7 @@ export const adminController = {
             const filteredUsers = users
             const allShows = await db.showStore.getAll();
             const allPoints = await db.pointStore.getAll();
+            const allPosts = await db.postStore.getAll();
             const userStats = await getStats(filteredUsers);
             contextData = {
                 title: "Mapflix Admin",
@@ -45,6 +47,7 @@ export const adminController = {
                 users: filteredUsers,
                 shows: allShows,
                 points: allPoints,
+                posts: allPosts,
                 userStats: userStats,
                 loggedInAdmin: loggedInAdmin,
             };

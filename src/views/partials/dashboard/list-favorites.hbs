@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     {{#each favoritePoints}}
-    <tr>
+    <tr data-cy="favorite-point">
       <td>
         <figure class="image point-image">
           <img src="{{#if images}}{{images.[0]}}{{else}}/img/placeholder-image.jpg{{/if}}">
@@ -20,10 +20,10 @@
       </td>
         <td>{{show.title}}</td>
       <td>
-        <a href="/show/{{show._id}}/point/{{_id}}" class="ui icon button">
+        <a href="/show/{{show._id}}/point/{{_id}}" class="ui icon button" data-cy="view-fav-point">
           <i class="fas fa-eye"></i>
         </a>
-        <a href="/show/{{show._id}}/point/{{_id}}/remove-from-favorites" class="ui icon button is-danger">
+        <a href="/show/{{show._id}}/point/{{_id}}/remove-from-favorites" class="ui icon button is-danger" data-cy="delete-fav-point">
           <i class="fas fa-heart-circle-xmark"></i>
         </a>
       </td>
