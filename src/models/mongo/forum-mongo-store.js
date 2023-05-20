@@ -7,6 +7,11 @@ export const postMongoStore = {
     return posts;
   },
 
+  async getByUserId(userId) {
+    const posts = await Post.find({userId: userId}).lean();
+    return posts;
+  },
+
   async getById(id) {
     if (id) {
       const post = await Post.findOne({ _id: id }).lean();

@@ -5,7 +5,7 @@
     <section class="hero is-primary is-small mb-4">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">
+                <h1 class="title" data-cy="welcome-admin">
                     Welcome back, {{user.firstName}}.
                 </h1>
                 <h2 class="subtitle">
@@ -18,24 +18,32 @@
     <section class="info-tiles mb-3">
         <div class="tile is-ancestor has-text-centered">
             <div class="tile is-parent">
-                <article class="tile is-child box">
+                <article class="tile is-child box" data-cy="users-count">
                     <p><span class="icon"><i class="fas fa-user"></i></span></p>
                     <p class="title">{{users.length}}</p>
                     <p class="subtitle">Users</p>
                 </article>
             </div>
             <div class="tile is-parent">
-                <article class="tile is-child box">
+                <article class="tile is-child box" data-cy="shows-count">
                     <p><span class="ic"><i class="fas fa-film"></i></span></p>
                     <p class="title">{{shows.length}}</p>
                     <p class="subtitle">Movies</p>
                 </article>
             </div>
             <div class="tile is-parent">
-                <article class="tile is-child box">
+                <article class="tile is-child box" data-cy="points-count">
                     <p><span class="icon"><i class="fas fa-map-marker-alt"></i></span></p>
                     <p class="title">{{points.length}}</p>
                     <p class="subtitle">Points</p>
+                </article>
+            </div>
+
+                        <div class="tile is-parent">
+                <article class="tile is-child box" data-cy="posts-count">
+                    <p><span class="icon"><i class="fas fa-comments"></i></span></p>
+                    <p class="title">{{posts.length}}</p>
+                    <p class="subtitle">Discussions</p>
                 </article>
             </div>
         </div>

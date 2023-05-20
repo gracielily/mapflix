@@ -69,5 +69,8 @@ export const webRoutes = [
         return h.view("404", { title: "Not Found" });
       }} },
     // static file path
-    { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } }
+    { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
+
+    // reset db
+    { method: "GET", path: "/tests-reset-db", config: homeController.resetDb},
 ];

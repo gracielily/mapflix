@@ -17,7 +17,7 @@
                 <label class="label">Rating</label>
                 <div id="star-rating"></div>
                 <div class="control has-icons-left">
-                    <input id="rating" class="input" type="hidden" name="rating" value="{{values.rating}}" />
+                    <input id="rating" class="input" type="hidden" name="rating" value="{{values.rating}}" data-cy="rating-input"/>
                 </div>
             </div>
             <label class="label">Review (optional)</label>
@@ -27,7 +27,7 @@
                         <label class="label">Title</label>
                         <div class="control has-icons-left">
                             <input class="input" type="text" placeholder="Enter review title" name="commentTitle"
-                                value="{{values.commentTitle}}">
+                                value="{{values.commentTitle}}" data-cy="review-title-input">
                             <span class="icon is-small is-left">
                                 <i class="fa fa-heading"></i>
                             </span>
@@ -37,7 +37,7 @@
                         <label class="label">Body</label>
                         <div class="control has-icons-left">
                             <input class="input" type="text" placeholder="Enter review Body" name="commentBody"
-                                value="{{values.commentBody}}">
+                                value="{{values.commentBody}}" data-cy="review-comment-input">
                             <span class="icon is-small is-left">
                                 <i class="fa fa-comment"></i>
                             </span>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <button class="button is-success is-fullwidth">Submit</button>
+            <button class="button is-success is-fullwidth" data-cy="submit-rating">Submit</button>
         </form>
         {{/if}}
     </div>

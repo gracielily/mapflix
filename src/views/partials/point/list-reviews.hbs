@@ -1,30 +1,29 @@
-
 <div class="card mt-6" id="reviewForm">
-    <header class="card-header">
-        <p class="card-header-title">
-            <span class="icon"><i class="fas fa-star-half-stroke"></i></span><span>Ratings and Reviews</span>
-        </p>
-    </header>
-    <div class="card-content">
-        {{#each reviews}}
-<article class="media">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="{{#if user.avatar }}{{user.avatar}}{{else}}/img/placeholder-image.jpg{{/if}}">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="fas fa-star-half-stroke"></i></span><span>Ratings and Reviews</span>
     </p>
-  </figure>
-  <div class="media-content">
-    <div class="content">
-        <span>{{#each stars}}<i class="fas fa-star"></i>{{/each}}</span>
-      <p>
-        <small><strong>{{user.firstName}} {{user.lastName}}</strong></small> <small>{{dateAdded}}</small>
-        <br>
-        <span><strong>{{commentTitle}}</strong> - {{ commentBody }}</span>
-      </p>
-    </div>
+  </header>
+  <div class="card-content">
+    {{#each reviews}}
+    <article class="media" data-cy="point-review">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="{{#if user.avatar }}{{user.avatar}}{{else}}/img/placeholder-image.jpg{{/if}}">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <span>{{#each stars}}<i class="fas fa-star"></i>{{/each}}</span>
+          <p>
+            <small><strong>{{user.firstName}} {{user.lastName}}</strong></small> <small>{{dateAdded}}</small>
+            <br>
+            <span class="review-comment"><strong>{{commentTitle}}</strong> - {{ commentBody }}</span>
+          </p>
+        </div>
+      </div>
+    </article>
+    {{/each}}
+    {{> forms/review-form }}
   </div>
-</article>
-{{/each}}
-{{> forms/review-form }}
-</div>
 </div>

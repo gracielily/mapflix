@@ -6,19 +6,19 @@
     </header>
     <div class="card-content">
     {{#each posts}}
-    <article class="media">
+    <article class="media" data-cy="post-row">
         <div class="media-content">
             <div class="content list-forum">
                 <p class="text-content">
-                    <a href="/forum/{{_id}}">{{title}}
+                    <a href="/forum/{{_id}}" data-cy="post-title">{{title}}
                     </a>
                 </p>
                 <p class="info-content">
-                    <span>
+                    <span data-cy="post-user">
                         <i class="fas fa-user"></i>
                         <small>{{user.firstName}} {{user.lastName}}</small>
                     </span>
-                    <span>
+                    <span data-cy="post-comment-count">
                         <i class="fas fa-comments"></i>
                         <small>{{commentCount}}</small>
                     </span>

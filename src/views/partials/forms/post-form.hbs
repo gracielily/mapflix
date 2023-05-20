@@ -1,5 +1,5 @@
 
-<div class="card" id="movieForm">
+<div class="card" id="postForm">
   <header class="card-header">
     <p class="card-header-title">
       <span class="icon"><i class="fas fa-{{formIcon}}"></i></span><span>{{formTitle}}</span>
@@ -10,7 +10,7 @@
           <div class="field">
             <label class="label">Post Title</label>
             <div class="control has-icons-left">
-              <input class="input" type="text" placeholder="Enter post title" name="title" value="{{values.title}}">
+              <input class="input" type="text" placeholder="Enter post title" name="title" value="{{values.title}}" data-cy="post-title-input">
               <span class="icon is-small is-left">
                 <i class="fa fa-heading"></i>
               </span>
@@ -19,13 +19,13 @@
           <div class="field">
             <label class="label">Post Body</label>
             <div class="control has-icons-left">
-              <input class="input" type="text" placeholder="Enter post body" name="body" value="{{values.body}}">
+              <input class="input" type="text" placeholder="Enter post body" name="body" value="{{values.body}}" data-cy="post-body-input">
               <span class="icon is-small is-left">
                 <i class="fa fa-comment"></i>
               </span>
         </div>
       </div>
-      <button class="button is-success is-fullwidth">{{btnTitle}}</button>
+      <button class="button is-success is-fullwidth" data-cy="submit-post">{{btnTitle}}</button>
     </form>
   </div>
 </div>

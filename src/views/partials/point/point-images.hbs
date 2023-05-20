@@ -8,12 +8,12 @@
         <div class="columns is-multiline">
             {{#each point.images as | image|}}
             <div class="tile is-parent column is-4">
-                <article class="tile is-child box">
+                <article class="tile is-child box" data-cy="point-image">
                     <figure class="image mb-4">
                         <img class="object-fit" id="point-list-image" src="{{image}}">
                     </figure>
-                    {{#if isUserPoint}}
-                    <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button is-pulled-right"><span
+                    {{#if ../isUserPoint}}
+                    <a href="/show/{{../show._id}}/point/{{../point._id}}/deleteimage/{{@index}}" class="button is-pulled-right" data-cy="delete-image"><span
                             class="icon"><i class="fas fa-trash"></i> </span><span>Delete</span></a>
                     <!-- Set Cover Image Button -->
                     {{#unless @first}}

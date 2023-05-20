@@ -28,13 +28,13 @@
   {{else}}
   <!-- No Points Message -->
   <div class="mt-6">
-    {{> common/message title="No Points" message="You can create a point by filling out the Add Point form below."}}
+    {{> common/message title="No Points" message="This Movie currently has no filming locations listed."}}
   </div>
   {{/if}}
 
   {{#if isUserMovie}}
   <!-- Configuration Panel -->
-  <div class="card mt-6">
+  <div class="card mt-6" data-cy="movie-config-panel">
     <header class="card-header">
       <p class="card-header-title">
         <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
@@ -48,12 +48,12 @@
           {{> forms/image-upload-form heading="Set Show Image"}}
           <br>
           <a href="/show/{{show._id}}/delete">
-            <button class="button is-danger is-pulled-right">
+            <button class="button is-danger is-pulled-right" data-cy="delete-show">
               <span class="icon"><i class="fas fa-trash"></i></span><span>Delete Show</span>
             </button>
           </a>
           {{#if show.points}}
-          <button onclick="deleteAllPoints()" class="button is-danger is-pulled-right mr-3">
+          <button onclick="deleteAllPoints()" class="button is-danger is-pulled-right mr-3" data-cy="delete-all-points">
             <span class="icon"><i class="fas fa-fire"></i></span><span>Delete All Points</span>
           </button>
           {{/if}}
@@ -82,6 +82,7 @@
     }
   }
 
+  if(points.length){
   const zoomLevel = points.length > 1 ? 7 : 13
   // set up points map
   const map = L.map("map", {
@@ -103,8 +104,8 @@
       "<b>" + point.name + "</b><br/><a href='" + markerUrl + "'>View</a>");
   })
 
-  if (points.length > 1) {
-    map.fitBounds(latLngs);
-  };
+  map.fitBounds(latLngs);
+
+  }
 
 </script>

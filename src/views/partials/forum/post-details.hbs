@@ -2,13 +2,13 @@
     <div class="top">
         <div class="avatar"><img class="image is-128x128 object-fit" src="{{#if post.user.avatar }}{{post.user.avatar}}{{else}}/img/placeholder-image.jpg{{/if}}"></div>
         <div class="address">
-            <div class="name"><strong>{{post.user.firstName}} {{post.user.lastName}}</strong></div>
+            <div class="name" data-cy="post-overview-name"><strong>{{post.user.firstName}} {{post.user.lastName}}</strong></div>
             <div class="email">{{post.dateAdded}}</div>
         </div>
         <hr>
         <div class="content">
-            <h3>{{post.title}}</h3>
-            <p>{{post.body}}</p>
+            <h3 data-cy="post-overview-title">{{post.title}}</h3>
+            <p data-cy="post-overview-body">{{post.body}}</p>
         </div>
     </div>
 </div>

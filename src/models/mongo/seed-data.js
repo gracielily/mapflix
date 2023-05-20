@@ -41,7 +41,13 @@ export const seedData = {
       imdbId: "tt0460989",
       userId: "->users.user1",
       image: "http://res.cloudinary.com/dcjnywjjk/image/upload/v1678641870/wzebn0q73rzdqs0hnb5e.jpg",
-    }
+    },
+    show5: {
+      title: "Breaveheart",
+      imdbId: "tt0112573",
+      userId: "->users.user2",
+      image: "http://res.cloudinary.com/dcjnywjjk/image/upload/v1678641198/jhubuq2csxvn7yonpae6.jpg",
+    },
   },
   points: {
     _model: "Point",
@@ -117,5 +123,33 @@ export const seedData = {
       showId: "->shows.show3",
       isPublic: true,
     },
+    point7: {
+      name: "Bective Abbey",
+      description: "Braveheart was filmed in Scotland and Ireland. Additional filming took place at Ardmore Studios in County Wicklow, Ireland.",
+      latitude: 53.582436,
+      longitude: -6.702951,
+      publicTransport: true,
+      wheelchairAccessible: false,
+      facilitiesAvailable: false,
+      images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/jjdevines_construction_800_a2zl2j.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/keem_bay_waw_sign_cottage_zg71dr.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/keem_bay_fiddle_1-1_p823kc.jpg"],
+      showId: "->shows.show5",
+      isPublic: true,
+    },
+  },
+  posts: {
+    _model: "Post",
+    post1: {
+      title: "Post 1",
+      body: "This is a post",
+      userId: "->users.user1"
+    }
+  },
+  comments: {
+    _model: "Comment",
+    comment1: {
+      postId: "->posts.post1",
+      userId: "->users.user2",
+      body: "This is a comment"
+    }
   }
 };

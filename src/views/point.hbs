@@ -26,11 +26,11 @@
         </div>
     </div>
 
-        <!-- List Reviews -->
+    <!-- List Reviews -->
     {{> point/list-reviews }}
     {{#if isUserPoint}}
     <!-- Configuration Panel -->
-    <div class="card mt-6">
+    <div class="card mt-6" data-cy="point-config-panel">
         <header class="card-header">
             <p class="card-header-title">
                 <span class="icon"><i class="fas fa-cog"></i></span><span>Configuration Panel</span>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="column is-12 pb-6">
                     <a href="/show/{{show._id}}/deletepoint/{{point._id}}">
-                        <button class="button is-link is-danger is-pulled-right mr-3">
+                        <button class="button is-link is-danger is-pulled-right mr-3" data-cy="delete-point">
                             <span class="icon"><i class="fas fa-trash"></i> </span><span>Delete Point</span>
                         </button>
                     </a>
@@ -56,7 +56,7 @@
                         </button>
                     </a>
                     {{/if}}
-                    <a href="/show/{{show._id}}/togglevisibility/{{point._id}}">
+                    <a href="/show/{{show._id}}/togglevisibility/{{point._id}}" data-cy="toggle-visibility">
                         <button class="button is-link is-warning is-pulled-right mr-3">
                             <span class="icon"><i class="fas fa-{{#if point.isPublic}}lock{{else}}lock-open{{/if}}"></i></span><span>Make {{#if point.isPublic}}Private{{else}}Public{{/if}}</span>
                         </button>
