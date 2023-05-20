@@ -51,6 +51,8 @@
     const showsJSON = {{{ showsJSON }}}
     let latLngs = [];
     // set up point map
+    const mapContainer = document.getElementById("map");
+    if(mapContainer){
     const map = L.map("map", {
         dragging: true,
         doubleClickZoom: true,
@@ -70,5 +72,6 @@
                 "<p><strong>" + point.name + "</strong></p><p><i class='fas fa-film'></i>  " + show.title + "</p><a href='" + markerUrl + "'>View</a>");
         })
     })
+}
 
 </script>
