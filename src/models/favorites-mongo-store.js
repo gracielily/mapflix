@@ -1,6 +1,10 @@
 import { Favorites } from "./favorites.js";
 
 export const favoritesMongoStore = {
+  async deleteAll(){
+    await Favorites.deleteMany({});
+  },
+
   async getOrCreateByUser(userId) {
     if (userId) {
       const favorites = await Favorites.findOne({ userId: userId }).lean();
@@ -26,16 +30,4 @@ export const favoritesMongoStore = {
       );
   },
 
-  async deleteAllLocations(favoritesId) {
-    // delete all shows and points
-    const favorites = await getById(favoritesId);
-    if (favorites) {
-      await Favorites.updateOne(
-        { _id: favorites._id },
-        {
-          locations: [],
-        }
-      );
-    }
-  },
 };

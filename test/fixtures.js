@@ -60,3 +60,18 @@ export const testShows = [
   { title: "The Wind That Shakes the Barley", imdbId: "tt98780923" },
   { title: "Braveheart", imdbId: "tt464e634" }
 ]
+
+export const testPost = { title: "Post 1", body: "Post Body 1"}
+
+export const testPosts = [
+  { title: "Post A", body: "Post Body A"},
+  { title: "Post B", body: "Post Body B"},
+]
+
+
+export const testComment = { body: "Comment Body 1"}
+
+export const testComments = [
+  { body: "Comment Body A"},
+  { body: "Comment Body B"},
+]

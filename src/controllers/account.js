@@ -1,4 +1,4 @@
-import { UserBaseSpec, UserSpec } from "../models/joi-schemas.js";
+import { UserBaseSpec, UserSpec, UserSignupSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, IMAGE_PAYLOAD } from "./utils.js";
@@ -103,7 +103,7 @@ export const accountController = {
   signup: {
     auth: false,
     validate: {
-      payload: UserSpec,
+      payload: UserSignupSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
         const errorContextData = {

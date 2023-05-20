@@ -7,12 +7,21 @@ export const UserBaseSpec = Joi.object().keys({
   password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/).required().example("Som3Pas$w0rd?"),
 }).label("Credentials")
 
-export const UserSpec = UserBaseSpec.keys({
+export const userProfileSpec = {
   firstName: Joi.string().required().example("Jane"),
   lastName: Joi.string().required().example("Doe"),
   dateJoined: Joi.date().example("2023-03-14T14:19:27.941Z"),
   isAdmin: Joi.boolean().example("false"),
   avatar: Joi.string().example("avatar.png"),
+}
+
+export const UserSignupSpec = UserBaseSpec.keys({
+  ...userProfileSpec
+}).label("User Signup Details");
+
+export const UserSpec = Joi.object().keys({
+  email: Joi.string().email().required().example("janedoe@example.com"),
+  ...userProfileSpec
 }).label("User Details");
 
 export const UserSpecExtra = UserSpec.keys({

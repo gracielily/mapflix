@@ -1,7 +1,7 @@
 import Boom from "@hapi/boom";
 import { createToken } from "./jwt-utils.js";
 import { db } from "../models/db.js";
-import { IdSpec, UserArray, UserSpec, UserSpecExtra, UserBaseSpec, JwtAuth } from "../models/joi-schemas.js";
+import { IdSpec, UserArray, UserSpec, UserSpecExtra, UserBaseSpec, JwtAuth, UserSignupSpec } from "../models/joi-schemas.js";
 import { sanitizeData } from "../controllers/utils.js";
 import DOMPurify from 'isomorphic-dompurify';
 import bcrypt from "bcrypt";
@@ -83,7 +83,7 @@ export const userApi = {
         tags: ["api"],
         description: "Create new User",
         notes: "Returns details for created User",
-        validate: { payload: UserSpec, failAction: "log" },
+        validate: { payload: UserSignupSpec, failAction: "log" },
         response: { schema: UserSpecExtra, failAction: "log" },
     },
 

@@ -1,5 +1,5 @@
 import { Post, Comment } from "./forum.js";
-import {userMongoStore} from "./user-mongo-store.js";
+import { userMongoStore } from "./user-mongo-store.js";
 
 export const postMongoStore = {
   async getAll() {
@@ -8,8 +8,11 @@ export const postMongoStore = {
   },
 
   async getByUserId(userId) {
-    const posts = await Post.find({userId: userId}).lean();
-    return posts;
+    if (userId) {
+      const posts = await Post.find({ userId: userId }).lean();
+      return posts;
+    }
+    return null;
   },
 
   async getById(id) {
@@ -30,12 +33,18 @@ export const postMongoStore = {
 
   async delete(id) {
     try {
-      // delete associated comments 
+      // delete associated comments
       await Comment.deleteMany({ postId: id });
       await Post.deleteOne({ _id: id });
     } catch (error) {
       console.log("Invalid Post ID");
     }
+  },
+
+  async deleteAll() {
+    // delete all comments then posts
+    await Comment.deleteMany({});
+    await Post.deleteMany({});
   },
 
   async update(currentPost, updatedPost) {
@@ -50,47 +59,56 @@ export const postMongoStore = {
     }
   }
 
-  
+
 };
 
 export const commentMongoStore = {
+  async getAll() {
+    const comments = await Comment.find().lean();
+    return comments;
+  },
 
-    async getById(id) {
-      if (id) {
-        const comment = await Comment.findOne({ _id: id }).lean();
-        if (comment) {
+
+  async getById(id) {
+    if (id) {
+      const comment = await Comment.findOne({ _id: id }).lean();
+      if (comment) {
+        comment.user = await userMongoStore.getUserById(comment.userId);
+      }
+      return comment;
+    }
+    return null;
+  },
+
+  async getAllForPost(postId) {
+    if (postId) {
+      const comments = await Comment.find({ postId: postId }).lean();
+      if (comments.length) {
+        comments.forEach(async (comment) => {
           comment.user = await userMongoStore.getUserById(comment.userId);
-        }
-        return comment;
+        })
+        return comments;
       }
-      return null;
-    },
+    }
+    return null;
+  },
 
-    async getAllForPost(postId) {
-        if(postId) {
-            const comments = await Comment.find({postId: postId}).lean();
-            if(comments.length){
-                comments.forEach(async (comment) => {
-                    comment.user = await userMongoStore.getUserById(comment.userId);
-                })
-                return comments;
-            }
-        }
-        return null;
-    },
-  
-    async create(comment) {
-      const createdPost = await new Comment(comment).save();
-      return this.getById(comment._id);
-    },
+  async deleteAll() {
+    await Comment.deleteMany({});
+  },
 
-    async delete(id) {
-      try {
-        await Comment.deleteOne({ _id: id });
-      } catch (error) {
-        console.log("Invalid Comment ID");
-      }
-    },
-  
-    
-  };
+  async create(comment) {
+    const createdPost = await new Comment(comment).save();
+    return this.getById(createdPost._id);
+  },
+
+  async delete(id) {
+    try {
+      await Comment.deleteOne({ _id: id });
+    } catch (error) {
+      console.log("Invalid Comment ID");
+    }
+  },
+
+
+};
