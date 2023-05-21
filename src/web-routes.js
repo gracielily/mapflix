@@ -4,18 +4,18 @@ import { dashboardController } from "./controllers/dashboard.js";
 import { pointController } from "./controllers/point.js";
 import { showController } from "./controllers/show.js";
 import { homeController } from "./controllers/home.js";
-import { portalController } from "./controllers/portal.js";
+import { myMoviesController } from "./controllers/mymovies.js";
 import { favoritesController } from "./controllers/favorites.js";
 import { forumController, postController } from "./controllers/forum.js";
 
 export const webRoutes = [
     { method: "GET", path: "/dashboard", config: dashboardController.index },
 
-    { method: "GET", path: "/my-movies", config: portalController.index },
-    { method: "POST", path: "/my-movies/addshow", config: portalController.createShow },
-    { method: "GET", path: "/my-movies/deleteshow/{id}", config: portalController.deleteShow },
-    { method: "GET", path: "/my-movies/deleteallshows", config: portalController.deleteAllShows },
-    { method: "GET", path: "/show/{id}/delete", config: portalController.deleteShow },
+    { method: "GET", path: "/my-movies", config: myMoviesController.index },
+    { method: "POST", path: "/my-movies/addshow", config: myMoviesController.createShow },
+    { method: "GET", path: "/my-movies/deleteshow/{id}", config: myMoviesController.deleteShow },
+    { method: "GET", path: "/my-movies/deleteallshows", config: myMoviesController.deleteAllShows },
+    { method: "GET", path: "/show/{id}/delete", config: myMoviesController.deleteShow },
 
     { method: "GET", path: "/my-favorites", config: favoritesController.index },
 
