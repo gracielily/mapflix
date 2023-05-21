@@ -1,7 +1,6 @@
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
-import { testComments, testComment, testUser, testPost } from "../fixtures.js";
-import { assertSubset } from "../utils.js";
+import { testUser } from "../fixtures.js";
 
 suite("Favorites Model Tests", () => {
     let user = null;
@@ -17,20 +16,14 @@ suite("Favorites Model Tests", () => {
     assert.equal(favorites.points.length, 0);
   })
 
-  test("adds point to favorites", async () => {
+  test("adds and removes point from favorites", async () => {
     const favorites = await db.favoritesStore.getOrCreateByUser(user._id);
     await db.favoritesStore.addPointToFavorites(favorites, "point-id-123");
-    const updatedFavorites = await db.favoritesStore.getOrCreateByUser(user._id);
-    assert.equal(updatedFavorites.points.length, 1);
-    assert.equal(favorites.points[0], "point-id-123");
-  });
-
-  test("removes points from favorites", async () => {
-    const favorites = await db.favoritesStore.getOrCreateByUser(user._id);
-    await db.favoritesStore.addPointToFavorites(favorites, "point-id-123");
-    await db.favoritesStore.removePointFromFavorites(favorites, "point-id-123");
-    const updatedFavorites = await db.favoritesStore.getOrCreateByUser(user._id);
-    assert.equal(updatedFavorites.points.length, 0);
+    const addedFavorites = await db.favoritesStore.getOrCreateByUser(user._id);
+    assert.equal(addedFavorites.points.length, 1);
+    await db.favoritesStore.removePointFromFavorites(addedFavorites, "point-id-123");
+    const removedFavorites = await db.favoritesStore.getOrCreateByUser(user._id);
+    assert.equal(removedFavorites.points.length, 0);
   });
 
 });

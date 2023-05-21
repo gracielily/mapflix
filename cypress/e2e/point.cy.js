@@ -164,11 +164,22 @@ describe("Point Details - Does not belong to User", () => {
         cy.get("[data-cy='point-config-panel']").should("not.exist");
     });
 
-    it("hides favs button when point is private", () => {
+    it("behaves as expected for private location", () => {
+        // hides fav and share btns from owner when private
         cy.get("[data-cy='view-movie']").eq(1).click();
-        cy.get("[data-cy='movie-point-row']").find("a").last().click();
+        cy.get("[data-cy='movie-point-row']").find("a").eq(4).click();
+        cy.get("[data-cy='share-box']").should("not.exist");
         cy.get("[data-cy='add-to-favs']").should("not.exist");
         cy.get("[data-cy='remove-from-favs']").should("not.exist");
+
+        // raises 404 when private loication does not belong to user
+        cy.url().then(url => {
+            cy.visit(`${baseUrl}/logout`);
+            cy.loginAdmin();
+            cy.visit(url);
+            cy.get("h1").should("contain.text", "Page Not Found");
+        })
+        
     });
 
 })

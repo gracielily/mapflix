@@ -3,6 +3,7 @@ import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, getWeatherData, IMAGE_PAYLOAD } from "./utils.js";
 import { sanitizeData } from "./utils.js";
+import Boom from "boom";
 
 const contextData = {
     title: "Point Details",
@@ -14,6 +15,10 @@ export const pointController = {
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
       const point = await db.pointStore.getById(request.params.pointId);
+      const isUserPoint = show.userId.toString() === request.auth.credentials._id.toString();
+      if(!point.isPublic && !isUserPoint ) {
+        return Boom.notFound("Page cannot be found");
+      }
       contextData.navBreadcrumbs = [
         { title: "Dashboard", link: "/dashboard" },
         { title: show.title, link: `/show/${show._id}` },
@@ -54,7 +59,7 @@ export const pointController = {
         contextData.avgStars = Array(average).fill("star")
       }
       // check if point belongs to user
-      contextData.isUserPoint = show.userId.toString() === request.auth.credentials._id.toString()
+      contextData.isUserPoint = isUserPoint;
       return h.view("point", contextData);
     },
   },
@@ -188,7 +193,7 @@ export const pointController = {
         const point = await db.pointStore.getById(request.params.pointId);
         // add point to favorites
         const favorites = await db.favoritesStore.getOrCreateByUser(loggedInUser._id)
-        await db.favoritesStore.addPointToFavorites(favorites, point._id)
+        await db.favoritesStore.addPointToFavorites(favorites._id, point._id)
         return h.redirect(`/show/${request.params.id}/point/${point._id}`);
       }
       catch (error) {
@@ -206,7 +211,7 @@ export const pointController = {
         const point = await db.pointStore.getById(request.params.pointId);
         const favorites = await db.favoritesStore.getOrCreateByUser(request.auth.credentials._id);
         // remove point from favorites
-        await db.favoritesStore.removePointFromFavorites(favorites, point._id)
+        await db.favoritesStore.removePointFromFavorites(favorites._id, point._id)
         // redirect to the page referred from
         if(referrer.includes("my-favorites")){
           return h.redirect("/my-favorites");

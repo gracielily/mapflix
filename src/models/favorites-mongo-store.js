@@ -19,13 +19,13 @@ export const favoritesMongoStore = {
     return null;
   },
 
-  async addPointToFavorites(favorites, pointId) {
-    await Favorites.updateOne({ _id: favorites._id }, { $addToSet: { points: pointId } });
+  async addPointToFavorites(favoritesId, pointId) {
+    await Favorites.updateOne({ _id: favoritesId }, { $addToSet: { points: pointId } });
   },
 
-  async removePointFromFavorites(favorites, locationToDeleteId) {
+  async removePointFromFavorites(favoritesId, locationToDeleteId) {
     await Favorites.updateOne(
-        { _id: favorites._id },
+        { _id: favoritesId },
         { $pull: { "points": locationToDeleteId }}
       );
   },
