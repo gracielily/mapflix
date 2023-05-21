@@ -4,11 +4,8 @@ const { baseUrl } = Cypress.config()
 
 describe("Account Details Behaviour", () => {
 
-    before(() => {
-        cy.resetDb();
-    })
-
     beforeEach(() => {
+        cy.resetDb();
         cy.login();
         cy.visit(`${baseUrl}/account`);
     })

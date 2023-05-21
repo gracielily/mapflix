@@ -92,16 +92,18 @@
                 <div class="ss-box" data-ss-social="email, facebook, twitter, share"
                     data-ss-email="subject:Check out this Filming Location on Mapflix!" data-cy="share-box"></div><br>
                 <!-- Add to Favorites -->
-                {{#if inFavorites }}
-                <a href="/show/{{show._id}}/point/{{point._id}}/remove-from-favorites" data-cy="remove-from-favs">
-                    <button class="button is-link is-primary"><span class="icon"><i class="fas fa-heart-circle-xmark"></i> </span><span>
-                            Remove From Favorites</span>
-                    </button></a>
-                {{else}}
-                <a href="/show/{{show._id}}/point/{{point._id}}/add-to-favorites" data-cy="add-to-favs">
-                    <button class="button is-link is-primary"><span class="icon"><i class="fas fa-heart"></i> </span><span> Add To
-                            Favorites</span>
-                    </button></a>
+                {{#if point.isPublic}}
+                    {{#if inFavorites }}
+                    <a href="/show/{{show._id}}/point/{{point._id}}/remove-from-favorites" data-cy="remove-from-favs">
+                        <button class="button is-link is-primary"><span class="icon"><i class="fas fa-heart-circle-xmark"></i> </span><span>
+                                Remove From Favorites</span>
+                        </button></a>
+                    {{else}}
+                    <a href="/show/{{show._id}}/point/{{point._id}}/add-to-favorites" data-cy="add-to-favs">
+                        <button class="button is-link is-primary"><span class="icon"><i class="fas fa-heart"></i> </span><span> Add To
+                                Favorites</span>
+                        </button></a>
+                    {{/if}}
                 {{/if}}
             </div>
         </div>

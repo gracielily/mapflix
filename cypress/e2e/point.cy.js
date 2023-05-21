@@ -148,12 +148,12 @@ describe("Point Details - Does not belong to User", () => {
 
     beforeEach(() => {
         cy.login();
-        cy.get("[data-cy='view-movie']").last().click();
-        cy.get("[data-cy='movie-point-row']").find("a").first().click();
     })
 
 
     it("hides point details to non owner", () => {
+        cy.get("[data-cy='view-movie']").last().click();
+        cy.get("[data-cy='movie-point-row']").find("a").first().click();
         cy.get("[data-cy='point-name']").should("contain.text", "Bective Abbey");
         // visibility is hidden
         cy.get("[data-cy='point-visibility']").should("not.exist");
@@ -162,6 +162,13 @@ describe("Point Details - Does not belong to User", () => {
         cy.get("#reviewForm").should("exist");
         // configuration panel hidden
         cy.get("[data-cy='point-config-panel']").should("not.exist");
+    });
+
+    it("hides favs button when point is private", () => {
+        cy.get("[data-cy='view-movie']").eq(1).click();
+        cy.get("[data-cy='movie-point-row']").find("a").last().click();
+        cy.get("[data-cy='add-to-favs']").should("not.exist");
+        cy.get("[data-cy='remove-from-favs']").should("not.exist");
     });
 
 })
