@@ -188,7 +188,7 @@ export const pointController = {
         const point = await db.pointStore.getById(request.params.pointId);
         // add point to favorites
         const favorites = await db.favoritesStore.getOrCreateByUser(loggedInUser._id)
-        await db.favoritesStore.addPointToFavorites(favorites, point._id)
+        await db.favoritesStore.addPointToFavorites(favorites._id, point._id)
         return h.redirect(`/show/${request.params.id}/point/${point._id}`);
       }
       catch (error) {
@@ -206,7 +206,7 @@ export const pointController = {
         const point = await db.pointStore.getById(request.params.pointId);
         const favorites = await db.favoritesStore.getOrCreateByUser(request.auth.credentials._id);
         // remove point from favorites
-        await db.favoritesStore.removePointFromFavorites(favorites, point._id)
+        await db.favoritesStore.removePointFromFavorites(favorites._id, point._id)
         // redirect to the page referred from
         if(referrer.includes("my-favorites")){
           return h.redirect("/my-favorites");
