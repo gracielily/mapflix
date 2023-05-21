@@ -6,31 +6,21 @@ const contextData = {
   title: "Mapflix Dashboard",
 };
 
-export const portalController = {
+export const myMoviesController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       contextData.user = loggedInUser
       contextData.noShowsMessage = ""
       contextData.isMyMovies = true;
-      // if search term provided, search for show belonging to user by title
-      if(request.query.search){
-        const searchTerm = request.query.search
-        const filteredShows = await db.showStore.searchByUserAndTitle(loggedInUser._id, searchTerm)
-        contextData.shows = filteredShows;
-        if(!filteredShows.length) {
-          contextData.noShowsMessage = `No Shows found for search term ${searchTerm}. Please try again`
-        }
-      } else {
-        // get all shows by user
-        const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
-        for(let i = 0; i < userShows.length; i += 1) {
-          // eslint-disable-next-line no-await-in-loop
-          userShows[i].points = await db.pointStore.getByShowId(userShows[i]._id)
-        };
-        contextData.shows = userShows;
-      }
-      return h.view("portal", contextData);
+      // get all shows by user
+      const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
+      for (let i = 0; i < userShows.length; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        userShows[i].points = await db.pointStore.getByShowId(userShows[i]._id)
+      };
+      contextData.shows = userShows;
+      return h.view("mymovies", contextData);
     },
   },
 
@@ -46,7 +36,7 @@ export const portalController = {
           title: request.payload.title,
           imdbId: request.payload.imdbId
         }
-        return h.view("portal", errorContextData).takeover().code(400);
+        return h.view("mymovies", errorContextData).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -66,12 +56,12 @@ export const portalController = {
     handler: async function (request, h) {
       const showToDelete = await db.showStore.getById(request.params.id);
       try {
-      await db.showStore.delete(showToDelete._id);
-      return h.redirect("/my-movies");
-      } catch(error) {
+        await db.showStore.delete(showToDelete._id);
+        return h.redirect("/my-movies");
+      } catch (error) {
         const errorContextData = { ...contextData };
         errorContextData.errors = error;
-        return h.view("portal", errorContextData).takeover().code(400);
+        return h.view("mymovies", errorContextData).takeover().code(400);
       }
     },
   },
@@ -80,18 +70,18 @@ export const portalController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       try {
-      // delete all shows belonging to user
-      const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
-      for (let i = 0; i < userShows.length; i += 1) {
-        // eslint-disable-next-line no-await-in-loop
-        await db.showStore.delete(userShows[i]._id);
-      }
-      return h.redirect("/my-movies");
-    } catch(error){
-      const errorContextData = { ...contextData };
+        // delete all shows belonging to user
+        const userShows = await db.showStore.getCreatedByUser(loggedInUser._id);
+        for (let i = 0; i < userShows.length; i += 1) {
+          // eslint-disable-next-line no-await-in-loop
+          await db.showStore.delete(userShows[i]._id);
+        }
+        return h.redirect("/my-movies");
+      } catch (error) {
+        const errorContextData = { ...contextData };
         errorContextData.errors = error;
-        return h.view("portal", errorContextData).takeover().code(400);
-    }
+        return h.view("mymovies", errorContextData).takeover().code(400);
+      }
     },
   }
 };
