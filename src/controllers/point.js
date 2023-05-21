@@ -3,6 +3,7 @@ import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { getImagePublicId, getWeatherData, IMAGE_PAYLOAD } from "./utils.js";
 import { sanitizeData } from "./utils.js";
+import Boom from "boom";
 
 const contextData = {
     title: "Point Details",
@@ -14,6 +15,10 @@ export const pointController = {
     handler: async function (request, h) {
       const show = await db.showStore.getById(request.params.id);
       const point = await db.pointStore.getById(request.params.pointId);
+      const isUserPoint = show.userId.toString() === request.auth.credentials._id.toString();
+      if(!point.isPublic && !isUserPoint ) {
+        return Boom.notFound("Page cannot be found");
+      }
       contextData.navBreadcrumbs = [
         { title: "Dashboard", link: "/dashboard" },
         { title: show.title, link: `/show/${show._id}` },
@@ -54,7 +59,7 @@ export const pointController = {
         contextData.avgStars = Array(average).fill("star")
       }
       // check if point belongs to user
-      contextData.isUserPoint = show.userId.toString() === request.auth.credentials._id.toString()
+      contextData.isUserPoint = isUserPoint;
       return h.view("point", contextData);
     },
   },
