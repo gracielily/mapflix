@@ -5,15 +5,16 @@ export const seedData = {
       firstName: "Jane",
       lastName: "Doe",
       email: "jane@doe.com",
-      password: "$2a$10$XrOtzz0ftaoCraUkm.qCguqVuXjZewp8suJEEDQXIroOYAybypm5e", //Passw0rd?123,
-      avatar: "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/xmj8lidyulylcyhbl90o.jpg"
+      password: "$2a$10$XrOtzz0ftaoCraUkm.qCguqVuXjZewp8suJEEDQXIroOYAybypm5e", //Passw0rd?123
+      avatar: "https://res.cloudinary.com/dcjnywjjk/image/upload/v1684169410/gavkzrsrege1dlh5won6.jpg"
     },
     user2: {
       firstName: "John",
       lastName: "Doe",
       email: "john@doe.com",
-      password: "$2a$10$zKvpwdlBM/VFQQf8cfgg3u4ENKbS1jEIxKl.jH/b.gCXWshgIX5mO", //S0m3secrEt!,
+      password: "$2a$10$zKvpwdlBM/VFQQf8cfgg3u4ENKbS1jEIxKl.jH/b.gCXWshgIX5mO", //S0m3secrEt!
       isAdmin: true,
+      avatar: "https://res.cloudinary.com/dcjnywjjk/image/upload/v1677767178/sample.jpg"
     },
   },
   shows: {
@@ -43,10 +44,10 @@ export const seedData = {
       image: "http://res.cloudinary.com/dcjnywjjk/image/upload/v1678641870/wzebn0q73rzdqs0hnb5e.jpg",
     },
     show5: {
-      title: "Breaveheart",
+      title: "Braveheart",
       imdbId: "tt0112573",
       userId: "->users.user2",
-      image: "http://res.cloudinary.com/dcjnywjjk/image/upload/v1678641198/jhubuq2csxvn7yonpae6.jpg",
+      image: "https://res.cloudinary.com/dcjnywjjk/image/upload/v1682943036/iy9bal2oxsqriv0wq6tc.jpg",
     },
   },
   points: {
@@ -131,7 +132,7 @@ export const seedData = {
       publicTransport: true,
       wheelchairAccessible: false,
       facilitiesAvailable: false,
-      images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/jjdevines_construction_800_a2zl2j.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/keem_bay_waw_sign_cottage_zg71dr.jpg", "https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/keem_bay_fiddle_1-1_p823kc.jpg"],
+      images: ["https://res.cloudinary.com/dcjnywjjk/image/upload/v1678905997/jjdevines_construction_800_a2zl2j.jpg"],
       showId: "->shows.show5",
       isPublic: true,
     },

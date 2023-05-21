@@ -8,5 +8,6 @@ export default defineConfig({
     baseUrl: "http://localhost:3000",
     supportFile: "cypress/support/commands.js",
     video: false,
+    screenshotOnRunFailure: false,
 }
 });

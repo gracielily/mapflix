@@ -39,7 +39,7 @@ describe("Show Details Behaviour", () => {
 
   it("hides info when movie does not belong to user", () => {
     cy.get("[data-cy='view-movie']").eq(4).click();
-    cy.get("h1").should("contain.text", "Breaveheart");
+    cy.get("h1").should("contain.text", "Braveheart");
     // config panel hidden
     cy.get("[data-cy='movie-config-panel']").should("not.exist");
     // hides lock icon

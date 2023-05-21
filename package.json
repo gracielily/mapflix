@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .js",
     "dev": "node --watch src/server.js",
     "test": "nyc --reporter=text mocha --ui tdd test/models/**/*.js -exit --exclude test/api/**/*.js",
-    "testapi": "mocha --ui tdd test/api/**/*.js -exit --timeout 10000",
+    "testapi": "nyc --reporter=text mocha --ui tdd test/api/**/*.js -exit --timeout 10000",
     "cypress:open": "cypress open",
     "cypress:run": "nyc --reporter=text cypress run"
   },
