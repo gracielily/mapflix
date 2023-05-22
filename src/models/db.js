@@ -1,4 +1,4 @@
-import { favoritesMongoStore } from "./favorites-mongo-store.js";
+import { favoritesMongoStore } from "./mongo/favorites-mongo-store.js";
 import { connectMongo } from "./mongo/connect.js";
 import { pointMongoStore } from "./mongo/point-mongo-store.js";
 import { showMongoStore } from "./mongo/show-mongo-store.js";
