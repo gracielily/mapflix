@@ -68,10 +68,16 @@ export const testPosts = [
   { title: "Post B", body: "Post Body B"},
 ]
 
-
 export const testComment = { body: "Comment Body 1"}
 
 export const testComments = [
   { body: "Comment Body A"},
   { body: "Comment Body B"},
+]
+
+export const testReview = { commentTitle: "Review Title 1", commentBody: "Review Body 1", rating: 4}
+
+export const testReviews = [
+  { commentTitle: "Review Title A", commentBody: "Review Body A", rating: 2},
+  { commentTitle: "Review Title B", commentBody: "Review Body B", rating: 5}
 ]
