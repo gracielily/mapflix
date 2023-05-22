@@ -27,7 +27,21 @@ CLOUDINARY_SECRET
 TMDB_API_KEY
 OPEN_WEATHER_MAP_API_KEY
 SERVICE_URL
+ENCRYPTION_KEY
+IV
+NODE_ENV
 ```
+
+For oAuth authentication the following variables must be included:
+```
+GITHUB_CLIENT_ID
+GITHUB_CLIENT_SECRET
+GITHUB_ENCRYPTION
+```
+
+For running E2E tests the `NODE_ENV` variable must be set to "dev".
+
+
 4. Run the following commands in the shell:
 
 ```
@@ -66,3 +80,9 @@ Below are some examples of the technologies used in this project:
 - The Movie Database API
 - Render
 - Glitch
+- AWS
+- bcrypt
+- star-rating-svg
+- SocialShareJS
+- Github oAuth
+- Cypress
