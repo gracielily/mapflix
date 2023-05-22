@@ -1,6 +1,6 @@
 import { Review } from "./review.js";
-import {pointMongoStore} from "./point-mongo-store.js";
-import {userMongoStore} from "./user-mongo-store.js";
+import { pointMongoStore } from "./point-mongo-store.js";
+import { userMongoStore } from "./user-mongo-store.js";
 
 export const reviewMongoStore = {
   async getAll() {
@@ -25,36 +25,23 @@ export const reviewMongoStore = {
     return this.getById(createdReview._id);
   },
 
-  async getCreatedByUser(userId) {
-    if (userId) {
-      const reviews = await Review.find({ userId: userId }).lean();
+  async getByPointId(pointId) {
+    if (pointId) {
+      const reviews = await Review.find({ pointId: pointId }).lean();
       return reviews;
     }
     return null;
   },
 
-  async getByPointId(pointId) {
-    if (pointId) {
-        const reviews = await Review.find({ pointId: pointId }).lean();
-        return reviews;
-      }
-      return null;
+  async delete(id) {
+    try {
+      await Review.deleteOne({ _id: id });
+    } catch (error) {
+      console.log("Invalid Review ID");
+    }
   },
 
-  async delete(id) {
-    await Review.deleteOne({ _id: id });
+  async deleteAll() {
+    await Review.deleteMany({});
   },
-  
-  async update(currentReview, updatedReview) {
-    const review = await this.getById(currentReview._id);
-    if (review) {
-      await Review.updateOne(
-        { _id: currentReview._id },
-        {
-          commentTitle: updatedReview.commentTitle,
-          commentBody: updatedReview.commentBody,
-          rating: updatedReview.rating,
-        });
-    }
-  }
 };
